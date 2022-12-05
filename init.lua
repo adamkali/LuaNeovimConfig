@@ -38,6 +38,7 @@ require('lualine-config')
 require('telescope-config')
 require('options')
 require('keybindings')
+require('gitintegration-config')
 
 
 

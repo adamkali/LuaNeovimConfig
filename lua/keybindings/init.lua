@@ -10,17 +10,20 @@ map("n", "<leader>t", ":NvimTreeFocus <CR>", opts)
 
 -->   Better Writing <--
 map("n", "<leader>l", ":set list!<CR>", opts)
--- make  :wqa be alt+q
 map("n", "<A-q>", ":wqa<CR>", opts)
--- make  :qa be alt+a
 map("n", "<A-a>", ":qa<CR>", opts)
--- make  :wq be alt+w
 map("n", "<A-w>", ":wq<CR>", opts)
--- make Visual block mode be alt+v
 map("n", "<A-v>", "v<C-v>", opts)
 map("n", ";", ":", opts)
--- make ctrl+e be exit to normal mode
 map("i", "<C-e>", "<Esc>", opts)
+map("i", ",'", "<C-O>/<++><CR><C-O>c41", opts)
+map("n", "<leader>;", "/<++><CR>c41", opts)
+map("i", "{", "<C-O>mz{<++>}<++><C-O>'z;", opts)
+map("i", "[", "<C-O>mz[<++>] <++><C-O>'z;", opts)
+map("i", "<", "<C-O>mz< <++>><++><C-O>'z;", opts)
+map("i", "(", "<C-O>mz( <++>)<++><C-O>'z;", opts)
+map("i", "\"", "<C-O>mz\"<++>\"<++><C-O>'z;", opts)
+map("i", "'", "<C-O>mz'<++>'<++><C-O>'z;", opts)
 
  -->   TELESCOPE <--
 map("n", "<leader>ff", ":Telescope find_files<cr>", opts)
@@ -41,3 +44,5 @@ local movement_keys = {
 for i, v in pairs(movement_keys) do
     map("n", "<C-" .. i .. ">", ":wincmd " .. v .. "<CR>", opts)
 end
+
+

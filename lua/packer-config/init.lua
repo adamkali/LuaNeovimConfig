@@ -24,5 +24,9 @@ return require'packer'.startup(
 -- or                            , branch = '0.1.x',
 			requires = { {'nvim-lua/plenary.nvim'} }
 		}
+        use {
+            'romgrk/barbar.nvim', 
+            wants = 'nvim-web-devicons'
+        }
 	end
 )

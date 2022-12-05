@@ -40,6 +40,3 @@ require('options')
 require('keybindings')
 require('gitintegration-config')
 
-
-
-

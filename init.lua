@@ -31,10 +31,14 @@ Y8P          Y8P 888        888
 888 888  888 888  "Y888 Y8P 888  "Y88888 "Y888888   
 -- ]]
 
-require('lua.colors.init')
-require('lua.packer-config.init')
-require('lua.settings.init')
-require('lua.keybindings.init')
-require('lua.nvim-tree.init')
-require('lua.lualine.init')
-require('lua.telescope.init')
+require('colors')
+require('packer-config')
+require('nvim-tree-config')
+require('lualine-config')
+require('telescope-config')
+require('options')
+require('keybindings')
+
+
+
+

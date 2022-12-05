@@ -9,13 +9,12 @@ return require'packer'.startup(
 		use 'nvim-tree/nvim-web-devicons'
 		use {
   			'nvim-lualine/lualine.nvim',
-			requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+			requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 		}
 		-- NvimTree
 		use {
 			'nvim-tree/nvim-tree.lua',
-			requires = 'kyazdani42/nvim-web-devicons',
-			tag = 'nightly' -- optional, updated every week. (see issue #1193)
+			requires = 'nvim-tree/nvim-web-devicons',
 		}
 
 		use 'github/copilot.vim'

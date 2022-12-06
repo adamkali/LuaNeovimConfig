@@ -29,7 +29,3 @@ set.hidden = true
 set.mouse = "a"
 
 set.fillchars = "eob: "
-
-vim.cmd([[
-    colorscheme kanagawa
-]])

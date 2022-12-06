@@ -3,9 +3,13 @@ vim.cmd [[packadd packer.nvim]]
 return require'packer'.startup(
 	function(use)
 		use 'wbthomason/packer.nvim'
-
-		--Use Katagawa's colorscheme
-		use "rebelot/kanagawa.nvim"
+        use({
+            'rose-pine/neovim',
+            as = 'rose-pine',
+            config = function()
+                vim.cmd('colorscheme rose-pine')
+            end
+        })
 		use 'nvim-tree/nvim-web-devicons'
 		use {
   			'nvim-lualine/lualine.nvim',
@@ -28,5 +32,9 @@ return require'packer'.startup(
             'romgrk/barbar.nvim', 
             wants = 'nvim-web-devicons'
         }
+       
+        use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+        
+        use 'NvChad/nvim-colorizer.lua'
 	end
 )

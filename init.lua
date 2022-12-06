@@ -36,10 +36,8 @@ require('packer-config')
 require('nvim-tree-config')
 require('lualine-config')
 require('telescope-config')
-require('options')
+require('vim-config')
 require('keybindings')
 require('gitintegration-config')
-
-
-
-
+require('colorizer-config')
+require('lsp-config')

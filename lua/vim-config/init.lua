@@ -10,11 +10,13 @@ set.incsearch = true
 set.ignorecase = true
 set.smartcase = true
 
+-- set wrap
+set.wrap = true
+
 set.termguicolors = true
 set.showmode = false
 set.splitbelow = true
 set.splitright = true
-set.wrap = false
 set.breakindent = true
 set.scrolloff = 5
 set.fileencoding = "utf-8"

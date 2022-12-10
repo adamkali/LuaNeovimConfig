@@ -1,4 +1,4 @@
-# LuaNeovimConfig
+# Adam Kalinowski's Chad Lua Neovim Config
 
 ## Keybindings
 
@@ -41,10 +41,15 @@ Move To Left Window: <kbd>CTRL</kbd>+<kbd>l</kbd>
 
 
 ### Reminders
-After Visual Block: <kbd>I</kbd>
 
-Go To Beginning Of Line In Normal: <kbd>I</kbd>
+#### In order to do multi line:
 
-Go To End of Line In Normal: <kbd>A</kbd>
+- 1. Press <kbd>ALT</kbd>+<kbd>v</kbd> for Visial Block
+
+- 2. Highight the lines needed for multiple lines with <kbd>n</kbd>+<kbd>j</kbd> or <kbd>n</kbd>+<kbd>k</kbd> where <kbd>n</kbd> is the number of lines.
+
+- 3. Press <kbd>I</kbd> to enter insert mode
+
+- 4. Press <kbd>Enter</kbd> to confirm the changes
 
 

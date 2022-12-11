@@ -21,15 +21,19 @@ return require'packer'.startup(
 		}
        
         use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-        use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-        use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-        use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-        use 'L3MON4D3/LuaSnip' -- Snippets plugink
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/cmp-cmdline'
+        use 'hrsh7th/nvim-cmp'
+
+        use 'L3MON4D3/LuaSnip'
+        use 'saadparwaiz1/cmp_luasnip'
 
         use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
         use 'NvChad/nvim-colorizer.lua'
 
         use 'rktjmp/lush.nvim'
-        use '~\\vaporlush'
+        use 'adamkali/vaporlush'
 	end
 )

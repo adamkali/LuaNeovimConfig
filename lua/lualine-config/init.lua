@@ -17,10 +17,11 @@ local function replaceVimModes()
     return mode
 end
 
+
 require('lualine').setup {
 	options = {
         icons_enabled = true,
-        theme = 'auto',
+        theme = 'nightfly' ,
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
@@ -39,9 +40,9 @@ require('lualine').setup {
 	sections = {
 		lualine_a = { replaceVimModes },
 		lualine_b = {'branch', 'diff', 'diagnostics'},
-		lualine_c = {'filename'},
+		lualine_c = {'filename', ''},
 		lualine_x = {'fileformat', 'filetype'},
-		lualine_y = {'progress'},
+		lualine_y = { '' ,'progress'},
 		lualine_z = {'location'}
 	},
 	inactive_sections = {

@@ -31,22 +31,17 @@ Y8P          Y8P 888        888
 888 888  888 888  "Y888 Y8P 888  "Y88888 "Y888888   
 -- ]]
 
-require('colors')
-require('packer-config')
-require('nvim-tree-config')
-require('lualine-config')
-require('telescope-config')
-require('vim-config')
-require('keybindings')
-require('gitintegration-config')
-require('colorizer-config')
-require('lsp-config')
 require('autocomplete-config')
+require('colors')
+require('colorizer-config')
+require('gitintegration-config')
+require('keybindings')
+require('lsp-config')
+require('lualine-config')
+require('nvim-tree-config')
+require('packer-config')
+require('telescope-config')
+require('treesitter-config')
+require('vim-config')
 require('vaporlush-config')
-
-
-
-
-
-
 

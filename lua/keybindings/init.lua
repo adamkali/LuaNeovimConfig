@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
--->   Nvim Tree <--
+-->   Nvim Tree    <--
 map("n", "<leader>n", ":NvimTreeToggle <CR>", opts)
 map("n", "<leader>t", ":NvimTreeFocus <CR>", opts)
 
@@ -12,7 +12,7 @@ map("n", "<leader>t", ":NvimTreeFocus <CR>", opts)
 map("n", "<leader>l", ":set list!<CR>", opts)
 map("n", "<A-q>", ":wqa<CR>", opts)
 map("n", "<A-a>", ":qa<CR>", opts)
-map("n", "<A-w>", ":wq<CR>", opts)
+map("n", "<A-w>", ":wa<CR>", opts)
 map("n", "<A-v>", "v<C-v>", opts)
 map("n", ";", ":", opts)
 map("i", "<C-e>", "<Esc>", opts)
@@ -30,7 +30,7 @@ map("n", "<A-7>", ":BufferGoto 7<CR>", opts)
 map("n", "<A-8>", ":BufferGoto 8<CR>", opts)
 map("n", "<A-9>", ":BufferLast<CR>", opts)
 -- other bar bar mappings
-map("n", "<leader>bc", ":BufferClose<CR>", opts)
+map("n", "<A-x>", ":BufferClose<CR>", opts)
 map("n", "<leader>bd", ":BufferOrderByDirectory<CR>", opts)
 map("n", "<leader>bl", ":BufferOrderByLanguage<CR>", opts)
 map("n", "<leader>bp", ":BufferPin<CR>", opts)

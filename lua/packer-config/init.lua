@@ -44,5 +44,10 @@ return require'packer'.startup(
                 ts_update()
             end,
         }
-	end
+
+        -- vim-be-good for practice
+        -- Start by opening nvim 
+        -- Run `VimBeGood`
+        use 'ThePrimeagen/vim-be-good'	
+    end
 )

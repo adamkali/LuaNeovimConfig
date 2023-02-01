@@ -49,5 +49,8 @@ return require'packer'.startup(
         -- Start by opening nvim 
         -- Run `VimBeGood`
         use 'ThePrimeagen/vim-be-good'	
+        --ducky type for practice
+        use 'kwakzalver/duckytype.nvim'
+
     end
 )

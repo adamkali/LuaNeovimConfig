@@ -34,6 +34,7 @@ Y8P          Y8P 888        888
 require('autocomplete-config')
 require('colors')
 require('colorizer-config')
+require('duckytype-config')
 require('gitintegration-config')
 require('keybindings')
 require('lsp-config')
@@ -44,4 +45,8 @@ require('telescope-config')
 require('treesitter-config')
 require('vim-config')
 require('vaporlush-config')
+require('code-templates-config')
 
+
+-- BoilerPlate
+vim.cmd [[autocmd BufNewFile *.tex lua require('code-templates-config').insert_template()]]

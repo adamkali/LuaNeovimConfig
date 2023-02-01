@@ -5,7 +5,7 @@ require'nvim-treesitter.configs'.setup {
       "go", "gomod",
       "javascript", "typescript", "tsx",
       "vim", "c_sharp", "cpp",
-      "help"
+      "help", "latex"
   },
   sync_install = false,
   auto_install = true,

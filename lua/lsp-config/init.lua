@@ -35,6 +35,9 @@ require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
+
+require'lspconfig'.svlangserver.setup{}
+
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
@@ -73,6 +76,10 @@ require('lspconfig')['luau_lsp'].setup{
       ["luau_lsp"] = {}
     }
 }
+
+require'lspconfig'.tailwindcss.setup{}
+
+require'lspconfig'.texlab.setup{}
 
 -- require'lspconfig'.omnisharp.setup {
   --  cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },

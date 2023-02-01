@@ -36,27 +36,27 @@ local vaporlush_theme = {
   normal = {
     a = { fg = colors.Secondary.shade1 , bg = colors.Primary.shade0 },
     b = { fg = colors.Quaternary.shade2, bg = colors.Primary.shade2 },
-    c = { fg = colors.Quaternary.shade0, bg = colors.Primary.shade3 },
+    c = { fg = colors.Quaternary.shade2, bg = colors.Background },
   },
   insert = {
     a = { fg = colors.Primary.shade3 , bg = colors.Secondary.shade0 },
     b = { fg = colors.Quintary.shade1, bg = colors.Secondary.shade1 },
-    c = { fg = colors.Quintary.shade0, bg = colors.Secondary.shade3 },
+    c = { fg = colors.Background, bg = colors.Background },
   }, 
   visual = {
     a = { fg = colors.Quintary.shade2 , bg = colors.Tertiary.shade0 },
     b = { fg = colors.Primary.shade2, bg = colors.Tertiary.shade1 },
-    c = { fg = colors.Primary.shade1, bg = colors.Tertiary.shade3 },
+    c = { fg = colors.Primary.shade2, bg = colors.Background },
   },
   replace = {
     a = { fg = colors.Tertiary.shade2 , bg = colors.Quaternary.shade0 },
     b = { fg = colors.Tertiary.shade1, bg = colors.Quaternary.shade1 },
-    c = { fg = colors.Tertiary.shade0, bg = colors.Quaternary.shade3 },
+    c = { fg = colors.Tertiary.shade1, bg = colors.Background },
   },
   command = {
     a = { fg = colors.Quaternary.shade3 , bg = colors.Quintary.shade0 },
     b = { fg = colors.Quaternary.shade2, bg = colors.Quintary.shade1 },
-    c = { fg = colors.Quaternary.shade0, bg = colors.Quintary.shade3 },
+    c = { fg = colors.Quaternary.shade2, bg = colors.Background },
   },
 }
 
@@ -65,7 +65,7 @@ local function replaceVimModes()
     local mode_map = {
         n = '',
         i = '',
-        c = '',
+        c = ':',
         V = '',
         [''] = '',
         v = '',
@@ -84,8 +84,9 @@ require('lualine').setup {
 	options = {
         icons_enabled = true,
         theme = vaporlush_theme ,
-        component_separators = 'ﰉ',
-        section_separators = { left = '', right = '' },
+        component_separators = '',
+        --section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -100,12 +101,12 @@ require('lualine').setup {
         },
     },
 	sections = {
-		lualine_a = { { replaceVimModes, separator = { left = '' }, right_padding = 2 } },
+		lualine_a = { { replaceVimModes, separator = { right = '', left = '' }, right_padding = 2 } },
 		lualine_b = {'branch', 'diff', 'diagnostics'},
 		lualine_c = {'filename', ''},
-		lualine_x = {'fileformat', 'filetype'},
-		lualine_y = { '' ,'progress'},
-		lualine_z = { {'location', separator = { right = '' }, left_padding = 2} }
+		lualine_x = { 'filetype'},
+		lualine_y = { '' ,'progress'},
+		lualine_z = { {'location', separator = { right = '', left = '' }, left_padding = 2} }
 	},
 	inactive_sections = {
 		lualine_a = {},

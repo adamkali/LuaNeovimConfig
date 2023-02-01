@@ -127,3 +127,12 @@ require('lspconfig')['gopls'].setup{
 require('lspconfig')['luau_lsp'].setup{
     capabilities = capabilities
 }
+require'lspconfig'.svelte.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.tailwindcss.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.texlab.setup{
+    capabilities = capabilities
+}

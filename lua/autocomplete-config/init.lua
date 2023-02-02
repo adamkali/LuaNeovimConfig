@@ -26,16 +26,90 @@ local rusttoolsopts = {
             parameter_hinte_prefix = "",
             other_hints_prefix = "",
         },
+        server = {
+            on_attach = function(_, bufnr)
+                -- Hover actions
+                vim.keymap.set("n", "<leader><space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                -- Code action groups
+                vim.keymap.set("n", "<leader><leader><space>", rt.code_action_group.code_action_group, { buffer = bufnr })
+            end,
+        },
     },
 }
 
 require"rust-tools".setup(rusttoolsopts)
+
+local sign = function(opts)
+    vim.fn.sign_define(opts.name, {
+        texthl = opts.name,
+        text = opts.text,
+        numhl = ''
+    })
+end
+
+sign({name = 'DiagnosticSignError', text = ' '})
+sign({name = 'DiagnosticSignWarn', text = ' '})
+sign({name = 'DiagnosticSignHint', text = ' '})
+sign({name = 'DiagnosticSignInfo', text = ' '})
+
+-- vim.diagnostic.config({
+--     virtual_text = false,
+--     signs = true,
+--     update_in_insert = true,
+--     underline = true,
+--     severity_sort = false,
+--     float = {
+--         border = 'rounded',
+--         source = 'always',
+--         header = '',
+--         prefix = '',
+--     },
+-- })
+
+vim.cmd([[
+set signcolumn=yes
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+]])
+
+local cmp_kinds = {
+  Text = 'Ⓜ️ ',
+  Method = '🍺  ',
+  Function = '🧪  ',
+  Constructor = '🚧 ',
+  Field = '🪶 ',
+  Variable = '🤔 ',
+  Class = '🔮  ',
+  Interface = '🏛️ ',
+  Module = '🛠️ ',
+  Property = '🛠️ ',
+  Unit = '  ',
+  Value = '🧙 ',
+  Enum = '🧙 ',
+  Keyword = '  ',
+  Snippet = '  ',
+  Color = '  ',
+  File = '  ',
+  Reference = '  ',
+  Folder = '  ',
+  EnumMember = '  ',
+  Constant = '  ',
+  Struct = '🍕 ',
+  Event = '  ',
+  Operator = '  ',
+  TypeParameter = '😮 ',
+}
 
 cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        end,
+    },
+    formatting = {
+        format = function(_, vim_item)
+            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+            return vim_item
         end,
     },
     window = {
@@ -124,9 +198,6 @@ require('lspconfig')['gopls'].setup{
     capabilities = capabilities
 }
 
-require('lspconfig')['luau_lsp'].setup{
-    capabilities = capabilities
-}
 require'lspconfig'.svelte.setup{
     capabilities = capabilities
 }
@@ -134,5 +205,9 @@ require'lspconfig'.tailwindcss.setup{
     capabilities = capabilities
 }
 require'lspconfig'.texlab.setup{
+    capabilities = capabilities
+}
+
+require'lspconfig'.csharp_ls.setup{
     capabilities = capabilities
 }

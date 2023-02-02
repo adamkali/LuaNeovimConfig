@@ -47,6 +47,3 @@ require('vim-config')
 require('vaporlush-config')
 require('code-templates-config')
 
-
--- BoilerPlate
-vim.cmd [[autocmd BufNewFile *.tex lua require('code-templates-config').insert_template()]]

@@ -22,8 +22,8 @@ local rusttoolsopts = {
         },
         inlay_hints = {
             auto = true,
-            show_parameter_hints = false,
-            parameter_hinte_prefix = "",
+            show_parameter_hints = true,
+            parameter_hinte_prefix = "🤔 ",
             other_hints_prefix = "",
         },
         server = {
@@ -47,56 +47,50 @@ local sign = function(opts)
     })
 end
 
-sign({name = 'DiagnosticSignError', text = ' '})
-sign({name = 'DiagnosticSignWarn', text = ' '})
-sign({name = 'DiagnosticSignHint', text = ' '})
-sign({name = 'DiagnosticSignInfo', text = ' '})
+sign({name = 'DiagnosticSignError', text = '👿'})
+sign({name = 'DiagnosticSignWarn', text = '🙃'})
+sign({name = 'DiagnosticSignHint', text = '🤔'})
+sign({name = 'DiagnosticSignInfo', text = '💡'})
 
--- vim.diagnostic.config({
---     virtual_text = false,
---     signs = true,
---     update_in_insert = true,
---     underline = true,
---     severity_sort = false,
---     float = {
---         border = 'rounded',
---         source = 'always',
---         header = '',
---         prefix = '',
---     },
--- })
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+    underline = true,
+    severity_sort = false,
+})
 
 vim.cmd([[
-set signcolumn=yes
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+    set signcolumn=yes
+    autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 ]])
 
 local cmp_kinds = {
-  Text = 'Ⓜ️ ',
-  Method = '🍺  ',
-  Function = '🧪  ',
+  Text = '📜 ',
+  Method = '🍺 ',
+  Function = '🍷 ',
   Constructor = '🚧 ',
   Field = '🪶 ',
-  Variable = '🤔 ',
-  Class = '🔮  ',
-  Interface = '🏛️ ',
-  Module = '🛠️ ',
-  Property = '🛠️ ',
-  Unit = '  ',
-  Value = '🧙 ',
-  Enum = '🧙 ',
-  Keyword = '  ',
-  Snippet = '  ',
-  Color = '  ',
-  File = '  ',
-  Reference = '  ',
-  Folder = '  ',
-  EnumMember = '  ',
-  Constant = '  ',
-  Struct = '🍕 ',
-  Event = '  ',
-  Operator = '  ',
-  TypeParameter = '😮 ',
+  Variable = '🍪 ',
+  Class = '🦄  ',
+  Interface = '🐴 ',
+  Module = '🦄 ',
+  Property = '🪶 ',
+  Unit = '💎 ',
+  Value = '💎 ',
+  Enum = '🐴 ',
+  Keyword = '💎 ',
+  Snippet = '🍺 ',
+  Color = '🎨 ',
+  File = '💼 ',
+  Reference = '💼 ',
+  Folder = '📂 ',
+  EnumMember = '🐎 ',
+  Constant = '🔒 ',
+  Struct = '🦄 ',
+  Event = '🧪 ',
+  Operator = '➕ ',
+  TypeParameter = '👔 ',
 }
 
 cmp.setup({
@@ -208,6 +202,6 @@ require'lspconfig'.texlab.setup{
     capabilities = capabilities
 }
 
-require'lspconfig'.csharp_ls.setup{
+require'lspconfig'.omnisharp.setup{
     capabilities = capabilities
 }

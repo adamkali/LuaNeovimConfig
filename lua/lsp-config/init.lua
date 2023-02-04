@@ -7,9 +7,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)             -- Go to declaration
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)              -- Go to definition
@@ -17,10 +14,10 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)              -- Go to references
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)          -- Rename symbol 
     vim.keymap.set('n', '<leader>ld', vim.lsp.buf.type_definition, bufopts) -- Code action
-    vim.keymap.set('n', '<leader>lf', 
+    vim.keymap.set('n', 
+        '<leader>lf', 
         function() vim.lsp.buf.format { async = true } end, 
-    bufopts) -- Format code
-
+        bufopts) -- Format code
 end
 
 local lsp_flags = {
@@ -80,4 +77,15 @@ require('lspconfig')['luau_lsp'].setup{
 require'lspconfig'.tailwindcss.setup{}
 
 require'lspconfig'.texlab.setup{}
-require'lspconfig'.csharp_ls.setup{}
+
+local pid = vim.fn.getpid()
+local omnisharp_bin = "C:\\Users\\adam\\AppData\\Local\\omnisharp-roslyn\\artifacts\\publish\\OmniSharp.Stdio.Driver\\win7-x64\\net6.0\\OmniSharp.dll"
+local config = {
+    cmd = { "dotnet", omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) },
+    enable_editorconfig_support = true,
+    enable_ms_build_load_projects_on_demand = false,
+    organize_imports_on_format = false,
+    analyze_open_documents_only = false,
+}
+
+require'lspconfig'.omnisharp.setup(config)

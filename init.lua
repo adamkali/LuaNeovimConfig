@@ -32,6 +32,7 @@ Y8P          Y8P 888        888
 -- ]]
 
 require('autocomplete-config')
+require('autopairs-config')
 require('colors')
 require('colorizer-config')
 require('duckytype-config')

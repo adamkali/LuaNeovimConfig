@@ -48,5 +48,8 @@ return require'packer'.startup(
         use 'ThePrimeagen/vim-be-good'	
         --ducky type for practice
         use 'kwakzalver/duckytype.nvim'
+
+        -- omnisharp extensions
+        use 'Hoffs/omnisharp-extended-lsp.nvim'
     end
 )

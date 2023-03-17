@@ -15,7 +15,6 @@ map("n", "<A-a>", ":qa<CR>", opts)
 map("n", "<A-w>", ":wa<CR>", opts)
 map("n", "<A-v>", "v<C-v>", opts)
 map("n", ";", ":", opts)
-map("i", "<C-e>", "<Esc>", opts)
 
 --> Barbar Tabline <--
 map("n", "<A-[>", ":BufferPrevious<CR>", opts)

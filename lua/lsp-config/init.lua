@@ -81,10 +81,13 @@ require'lspconfig'.texlab.setup{}
 local pid = vim.fn.getpid()
 local omnisharp_bin = "C:\\Users\\adam\\AppData\\Local\\omnisharp-roslyn\\artifacts\\publish\\OmniSharp.Stdio.Driver\\win7-x64\\net6.0\\OmniSharp.dll"
 local config = {
+    handlers ={
+        ["textDocument/definition"] = require('omnisharp_extended').handler,
+    },
     cmd = { "dotnet", omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) },
     enable_editorconfig_support = true,
-    enable_ms_build_load_projects_on_demand = false,
-    organize_imports_on_format = false,
+    enable_ms_build_load_projects_on_demand = true,
+    organize_imports_on_format = true,
     analyze_open_documents_only = false,
 }
 

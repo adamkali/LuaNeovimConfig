@@ -1,5 +1,9 @@
+local function open_nvim_tree()
+    require("nvim-tree.api").tree.open()
+end
+
 require("nvim-tree").setup({
-sort_by = "case_sensitive",
+    sort_by = "case_sensitive",
 	view = {
 		adaptive_size = true,
 		mappings = {
@@ -13,7 +17,7 @@ sort_by = "case_sensitive",
 		highlight_git = true,
 		indent_width = 4,
 		indent_markers = {
-			enable = false,
+			enable = true,
 			icons = {
 				corner = "╰",
 				item = "┝",
@@ -21,6 +25,8 @@ sort_by = "case_sensitive",
 		},
 	},
 	filters = {
-		dotfiles = true,
+		dotfiles = false,
 	},
 })
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })

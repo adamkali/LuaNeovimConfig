@@ -33,7 +33,9 @@ return require'packer'.startup(
         use 'rktjmp/lush.nvim'
         use 'adamkali/vaporlush'
 
-        use("simrat39/rust-tools.nvim")  -- Rust Functionality
+        use 'simrat39/rust-tools.nvim'  -- Rust Functionality
+        use 'nvim-lua/plenary.nvim' -- plenary :)
+        use 'mfussenegger/nvim-dap'
         use {
             'nvim-treesitter/nvim-treesitter',
             run = function()
@@ -42,6 +44,18 @@ return require'packer'.startup(
             end,
         }
         
+        -- Remove the `use` here if you're using folke/lazy.nvim.
+        use {
+          'Exafunction/codeium.vim',
+          config = function ()
+            -- Change '<C-g>' here to any keycode you like.
+            vim.keymap.set('i', '<Tab>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+            vim.keymap.set('i', '<leader>m', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+            vim.keymap.set('i', '<leader>M', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+            vim.keymap.set('i', '<leader>b', function() return vim.fn['codeium#Clear']() end, { expr = true })
+          end
+        }
+
         -- vim-be-good for practice
         -- Start by opening nvim 
         -- Run `VimBeGood`

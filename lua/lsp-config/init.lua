@@ -8,10 +8,10 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)             -- Go to declaration
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)              -- Go to definition
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)          -- Go to implementation
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)              -- Go to references
+    vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts)             
+    vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts)              
+    vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts)         
+    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)              
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)          -- Rename symbol 
     vim.keymap.set('n', '<leader>td', vim.lsp.buf.type_definition, bufopts) -- Code action
     vim.keymap.set('n', 
@@ -24,16 +24,36 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
-require('lspconfig')['pyright'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require('lspconfig')['tsserver'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "󱜙 ",
+            package_pending = " ",
+            package_uninstalled = "󱠡 "
+        }
+    }
+})
+
+require("mason-lspconfig").setup {
+    ensure_installed = { 
+        "lua_ls", 
+        "rust_analyzer",
+        "pyright",
+        "tsserver",
+        "svelte",
+        "texlab",
+        "marksman",
+        "dockerls",
+        "docker_compose_language_service",
+        "tailwindcss",
+        "gopls",
+        "omnisharp",
+    },
 }
 
-require'lspconfig'.svlangserver.setup{}
+require ("mason-nvim-dap").setup({
+    ensure_installed = {''}
+})
 
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
@@ -41,51 +61,38 @@ require('lspconfig')['rust_analyzer'].setup{
     -- Server-specific settings...
     settings = {
         ["rust-analyzer"] = {
-            checkOnSave ={
-                command = "clippy",
+            checkOnSave = {
+                command = "clippy"
             },
-
             workspace = {
                 symbol = {
                     search = {
                         kind = "all_symbols"
                     }
                 }
+            },
+            imports = {
+                granularity = {
+                    enforce = false
+                },
+            },
+            inlay_hints = {
+              auto = true,
+              parameter_hints_prefix = "󱘗 ",
+              highlight = "Comment",
             }
         },
     }
 }
 
-require('lspconfig')['gopls'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["gopls"] = {}
-    }
-}
-
-require('lspconfig')['luau_lsp'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    -- Server-specific settings...
-    settings = {
-      ["luau_lsp"] = {}
-    }
-}
-
-require'lspconfig'.tailwindcss.setup{}
-
-require'lspconfig'.texlab.setup{}
-
 local pid = vim.fn.getpid()
-local omnisharp_bin = "C:\\Users\\adam\\AppData\\Local\\omnisharp-roslyn\\artifacts\\publish\\OmniSharp.Http.Driver\\win7-x64\\net472\\OmniSharp.Roslyn.dll"
+local omnisharp_bin = "C:/Users/adam/AppData/Local/omnisharp-roslyn/OmniSharp.exe"
 
 local config = {
-    handlers ={
-        ["textDocument/definition"] = require('omnisharp_extended').handler,
-    },
-    cmd = { "dotnet", omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) },
+  handlers = {
+    ["textDocument/definition"] = require('omnisharp_extended').handler,
+  },
+  cmd = { omnisharp_bin, '--languageserver' , '--hostPID', tostring(pid) },
 }
 
 require'lspconfig'.omnisharp.setup(config)

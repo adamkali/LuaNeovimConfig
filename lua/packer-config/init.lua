@@ -43,18 +43,15 @@ return require'packer'.startup(
                 ts_update()
             end,
         }
-        
-        -- Remove the `use` here if you're using folke/lazy.nvim.
+
+
+        use 'mfussenegger/nvim-dap'
         use {
-          'Exafunction/codeium.vim',
-          config = function ()
-            -- Change '<C-g>' here to any keycode you like.
-            vim.keymap.set('i', '<Tab>', function () return vim.fn['codeium#Accept']() end, { expr = true })
-            vim.keymap.set('i', '<leader>m', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-            vim.keymap.set('i', '<leader>M', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-            vim.keymap.set('i', '<leader>b', function() return vim.fn['codeium#Clear']() end, { expr = true })
-          end
+            "williamboman/mason.nvim",
         }
+        use "williamboman/mason-lspconfig.nvim"
+        use "jay-babu/mason-nvim-dap.nvim"
+
 
         -- vim-be-good for practice
         -- Start by opening nvim 

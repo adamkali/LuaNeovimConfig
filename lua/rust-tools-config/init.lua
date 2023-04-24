@@ -11,8 +11,8 @@ local opts = {
 
     -- These apply to the default RustSetInlayHints command
     inlay_hints = {
-      parameter_hints_prefix = "<<- ",
-      other_hints_prefix = "->> ",
+      auto = true,
+      parameter_hints_prefix = "󱘗 ",
       highlight = "Comment",
     },
 
@@ -27,3 +27,5 @@ local opts = {
     },
   },
 }
+
+rt.inlay_hints.enable()

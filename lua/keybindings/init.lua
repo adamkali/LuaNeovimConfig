@@ -1,8 +1,7 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.mapleader = "-"
 
 -->   Nvim Tree    <--
 map("n", "<leader>n", ":NvimTreeToggle <CR>", opts)
@@ -10,10 +9,7 @@ map("n", "<leader>t", ":NvimTreeFocus <CR>", opts)
 
 -->   Better Writing <--
 map("n", "<leader>l", ":set list!<CR>", opts)
-map("n", "<A-q>", ":wqa<CR>", opts)
-map("n", "<A-a>", ":qa<CR>", opts)
-map("n", "<A-w>", ":wa<CR>", opts)
-map("n", "<A-v>", "v<C-v>", opts)
+map("n", "<A-a>", ":wa<CR>", opts)
 map("n", ";", ":", opts)
 
 --> Barbar Tabline <--
@@ -35,23 +31,28 @@ map("n", "<leader>bl", ":BufferOrderByLanguage<CR>", opts)
 map("n", "<leader>bp", ":BufferPin<CR>", opts)
 
  -->   TELESCOPE <--
-map("n", "<leader>ff", ":Telescope find_files<cr>", opts)
-map("n", "<leader>fg", ":Telescope live_grep<cr>", opts)
-map("n", "<leader>fb", ":Telescope buffers<cr>", opts)
+map("n", "<leader>hh", ":Telescope find_files<cr>", opts)
+map("n", "<leader>hg", ":Telescope live_grep<cr>", opts)
+map("n", "<leader>hb", ":Telescope buffers<cr>", opts)
 
---> Better Movement <--
--- directional keys
-local movement_keys = {
-    ["h"] = "h",
-    ["j"] = "j",
-    ["k"] = "k",
-    ["l"] = "l"
-}
+-- Normal move
+map('n', 't', 'j', { noremap = true, silent = true })
+map('n', 'n', 'k', { noremap = true, silent = true })
+map('n', 's', 'l', { noremap = true, silent = true })
+map('n', 'k', 'n', { noremap = true, silent = true })
+map('v', 't', 'j', { noremap = true, silent = true })
+map('v', 'n', 'k', { noremap = true, silent = true })
+map('v', 's', 'l', { noremap = true, silent = true })
+map('v', 'k', 'n', { noremap = true, silent = true })
 
--- move windows with ctrl + directional keys
--- index over the movement table
-for i, v in pairs(movement_keys) do
-    map("n", "<C-" .. i .. ">", ":wincmd " .. v .. "<CR>", opts)
-end
+-- Shift move 
+map('n', 'T', 'J', { noremap = true, silent = true })
+map('n', 'N', 'K', { noremap = true, silent = true })
+map('n', 'S', 'L', { noremap = true, silent = true })
+map('n', 'K', 'n', { noremap = true, silent = true })
 
-
+-- Control move
+map("n", "<C-h>", ":wincmd h <CR>", opts)
+map("n", "<C-t>", ":wincmd j <CR>", opts)
+map("n", "<C-n>", ":wincmd k <CR>", opts)
+map("n", "<C-s>", ":wincmd l <CR>", opts)

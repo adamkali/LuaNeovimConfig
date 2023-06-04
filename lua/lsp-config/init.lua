@@ -11,11 +11,10 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts)             
     vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts)              
     vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts)         
-    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)              
-    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts)          -- Rename symbol 
-    vim.keymap.set('n', '<leader>td', vim.lsp.buf.type_definition, bufopts) -- Code action
+    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.rename, bufopts)          -- Rename symbol 
+    vim.keymap.set('n', '<leader>-', vim.lsp.buf.type_definition, bufopts) -- Code action
     vim.keymap.set('n', 
-        '<leader>lf', 
+        'lf', 
         function() vim.lsp.buf.format { async = true } end, 
         bufopts) -- Format code
 end
@@ -51,10 +50,6 @@ require("mason-lspconfig").setup {
     },
 }
 
-require ("mason-nvim-dap").setup({
-    ensure_installed = {''}
-})
-
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
@@ -86,7 +81,8 @@ require('lspconfig')['rust_analyzer'].setup{
 }
 
 local pid = vim.fn.getpid()
-local omnisharp_bin = "C:/Users/adam/AppData/Local/omnisharp-roslyn/OmniSharp.exe"
+--local omnisharp_bin = "C:/Users/adam/AppData/Local/omnisharp-roslyn/OmniSharp.exe" -- Laptop
+local omnisharp_bin = "P:/omnisharp/OmniSharp.exe" -- Desktop
 
 local config = {
   handlers = {

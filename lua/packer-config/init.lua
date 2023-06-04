@@ -14,8 +14,10 @@ return require'packer'.startup(
 			requires = 'nvim-tree/nvim-web-devicons',
 		}
 		use {
-			'nvim-telescope/telescope.nvim', tag = '0.1.0',
-			requires = { {'nvim-lua/plenary.nvim'} }
+            "nvim-telescope/telescope.nvim",
+            requires = { 
+                {'nvim-lua/plenary.nvim'} 
+            }
 		}
         use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
         use 'hrsh7th/cmp-nvim-lsp'
@@ -35,7 +37,6 @@ return require'packer'.startup(
 
         use 'simrat39/rust-tools.nvim'  -- Rust Functionality
         use 'nvim-lua/plenary.nvim' -- plenary :)
-        use 'mfussenegger/nvim-dap'
         use {
             'nvim-treesitter/nvim-treesitter',
             run = function()
@@ -45,12 +46,10 @@ return require'packer'.startup(
         }
 
 
-        use 'mfussenegger/nvim-dap'
         use {
             "williamboman/mason.nvim",
         }
         use "williamboman/mason-lspconfig.nvim"
-        use "jay-babu/mason-nvim-dap.nvim"
 
 
         -- vim-be-good for practice
@@ -62,5 +61,30 @@ return require'packer'.startup(
 
         -- omnisharp extensions
         use 'Hoffs/omnisharp-extended-lsp.nvim'
+
+        use {
+            "zbirenbaum/copilot.lua",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            config = function()
+              require("copilot").setup({
+                    suggestion = {
+                        enabled = true,
+                        auto_trigger = true,
+                        debounce = 75,
+                        keymap = {
+                          accept = "<M-s>",
+                          accept_word = false,
+                          accept_line = false,
+                          next = "<M-r>",
+                          prev = "<M-R>",
+                          dismiss = "<C-]>",
+                        },
+                    },
+                })
+            end,
+        }
+
+        use "tpope/vim-fugitive"
     end
 )

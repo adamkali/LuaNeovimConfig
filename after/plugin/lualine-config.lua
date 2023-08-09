@@ -81,7 +81,7 @@ end
 
 
 require('lualine').setup {
-	options = {
+    options = {
         icons_enabled = true,
         theme = vaporlush_theme ,
         component_separators = '',
@@ -100,24 +100,26 @@ require('lualine').setup {
             winbar = 1000,
         },
     },
-	sections = {
-		lualine_a = { { replaceVimModes, separator = { right = '', left = '' }, right_padding = 2 } },
-		lualine_b = {'branch', 'diff', 'diagnostics'},
-		lualine_c = {'filename', ''},
-		lualine_x = { 'filetype'},
-		lualine_y = { '' ,'progress'},
-		lualine_z = { {'location', separator = { right = '', left = '' }, left_padding = 2} }
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = {'filename'},
-		lualine_x = {'location'},
-		lualine_y = {},
-		lualine_z = {}
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {}
-  }
+    sections = {
+        lualine_a = { { replaceVimModes, separator = { right = '', left = '' }, right_padding = 2 } },
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename', ''},
+        lualine_x = { 'filetype'},
+        lualine_y = { '' ,'progress'},
+        lualine_z = { {'location', separator = { right = '', left = '' }, left_padding = 2} }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+}
+
+require('bufferline').setup { }

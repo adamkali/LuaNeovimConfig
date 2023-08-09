@@ -1,6 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-return require'packer'.startup(
+return require 'packer'.startup(
 	function(use)
 		use 'wbthomason/packer.nvim'
 		use 'nvim-tree/nvim-web-devicons'
@@ -8,7 +8,6 @@ return require'packer'.startup(
   			'nvim-lualine/lualine.nvim',
 			requires = { 'nvim-tree/nvim-web-devicons', opt = true }
 		}
-		-- NvimTree
 		use {
 			'nvim-tree/nvim-tree.lua',
 			requires = 'nvim-tree/nvim-web-devicons',
@@ -19,23 +18,10 @@ return require'packer'.startup(
                 {'nvim-lua/plenary.nvim'} 
             }
 		}
-        use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-        use 'hrsh7th/cmp-nvim-lsp'
-        use 'hrsh7th/cmp-buffer'
-        use 'hrsh7th/cmp-path'
-        use 'hrsh7th/cmp-cmdline'
-        use 'hrsh7th/nvim-cmp'
-        use 'windwp/nvim-autopairs'
-        use 'L3MON4D3/LuaSnip'
-        use 'saadparwaiz1/cmp_luasnip'
-
         use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
         use 'NvChad/nvim-colorizer.lua'
-
         use 'rktjmp/lush.nvim'
         use 'adamkali/vaporlush'
-
-        use 'simrat39/rust-tools.nvim'  -- Rust Functionality
         use 'nvim-lua/plenary.nvim' -- plenary :)
         use {
             'nvim-treesitter/nvim-treesitter',
@@ -44,24 +30,9 @@ return require'packer'.startup(
                 ts_update()
             end,
         }
-
-
-        use {
-            "williamboman/mason.nvim",
-        }
-        use "williamboman/mason-lspconfig.nvim"
-
-
-        -- vim-be-good for practice
-        -- Start by opening nvim 
-        -- Run `VimBeGood`
         use 'ThePrimeagen/vim-be-good'	
-        --ducky type for practice
         use 'kwakzalver/duckytype.nvim'
-
-        -- omnisharp extensions
         use 'Hoffs/omnisharp-extended-lsp.nvim'
-
         use {
             "zbirenbaum/copilot.lua",
             cmd = "Copilot",
@@ -84,7 +55,25 @@ return require'packer'.startup(
                 })
             end,
         }
-
         use "tpope/vim-fugitive"
+        use {
+            'VonHeikemen/lsp-zero.nvim',
+            branch = 'v2.x',
+            dependencies = {
+                -- LSP Support
+                {'neovim/nvim-lspconfig'},             -- Required
+                {'williamboman/mason.nvim'},           -- Optional
+                {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+                -- Autocompletion
+                {'hrsh7th/nvim-cmp'},     -- Required
+                {'hrsh7th/cmp-nvim-lsp'}, -- Required
+                {'L3MON4D3/LuaSnip'},     -- Required
+            }
+        }
+
+
+        use 'simrat39/rust-tools.nvim'  -- Rust Functionality
+
     end
 )

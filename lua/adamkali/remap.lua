@@ -24,7 +24,6 @@ map("n", "<A-6>", ":BufferGoto 6<CR>", opts)
 map("n", "<A-7>", ":BufferGoto 7<CR>", opts)
 map("n", "<A-8>", ":BufferGoto 8<CR>", opts)
 map("n", "<A-9>", ":BufferLast<CR>", opts)
--- other bar bar mappings
 map("n", "<A-x>", ":BufferClose<CR>", opts)
 map("n", "<leader>bd", ":BufferOrderByDirectory<CR>", opts)
 map("n", "<leader>bl", ":BufferOrderByLanguage<CR>", opts)

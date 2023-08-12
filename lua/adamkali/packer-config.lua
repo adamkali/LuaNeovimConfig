@@ -14,8 +14,8 @@ return require 'packer'.startup(
 		}
 		use {
             "nvim-telescope/telescope.nvim",
-            requires = { 
-                {'nvim-lua/plenary.nvim'} 
+            requires = {
+                {'nvim-lua/plenary.nvim'}
             }
 		}
         use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
@@ -30,9 +30,10 @@ return require 'packer'.startup(
                 ts_update()
             end,
         }
-        use 'ThePrimeagen/vim-be-good'	
+        use 'ThePrimeagen/vim-be-good'
         use 'kwakzalver/duckytype.nvim'
         use 'Hoffs/omnisharp-extended-lsp.nvim'
+
         use {
             "zbirenbaum/copilot.lua",
             cmd = "Copilot",
@@ -55,25 +56,21 @@ return require 'packer'.startup(
                 })
             end,
         }
+        use 'williamboman/mason.nvim'
+        use 'williamboman/mason-lspconfig.nvim'
+        use 'hrsh7th/nvim-cmp'
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'L3MON4D3/LuaSnip'
+        use 'neovim/nvim-lspconfig'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/cmp-cmdline'
         use "tpope/vim-fugitive"
-        use {
-            'VonHeikemen/lsp-zero.nvim',
-            branch = 'v2.x',
-            dependencies = {
-                -- LSP Support
-                {'neovim/nvim-lspconfig'},             -- Required
-                {'williamboman/mason.nvim'},           -- Optional
-                {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-                -- Autocompletion
-                {'hrsh7th/nvim-cmp'},     -- Required
-                {'hrsh7th/cmp-nvim-lsp'}, -- Required
-                {'L3MON4D3/LuaSnip'},     -- Required
-            }
-        }
-
-
-        use 'simrat39/rust-tools.nvim'  -- Rust Functionality
+        use 'VonHeikemen/lsp-zero.nvim'
+        use 'Ciel-MC/rust-tools.nvim'
+        use 'mfussenegger/nvim-dap'
+        use "jay-babu/mason-nvim-dap.nvim"
+        use 'jose-elias-alvarez/typescript.nvim'
 
     end
 )

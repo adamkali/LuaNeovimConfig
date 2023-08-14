@@ -10,8 +10,6 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
-
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -28,3 +26,6 @@ vim.opt.updatetime = 50
 
 -- turn off the -- INSERT -- message
 vim.opt.showmode = false
+
+vim.opt.wrap = true
+vim.opt.textwidth = 80

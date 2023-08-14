@@ -8,6 +8,8 @@ require'nvim-treesitter.configs'.setup {
     "python",
     "rust",
     "c_sharp",
+    "markdown",
+    "markdown_inline"
   },
   sync_install = false,
   highlight = {

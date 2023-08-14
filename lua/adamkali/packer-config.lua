@@ -71,6 +71,28 @@ return require 'packer'.startup(
         use 'mfussenegger/nvim-dap'
         use "jay-babu/mason-nvim-dap.nvim"
         use 'jose-elias-alvarez/typescript.nvim'
+        use {
+          "folke/which-key.nvim",
+          config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+          end
+        }
+        use({
+            "epwalsh/obsidian.nvim",
+            requires = {
+                -- Required.
+                "nvim-lua/plenary.nvim",
 
+                -- see below for full list of optional dependencies 👇
+            },
+            config = function()
+                require("obsidian").setup({
+                    dir = "p:\\My Mind",
+
+                    -- see below for full list of options 👇
+                })
+            end,
+        })
     end
 )

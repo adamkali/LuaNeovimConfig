@@ -1,11 +1,17 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
+local wk = require("which-key")
 
 vim.g.mapleader = "-"
 
 -->   Nvim Tree    <--
-map("n", "<leader>n", ":NvimTreeToggle <CR>", opts)
-map("n", "<leader>t", ":NvimTreeFocus <CR>", opts)
+wk.register({
+    {
+        name = "NvimTree",
+        n = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
+        t = { "<cmd>NvimTreeFocus<CR>", "Find File" },
+    }
+},{ prefix = "<leader>", })
 
 -->   Better Writing <--
 map("n", "<leader>l", ":set list!<CR>", opts)
@@ -30,9 +36,14 @@ map("n", "<leader>bl", ":BufferOrderByLanguage<CR>", opts)
 map("n", "<leader>bp", ":BufferPin<CR>", opts)
 
  -->   TELESCOPE <--
-map("n", "<leader>hh", ":Telescope find_files<cr>", opts)
-map("n", "<leader>hg", ":Telescope live_grep<cr>", opts)
-map("n", "<leader>hb", ":Telescope buffers<cr>", opts)
+wk.register({
+    h = {
+        name = "Telescope",
+        h = { "<cmd>Telescope find_files<CR>", "Find File" },
+        g = { "<cmd>Telescope live_grep<CR>", "Live Grep" },
+        b = { "<cmd>Telescope buffers<CR>", "Buffers" },
+    }
+},{ prefix = "<leader>" })
 
 -- Normal move
 map('n', 't', 'j', { noremap = true, silent = true })

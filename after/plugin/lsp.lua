@@ -1,5 +1,6 @@
 local lsp = require('lsp-zero')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local wk = require('which-key')
 
 lsp.preset('recommended')
 lsp.ensure_installed({
@@ -24,20 +25,48 @@ end)
 require'mason'.setup({ })
 
 lsp.on_attach(function(_, bufnr)
-    local opts = { remap = true, silent = true, buffer = bufnr }
-
-    vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
-    vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
-    vim.keymap.set('n', 'gr', function() vim.lsp.buf.rename() end, opts)
-    vim.keymap.set('n', 'gR', function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set('n', '<leader>vwa', function() vim.lsp.buf.add_workspace_folder() end, opts)
-    vim.keymap.set('n', '<leader>vwr', function() vim.lsp.buf.remove_workspace_folder() end, opts)
-    vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
+    local opts = {
+      mode = "n", -- NORMAL mode
+      prefix = "",
+      buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
+      silent = true, -- use `silent` when creating keymaps
+      noremap = true, -- use `noremap` when creating keymaps
+      nowait = false, -- use `nowait` when creating keymaps
+      expr = false, -- use `expr` when creating keymaps
+    }
+    wk.register({
+        g = {
+            name = 'LSP Generic',
+            d = { function() vim.lsp.buf.definition() end, 'Go to definition' },
+            D = { function() vim.lsp.buf.declaration() end, 'Go to declaration' },
+            i = { function() vim.lsp.buf.implementation() end, 'Go to implementation' },
+            r = { function() vim.lsp.buf.rename() end, 'Rename File' },
+            R = { function() vim.lsp.buf.references() end, 'Find References' },
+            K = { function () vim.lsp.buf.hover() end, 'Show Hover Actions'},
+            ['['] = { function ()
+                   vim.diagnostic.goto_prev({popup_opts = {border = "rounded", focusable = false}})
+                end,
+                'Go to previous diagnostic'
+            },
+            [']'] = {
+                function ()
+                    vim.diagnostic.goto_next({popup_opts = {border = "rounded", focusable = false}})
+                end,
+                'Go to next diagnostic'
+            }
+        }
+    }, opts)
+    opts.prefix = '<leader>'
+    wk.register({
+        ["vw"] = {
+            name = 'LSP Workspace',
+            a = { function() vim.lsp.buf.add_workspace_folder() end, 'Add workspace folder' },
+            r = { function() vim.lsp.buf.remove_workspace_folder() end, 'Remove workspace folder' },
+            l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, 'List workspace folders' },
+            s = { function() vim.lsp.buf.workspace_symbol() end, 'Search workspace symbols' },
+            c = { function() vim.lsp.buf.code_action() end, 'Code action' },
+        },
+    }, opts)
 end)
 
 local sign = function (opts)

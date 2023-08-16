@@ -80,17 +80,16 @@ return require 'packer'.startup(
         }
         use({
             "epwalsh/obsidian.nvim",
-            requires = {
-                -- Required.
-                "nvim-lua/plenary.nvim",
-
-                -- see below for full list of optional dependencies 👇
-            },
+            requires = { "nvim-lua/plenary.nvim" },
             config = function()
                 require("obsidian").setup({
-                    dir = "p:\\My Mind",
-
-                    -- see below for full list of options 👇
+                    -- dir = "p:\\My Mind",
+                    dir = "C:\\src\\projects\\My_Second_Mind",
+                    templates = {
+                        subdir = "templates",
+                        date_format = "%Y-%m-%d-%a",
+                        time_format = "%H:%M",
+                    }
                 })
             end,
         })

@@ -60,16 +60,16 @@ local vaporlush_theme = {
   },
 }
 
-
 local function replaceVimModes()
     local mode_map = {
-        n = '',
-        i = '',
-        c = ':',
-        V = '',
-        [''] = '',
-        v = '',
-        t = '',
+        n = '󰌓 ',
+        i = '󱦹 ',
+        c = '󰧼 ',
+        V = '󰢷 ',
+        [''] = '󰢷 ',
+        v = '󰢷 ',
+        t = '󰲌 ',
+        R = '󰌓 ',
         default = '',
     }
     -- get the current mode
@@ -84,9 +84,9 @@ require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = vaporlush_theme ,
-        component_separators = '',
-        --section_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
+        component_separators = '',
+
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -101,12 +101,46 @@ require('lualine').setup {
         },
     },
     sections = {
-        lualine_a = { { replaceVimModes, separator = { right = '', left = '' }, right_padding = 2 } },
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename', ''},
-        lualine_x = { 'filetype'},
-        lualine_y = { '' ,'progress'},
-        lualine_z = { {'location', separator = { right = '', left = '' }, left_padding = 2} }
+        lualine_a = {
+            {
+                replaceVimModes,
+                separator = { right = '', left = '' },
+                right_padding = 2
+            }
+        },
+        lualine_b = {
+            {'FugitiveHead', icon=" ", right_padding = 2},
+            {
+                'diff',
+                symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+                color_added = colors.Tertiary.shade1,
+                color_modified = colors.Tertiary.shade2,
+                color_removed = colors.Tertiary.shade3,
+                right_padding = 2
+            }
+        },
+        lualine_c = {},
+        lualine_x = { 'filetype' },
+        lualine_y = { ' ' ,'progress'},
+        lualine_z = {
+            {
+                'diagnostics',
+                symbols = {
+                    error = '󱚝 ',
+                    warn  = '󱚟 ',
+                    info  = '󰚩 ',
+                    hint  = '󱜙 ',
+
+                },
+                sources = {
+                    'nvim_lsp',
+                    'nvim_diagnostic'
+                },
+                separator = { right = '', left = '' },
+                left_padding = 2,
+                always_visible = true
+            }
+        }
     },
     inactive_sections = {
         lualine_a = {},

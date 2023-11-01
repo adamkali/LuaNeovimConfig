@@ -1,6 +1,7 @@
 local lsp = require('lsp-zero')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local wk = require('which-key')
+local lualine = require('lualine')
 
 local base_actions = function(_, opts)
     wk.register({
@@ -108,7 +109,14 @@ local rust_tools_opts = {
                 },
             }
         }
-    }
+    },
+    dap = {
+        adapter = {
+            type = "executable",
+            command = "codelldb",
+            name = "rt_lldb",
+        },
+    },
 }
 
 -- print "Rust-tools setup"
@@ -133,9 +141,6 @@ require'lspconfig'.omnisharp.setup{
         ["textDocument/definition"] = require'omnisharp_extended'.handler,
     },
     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-    on_attach = lsp.on_attach,
-    capabilities = capabilities,
-    flags = lsp.flags,
 }
 
 
@@ -171,6 +176,13 @@ local ts_tools_actions = function(_, bufnr)
             , "Import All" },
         }
     }, opts)
+    lualine.setup{
+        sections = {
+            lualine_c = {
+                '󰇺  TLS '
+            }
+        }
+    }
 end
 
 ts_utils.setup({

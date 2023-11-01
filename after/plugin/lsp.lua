@@ -74,9 +74,9 @@ local sign = function (opts)
 end
 
 sign({ name = 'DiagnosticSignError', text = '󱚝 ', color = 'LspDiagnosticsDefaultError' })
-sign({ name = 'DiagnosticSignWarn', text = '󱚟 ', color = 'Function' })
-sign({ name = 'DiagnosticSignInfo', text = '󰚩 ', color = 'Comment' })
-sign({ name = 'DiagnosticSignHint', text = '󱜙 ', color = 'Keyword' })
+sign({ name = 'DiagnosticSignWarn',  text = '󱚟 ', color = 'Function' })
+sign({ name = 'DiagnosticSignInfo',  text = '󰚩 ', color = 'Comment' })
+sign({ name = 'DiagnosticSignHint',  text = '󱜙 ', color = 'Keyword' })
 
 
 lsp.set_server_config({
@@ -89,9 +89,9 @@ lsp.set_server_config({
 
 
 lsp.skip_server_setup({
-    "omnisharp",
     "rust_analyzer",
-    "tsserver",
+    "omnishaarp",
+    "tsserver"
 })
 
 lsp.setup()

@@ -17,7 +17,6 @@ return require 'packer'.startup(
                 {'nvim-lua/plenary.nvim'}
             }
 		}
-        use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
         use 'nvim-lua/plenary.nvim' -- plenary :)
         use {
             'nvim-treesitter/nvim-treesitter',

@@ -2,6 +2,9 @@ local lsp = require('lsp-zero')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local wk = require('which-key')
 local lualine = require('lualine')
+local mason_registry = require('mason-registry')
+local mason = require('mason')
+local lspconfig = require'lspconfig'
 
 local base_actions = function(_, opts)
     wk.register({
@@ -122,27 +125,6 @@ local rust_tools_opts = {
 -- print "Rust-tools setup"
 rust_tools.setup(rust_tools_opts)
 
--------------------------------------------------------------------------------------------------- 
--- OmniSharp
--------------------------------------------------------------------------------------------------- 
-local pid = vim.fn.getpid()
-local omnisharp_bin = "C:/Users/adam/AppData/Local/omnisharp-roslyn/OmniSharp.exe"
-
-require'lspconfig'.omnisharp.setup{
-    handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = false,
-                signs = true,
-                underline = true,
-                update_in_insert = true,
-            }
-        ),
-        ["textDocument/definition"] = require'omnisharp_extended'.handler,
-    },
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
-}
-
 
 -------------------------------------------------------------------------------------------------- 
 -- TypeScript
@@ -185,6 +167,11 @@ local ts_tools_actions = function(_, bufnr)
     }
 end
 
+local pid = vim.fn.getpid()
+local omnisharp_bin = "C:/Users/adam/AppData/Local/omnisharp-roslyn/OmniSharp.exe"
+
+lspconfig.omnisharp.setup{ }
+
 ts_utils.setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false, -- enable debug logging for commands
@@ -193,3 +180,34 @@ ts_utils.setup({
         on_attach = ts_tools_actions,
     },
 })
+
+local opts = {
+  mode = "n", -- NORMAL mode
+  prefix = "",
+  buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true, -- use `silent` when creating keymaps
+  noremap = true, -- use `noremap` when creating keymaps
+  nowait = false, -- use `nowait` when creating keymaps
+  expr = false, -- use `expr` when creating keymaps
+}
+lspconfig.gopls.setup{
+    on_attach = base_actions(_, opts)
+}
+
+lspconfig.htmx.setup {
+    on_attach = base_actions(_, opts)
+}
+lspconfig.html.setup {
+    on_attach = base_actions(_, opts)
+}
+lspconfig.docker_compose_language_service.setup{
+    on_attach = base_actions(_, opts)
+}
+lspconfig.dockerls.setup{
+    on_attach = base_actions(_, opts)
+}
+lspconfig.tailwindcss.setup{
+    on_attach = base_actions(_, opts)
+}
+
+

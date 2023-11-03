@@ -1,28 +1,30 @@
 local lsp = require('lsp-zero')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local wk = require('which-key')
+local mason_lsp = require'mason-lspconfig'
 
 lsp.preset('recommended')
-lsp.ensure_installed({
-    'tsserver',
-    'tailwindcss',
-    'rust_analyzer',
-    'pyright',
-    "texlab",
-    "marksman",
-    "lua_ls",
-    "dockerls",
-    "docker_compose_language_service",
-    "svelte",
-    "omnisharp",
-})
-
 lsp.on_attach(function(_, bufnr)
     lsp.default_keymaps({buffer = bufnr})
     lsp.buffer_autoformat()
 end)
 
 require'mason'.setup({ })
+mason_lsp.setup{
+    ensure_installed = {
+        'tsserver',
+        'tailwindcss',
+        'rust_analyzer',
+        'pyright',
+        "texlab",
+        "marksman",
+        "lua_ls",
+        "dockerls",
+        "docker_compose_language_service",
+        "svelte",
+        "omnisharp",
+    }
+}
 
 lsp.on_attach(function(_, bufnr)
     local opts = {
@@ -85,13 +87,6 @@ lsp.set_server_config({
     flags = {
         debounce_text_changes = 150,
     },
-})
-
-
-lsp.skip_server_setup({
-    "rust_analyzer",
-    "omnishaarp",
-    "tsserver"
 })
 
 lsp.setup()

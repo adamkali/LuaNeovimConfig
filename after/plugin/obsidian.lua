@@ -3,9 +3,10 @@ local wk = require("which-key")
 
 obs.setup({
     -- dir = "p:\\My Mind", -- Desktop
-    dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
+    -- dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
+    dir = "~/me", -- Arch Laptop and Desktop
     templates = {
-        subdir = "./templates",
+        subdir = "templates",
         -- subdir = "templates",
         date_format = "%Y-%m-%d-%a",
         time_format = "%H:%M",

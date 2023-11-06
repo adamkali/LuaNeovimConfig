@@ -197,9 +197,6 @@ lspconfig.gopls.setup{
 lspconfig.htmx.setup {
     on_attach = base_actions(_, opts)
 }
-lspconfig.html.setup {
-    on_attach = base_actions(_, opts)
-}
 lspconfig.docker_compose_language_service.setup{
     on_attach = base_actions(_, opts)
 }
@@ -209,5 +206,6 @@ lspconfig.dockerls.setup{
 lspconfig.tailwindcss.setup{
     on_attach = base_actions(_, opts)
 }
+
 
 

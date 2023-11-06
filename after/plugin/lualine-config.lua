@@ -1,5 +1,5 @@
 local colors = {
-   Background = "#0a0425",
+   Background = "#1f1c31",
    Primary = {
         shade0 = "#110066",
         shade1 = "#1a0099",
@@ -79,6 +79,15 @@ local function replaceVimModes()
     return mode
 end
 
+-- a function to get the current file name without its extension 
+-- and with if it is modified or not 
+local function get_file_status()
+    local fname = vim.fn.expand('%:t')
+    if vim.bo.modified then
+        return '  ' .. fname .. ' '
+    end
+    return ' ' .. fname .. ' '
+end
 
 require('lualine').setup {
     options = {
@@ -119,7 +128,7 @@ require('lualine').setup {
                 right_padding = 2
             }
         },
-        lualine_c = {},
+        lualine_c = { get_file_status, },
         lualine_x = { 'filetype' },
         lualine_y = { ' ' ,'progress'},
         lualine_z = {

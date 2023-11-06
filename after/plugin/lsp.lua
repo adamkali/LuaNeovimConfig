@@ -9,7 +9,7 @@ lsp.on_attach(function(_, bufnr)
     lsp.buffer_autoformat()
 end)
 
-require'mason'.setup({ })
+require'mason'.setup()
 mason_lsp.setup{
     ensure_installed = {
         'tsserver',

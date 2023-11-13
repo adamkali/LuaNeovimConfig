@@ -47,7 +47,6 @@ end
 
 
 local function redpill_pop_pill_previous()
-    -- <%+%>
 end
 
 wk.register({

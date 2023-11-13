@@ -5,7 +5,7 @@ return require 'packer'.startup(
 	function(use)
 		use 'wbthomason/packer.nvim'
 
-        -- organization
+        -- CORE
 		use 'nvim-tree/nvim-web-devicons'
 		use {
 			'nvim-tree/nvim-tree.lua',
@@ -25,10 +25,11 @@ return require 'packer'.startup(
                 ts_update()
             end,
         }
+        use 'nvim-treesitter/playground'
         use "tpope/vim-fugitive"
 
 
-        -- colors
+        -- Rice 🍚
 		use {
   			'nvim-lualine/lualine.nvim',
 			requires = { 'nvim-tree/nvim-web-devicons', opt = true }
@@ -37,8 +38,44 @@ return require 'packer'.startup(
         use 'rktjmp/lush.nvim'
         use 'adamkali/vaporlush'
 
-        use 'ThePrimeagen/vim-be-good'
-        use 'kwakzalver/duckytype.nvim'
+
+        -- lsp
+        use 'williamboman/mason.nvim'
+        use 'williamboman/mason-lspconfig.nvim'
+        use 'VonHeikemen/lsp-zero.nvim'
+
+        -- dap 💨
+        use 'mfussenegger/nvim-dap'
+        use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+        use 'theHamsta/nvim-dap-virtual-text'
+
+        -- CMP plugins
+        use 'hrsh7th/nvim-cmp'
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-nvim-lua'
+        use 'L3MON4D3/LuaSnip'
+        use 'onsails/lspkind-nvim'
+        use 'neovim/nvim-lspconfig'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/cmp-cmdline'
+        use 'folke/neodev.nvim'
+
+        -- lsp extensions
+        use 'Ciel-MC/rust-tools.nvim'
+        use 'jose-elias-alvarez/typescript.nvim'
+        use 'Hoffs/omnisharp-extended-lsp.nvim'
+        use 'jose-elias-alvarez/null-ls.nvim'
+
+
+        -- Utilities
+        use {
+          "folke/which-key.nvim",
+          config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+          end
+        }
 
         use {
             "zbirenbaum/copilot.lua",
@@ -63,38 +100,11 @@ return require 'packer'.startup(
             end,
         }
 
-        -- lsp
-        use 'williamboman/mason.nvim'
-        use 'williamboman/mason-lspconfig.nvim'
-        use 'VonHeikemen/lsp-zero.nvim'
-
-        -- dap 💨
-        use 'mfussenegger/nvim-dap'
-
-        -- lsp extensions
-        use 'hrsh7th/nvim-cmp'
-        use 'hrsh7th/cmp-nvim-lsp'
-        use 'L3MON4D3/LuaSnip'
-        use 'neovim/nvim-lspconfig'
-        use 'hrsh7th/cmp-buffer'
-        use 'hrsh7th/cmp-path'
-        use 'hrsh7th/cmp-cmdline'
-        use 'Ciel-MC/rust-tools.nvim'
-        use 'jose-elias-alvarez/typescript.nvim'
-        use 'Hoffs/omnisharp-extended-lsp.nvim'
-        use 'jose-elias-alvarez/null-ls.nvim'
-        use {
-          "folke/which-key.nvim",
-          config = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-          end
-        }
-
         -- lint 
         use 'MunifTanjim/eslint.nvim'
         use 'MunifTanjim/prettier.nvim'
 
+        -- obsidian
         use({
             "epwalsh/obsidian.nvim",
             requires = { "nvim-lua/plenary.nvim" },

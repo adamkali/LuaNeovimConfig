@@ -204,7 +204,10 @@ lspconfig.dockerls.setup{
     on_attach = base_actions(_, opts)
 }
 lspconfig.tailwindcss.setup{
-    on_attach = base_actions(_, opts)
+    on_attach = base_actions(_, opts),
+    userLanguages = {
+        svg = "html"
+    }
 }
 
 

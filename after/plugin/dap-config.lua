@@ -15,7 +15,7 @@ end
 
  
 vim.fn.sign_define('DapBreakpoint', { text='', texthl='Title', linehl='DapBreakpoint', numhl='Title' })
-vim.fn.sign_define('DapStopped', { text='󰙦 ', texthl='IncSearch', linehl='DapStopped', numhl='IncSearch' })
+vim.fn.sign_define('DapStopped', { text='󰙦 ', texthl='IncSearch', linehl='IncSearch', numhl='IncSearch' })
 
 local opts = {
   mode = "n", --      NORMAL mode
@@ -42,7 +42,7 @@ wk.register({
         t = { dap.step_into, 'Step Into' },
         n = { dap.step_out, 'Step Out' },
         h = { dap.continue, 'Continue' },
-        d = { dap.stop, 'Stop' }
+        d = { dap.close, 'Stop' }
     },
 
 }, opts)
@@ -67,7 +67,7 @@ end
 
 vim.g.dotnet_get_dll_path = function()
     local request = function()
-        return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '\\bin\\Debug\\net6.0\\', 'file')
+        return vim.fn.input('Specify the DLL File: ', vim.fn.getcwd() .. '\\bin\\Debug\\net6.0\\', 'file')
     end
 
     if vim.g['dotnet_last_dll_path'] == nil then
@@ -79,20 +79,6 @@ vim.g.dotnet_get_dll_path = function()
     end
 
     return vim.g['dotnet_last_dll_path']
-end
-
-vim.g.dotnet_path_to_appsettings = function()
-    local request = function()
-        return vim.fn.input('Path to appsettings.json: ', vim.fn.getcwd() .. '\\', 'file')
-    end
-
-    if vim.g['dotnet_last_appsettings_path'] == nil then
-        vim.g['dotnet_last_appsettings_path'] = request()
-    else
-        if vim.fn.confirm('Do you want to change the path to appsettings.json? ' .. vim.g['dotnet_last_appsettings_path'], '&yes\n&no', 2) == 1 then
-            vim.g['dotnet_last_appsettings_path'] = request()
-        end
-    end
 end
 
 vim.g.dotnet_proj_telescope_select = function()
@@ -181,8 +167,83 @@ dap.configurations.go = {
         type = 'go',
         name = 'Debug',
         request = 'launch',
-        program = '${file}',
+        program = vim.fn.getcwd() .. '/main.go',
         dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
     }
 }
 
+dapui.setup{
+    controls = {
+        element = "repl",
+        enabled = true,
+        icons = {
+            disconnect = "",
+            pause = "",
+            play = "",
+            run_last = "",
+            step_back = "",
+            step_into = "",
+            step_out = "",
+            step_over = "",
+            terminate = ""
+        }
+    },
+    mappings = {
+        toggle = "g"
+    },
+    layouts = { {
+        elements = { {
+            id = "scopes",
+            size = 0.33
+        }, {
+            id = "breakpoints",
+            size = 0.33
+        }, {
+            id = "repl",
+            size = 0.33
+        } },
+        position = "bottom",
+        size = 10
+    } },
+}
+
+--    layouts = { {
+--        elements = { {
+--            id = "scopes",
+--            size = 0.25
+--          }, {
+--            id = "breakpoints",
+--            size = 0.25
+--          }, {
+--            id = "stacks",
+--            size = 0.25
+--          }, {
+--            id = "watches",
+--            size = 0.25
+--          } },
+--        position = "left",
+--        size = 40
+--      }, {
+--        elements = { {
+--            id = "repl",
+--            size = 0.5
+--          }, {
+--            id = "console",
+--            size = 0.5
+--          } },
+--        position = "bottom",
+--        size = 10
+--      } },
+--    mappings = {
+--      edit = "e",
+--      expand = { "<CR>", "<2-LeftMouse>" },
+--      open = "o",
+--      remove = "d",
+--      repl = "r",
+--      toggle = "t"
+--    },
+--    render = {
+--      indent = 1,
+--      max_value_lines = 100
+--    }
+--  }

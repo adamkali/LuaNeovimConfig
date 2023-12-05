@@ -65,6 +65,16 @@ vim.g.dotnet_build_project = function()
     end
 end
 
+vim.g.dotnet_get_appsettings = function()
+    local default_path = vim.fn.getcwd() .. '\\'
+    if vim.g['dotnet_last_appsettings_path'] ~= nil then
+        default_path = vim.g['dotnet_last_appsettings_path']
+    end
+    local path = vim.fn.input('Path to your appsettings.json file ', default_path, 'file')
+    vim.g['dotnet_last_appsettings_path'] = path
+    return path
+end
+
 vim.g.dotnet_get_dll_path = function()
     local request = function()
         return vim.fn.input('Specify the DLL File: ', vim.fn.getcwd() .. '\\bin\\Debug\\net6.0\\', 'file')
@@ -81,52 +91,26 @@ vim.g.dotnet_get_dll_path = function()
     return vim.g['dotnet_last_dll_path']
 end
 
-vim.g.dotnet_proj_telescope_select = function()
-    -- assert that rg is installed
-    local rg = vim.fn.executable('rg')
-    if rg == 0 then
-        print('rg is not installed')
-        return
+-- use dotnet run -c Debug --project <path to project> to run the project
+-- and then attach to the process
+vim.g.run_dotnet_project = function()
+    local default_path = vim.fn.getcwd() .. '/'
+    if vim.g['dotnet_last_proj_path'] ~= nil then
+        default_path = vim.g['dotnet_last_proj_path']
     end
-    -- ripgrep -g *.csproj
-    local cmd = 'rg -g *.csproj'
-    local f = io.popen(cmd)
-    local result = {}
-    for line in f:lines() do
-        table.insert(result, line)
+    local path = vim.fn.input('Path to your *proj file ', default_path, 'file')
+    vim.g['dotnet_last_proj_path'] = path
+    local cmd = 'dotnet run -c Debug --project ' ..  path .. ' > ./run.log 2>&1'
+    print('')
+    print('Cmd to execute: ' .. cmd)
+    local f = os.execute(cmd)
+    if f == 0 then
+        print('\nRun: 🤩 ')
+    else
+        print('\nRun: 🥺 (code: ' .. f .. ')')
     end
-    f:close()
-
-    local picker = require('telescope.pickers')
-    local finders = require('telescope.finders')
-    local sorters = require('telescope.sorters')
-    local actions = require('telescope.actions')
-    local action_state = require('telescope.actions.state')
-
-    picker.new({}, {
-        prompt_title = 'dotnet projects',
-        finder = finders.new_table {
-            results = result,
-            entry_maker = function(line)
-                return {
-                    value = line,
-                    display = line,
-                    ordinal = line,
-                }
-            end
-        },
-        sorter = sorters.get_generic_fuzzy_sorter(),
-        attach_mappings = function(prompt_bufnr, map)
-            map('i', '<CR>', function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                vim.g['dotnet_last_proj_path'] = selection.value
-                vim.g.dotnet_build_project()
-            end)
-            return true
-        end
-    }):find()
 end
+
 
 
 -- used by nvim-dap
@@ -140,22 +124,33 @@ dap.adapters.coreclr = {
 local path_to_csharp_test = ""
 local test_name = ""
 dap.configurations.cs = {
-    {
-        type = "coreclr",
-        name = "launch - netcoredbg",
-        request = "launch",
-        program = function()
-            if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
-                vim.g.dotnet_build_project()
-            end
-            return vim.g.dotnet_get_dll_path()
-        end,
-        env = {
-          ASPNETCORE_ENVIRONMENT = "Development", -- Adjust this to the desired environment
-        },
-    },
+  {
+      type = "coreclr",
+      name = "launch - netcoredbg",
+      request = "launch",
+      program = function()
+          if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
+              vim.g.dotnet_build_project()
+          end
+          vim.g.dotnet_get_appsettings()
+          return vim.g.dotnet_get_dll_path()
+      end,
+      args = {},  -- Add additional command-line arguments here
+      cwd = vim.fn.getcwd(),  -- Set the working directory to the current project directory
+      stopOnEntry = false,
+      serverReadyAction = {
+          action = "openExternally",
+          pattern = "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      setup = {
+          configuration = vim.g['dotnet_last_proj_path']
+      },
+      preLaunchTask = "build",
+      logging = {
+          level = "verbose",
+      },
+  },
 }
-
 -- go C:\Users\adam\AppData\Local\vscode-go\dist
 dap.adapters.go = {
     type = 'executable',
@@ -172,6 +167,32 @@ dap.configurations.go = {
     }
 }
 
+--local codelldb_extension_path = vim.env['LOCALAPPDATA'] .. '\\vscode-lldb\\extension'
+--local codelldb_path = codelldb_extension_path .. '\\adapter\\codelldb.exe'
+--local codelldb_liblldb_path = codelldb_extension_path .. '\\lldb\\bin\\liblldb.dll'
+--
+--
+--dap.configurations.rust = {
+--    {
+--        name = "Debug",
+--        type = "codelldb",
+--        request = "launch",
+--        program = function()
+--            if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
+--                cmd = 'cargo build'
+--                local f = os.execute(cmd)
+--            end
+--            local debug_folder =  vim.fn.getcwd() .. '/target/debug/' 
+--            local path = vim.fn.input('Path to your binary file ', debug_folder, 'file')
+--            return path
+--        end,
+--        cwd = vim.fn.getcwd(),
+--        stopOnEntry = false,
+--        args = {},
+--    }
+--}
+
+
 dapui.setup{
     controls = {
         element = "repl",
@@ -179,7 +200,7 @@ dapui.setup{
         icons = {
             disconnect = "",
             pause = "",
-            play = "",
+            play = "",
             run_last = "",
             step_back = "",
             step_into = "",
@@ -207,43 +228,3 @@ dapui.setup{
     } },
 }
 
---    layouts = { {
---        elements = { {
---            id = "scopes",
---            size = 0.25
---          }, {
---            id = "breakpoints",
---            size = 0.25
---          }, {
---            id = "stacks",
---            size = 0.25
---          }, {
---            id = "watches",
---            size = 0.25
---          } },
---        position = "left",
---        size = 40
---      }, {
---        elements = { {
---            id = "repl",
---            size = 0.5
---          }, {
---            id = "console",
---            size = 0.5
---          } },
---        position = "bottom",
---        size = 10
---      } },
---    mappings = {
---      edit = "e",
---      expand = { "<CR>", "<2-LeftMouse>" },
---      open = "o",
---      remove = "d",
---      repl = "r",
---      toggle = "t"
---    },
---    render = {
---      indent = 1,
---      max_value_lines = 100
---    }
---  }

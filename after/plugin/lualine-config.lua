@@ -1,5 +1,5 @@
 local colors = {
-   Background = "#1f1c31",
+   Background = "#0E082B",
    Primary = {
         shade0 = "#110066",
         shade1 = "#1a0099",

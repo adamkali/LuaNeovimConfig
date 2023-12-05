@@ -31,7 +31,7 @@ local base_actions = function(_, opts)
     }, opts)
     opts.prefix = '<leader>'
     wk.register({
-        ["vw"] = {
+        ["vv"] = {
             name = 'LSP Workspace',
             a = { function() vim.lsp.buf.add_workspace_folder() end, 'Add workspace folder' },
             r = { function() vim.lsp.buf.remove_workspace_folder() end, 'Remove workspace folder' },
@@ -60,13 +60,29 @@ local rust_tools_actions = function(_, bufnr)
     base_actions(_, opts)
     opts.prefix = "<leader>"
     wk.register({
-        ["vl"] = {
+        ["<leader>vs"] = {
             name = "Language Specific",
             ["h"] = { rust_tools.hover_actions.hover_actions, 'Hover actions' },
             ["r"] = { rust_tools.code_action_group.code_action_group, 'Code action group' },
         }
     }, opts)
+    wk.register({
+        ['<leader>s'] = {
+            name = 'Debug Session',
+            s = { require'dap'.step_over, 'Step Over' },
+            t = { require'dap'.step_into, 'Step Into' },
+            n = { require'dap'.step_out, 'Step Out' },
+            h = { require'dap'.continue, 'Continue' },
+            d = { require'dap'.close, 'Stop' },
+            r = { ":RustDebuggabls()<CR>", 'Rust Debuggables' }
+        },
+
+    }, opts)
 end
+
+local ext_path = os.getenv('LOCALAPPDATA') .. 'vscode-lldb/extension/'
+local codelldb_path = ext_path .. 'adapter/codelldb.exe'
+local liblldb_path = ext_path .. 'lldb/lib/liblldb.dll'
 
 local rust_tools_opts = {
     tools = {
@@ -114,12 +130,9 @@ local rust_tools_opts = {
         }
     },
     dap = {
-        adapter = {
-            type = "executable",
-            command = "codelldb",
-            name = "rt_lldb",
-        },
-    },
+       adapter = require('rust-tools.dap').get_codelldb_adapter(
+                codelldb_path, liblldb_path)
+    }
 }
 
 -- print "Rust-tools setup"

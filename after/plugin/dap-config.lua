@@ -167,32 +167,6 @@ dap.configurations.go = {
     }
 }
 
---local codelldb_extension_path = vim.env['LOCALAPPDATA'] .. '\\vscode-lldb\\extension'
---local codelldb_path = codelldb_extension_path .. '\\adapter\\codelldb.exe'
---local codelldb_liblldb_path = codelldb_extension_path .. '\\lldb\\bin\\liblldb.dll'
---
---
---dap.configurations.rust = {
---    {
---        name = "Debug",
---        type = "codelldb",
---        request = "launch",
---        program = function()
---            if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
---                cmd = 'cargo build'
---                local f = os.execute(cmd)
---            end
---            local debug_folder =  vim.fn.getcwd() .. '/target/debug/' 
---            local path = vim.fn.input('Path to your binary file ', debug_folder, 'file')
---            return path
---        end,
---        cwd = vim.fn.getcwd(),
---        stopOnEntry = false,
---        args = {},
---    }
---}
-
-
 dapui.setup{
     controls = {
         element = "repl",

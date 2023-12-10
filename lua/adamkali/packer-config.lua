@@ -77,29 +77,6 @@ return require 'packer'.startup(
           end
         }
 
-        use {
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            event = "InsertEnter",
-            config = function()
-              require("copilot").setup({
-                    suggestion = {
-                        enabled = true,
-                        auto_trigger = true,
-                        debounce = 75,
-                        keymap = {
-                          accept = "<M-s>",
-                          accept_word = false,
-                          accept_line = false,
-                          next = "<M-r>",
-                          prev = "<M-R>",
-                          dismiss = "<C-]>",
-                        },
-                    },
-                })
-            end,
-        }
-
         -- lint 
         use 'MunifTanjim/eslint.nvim'
         use 'MunifTanjim/prettier.nvim'

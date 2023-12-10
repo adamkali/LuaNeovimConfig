@@ -60,29 +60,21 @@ local rust_tools_actions = function(_, bufnr)
     base_actions(_, opts)
     opts.prefix = "<leader>"
     wk.register({
-        ["<leader>vs"] = {
+        ["a"] = {
             name = "Language Specific",
             ["h"] = { rust_tools.hover_actions.hover_actions, 'Hover actions' },
-            ["r"] = { rust_tools.code_action_group.code_action_group, 'Code action group' },
+            ["c"] = { rust_tools.code_action_group.code_action_group, 'Code action group' },
+            r = { rust_tools.runnables.runnables, 'Runnables' },
+            d = { rust_tools.debuggables.debuggables, 'Debuggables' },
         }
-    }, opts)
-    wk.register({
-        ['<leader>s'] = {
-            name = 'Debug Session',
-            s = { require'dap'.step_over, 'Step Over' },
-            t = { require'dap'.step_into, 'Step Into' },
-            n = { require'dap'.step_out, 'Step Out' },
-            h = { require'dap'.continue, 'Continue' },
-            d = { require'dap'.close, 'Stop' },
-            r = { ":RustDebuggabls()<CR>", 'Rust Debuggables' }
-        },
-
     }, opts)
 end
 
-local ext_path = os.getenv('LOCALAPPDATA') .. 'vscode-lldb/extension/'
-local codelldb_path = ext_path .. 'adapter/codelldb.exe'
-local liblldb_path = ext_path .. 'lldb/lib/liblldb.dll'
+-- nvim mason package registry
+-- call the terminal and call $env:NVIM_DBG_PKGS
+local ext_path = 'C:\\Users\\adam\\AppData\\Local\\nvim-data\\mason\\packages\\codelldb\\extension\\'
+local codelldb_path = ext_path .. 'adapter\\codelldb.exe'
+local liblldb_path = ext_path .. 'lldb\\lib\\liblldb.dll'
 
 local rust_tools_opts = {
     tools = {

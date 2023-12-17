@@ -58,7 +58,6 @@ local rust_tools_actions = function(_, bufnr)
       expr = false, -- use `expr` when creating keymaps
     }
     base_actions(_, opts)
-    opts.prefix = "<leader>"
     wk.register({
         ["a"] = {
             name = "Language Specific",
@@ -151,7 +150,7 @@ local ts_tools_actions = function(_, bufnr)
     base_actions(_, opts)
     opts.prefix = "<leader>"
     wk.register({
-        ["vl"] = {
+        ["a"] = {
             name = "Language Specific",
             r = { "<cmd>:TSLspRenameFile<CR>", "Rename File" },
             i = {
@@ -163,13 +162,6 @@ local ts_tools_actions = function(_, bufnr)
             , "Import All" },
         }
     }, opts)
-    lualine.setup{
-        sections = {
-            lualine_c = {
-                '󰇺  TLS '
-            }
-        }
-    }
 end
 
 local pid = vim.fn.getpid()
@@ -198,7 +190,6 @@ local opts = {
 lspconfig.gopls.setup{
     on_attach = base_actions(_, opts)
 }
-
 lspconfig.htmx.setup {
     on_attach = base_actions(_, opts)
 }
@@ -214,6 +205,10 @@ lspconfig.tailwindcss.setup{
         svg = "html"
     }
 }
+lspconfig.lua_ls.setup{
+    on_attach = base_actions(_, opts),
+}
+lspconfig.marksman.setup{ on_attach = base_actions(_, opts) }
 
 
 

@@ -15,7 +15,7 @@ end
 
  
 vim.fn.sign_define('DapBreakpoint', { text='', texthl='Title', linehl='DapBreakpoint', numhl='Title' })
-vim.fn.sign_define('DapStopped', { text='󰙦 ', texthl='IncSearch', linehl='IncSearch', numhl='IncSearch' })
+vim.fn.sign_define('DapStopped', { text='󰟶 ', texthl='IncSearch', linehl='Underlined', numhl='IncSearch' })
 
 local opts = {
   mode = "n", --      NORMAL mode
@@ -77,7 +77,7 @@ end
 
 vim.g.dotnet_get_dll_path = function()
     local request = function()
-        return vim.fn.input('Specify the DLL File: ', vim.fn.getcwd() .. '\\bin\\Debug\\net6.0\\', 'file')
+        return vim.fn.input('Specify the DLL File: ', vim.g['dotnet_last_cwd'] .. 'bin\\Debug\\net6.0\\', 'file')
     end
 
     if vim.g['dotnet_last_dll_path'] == nil then
@@ -111,7 +111,32 @@ vim.g.run_dotnet_project = function()
     end
 end
 
+vim.g.set_debug_cwd = function ()
+    local request = function()
+        return vim.fn.input('Specify the Debug Directory for Appsettings: ', vim.fn.getcwd() .. '\\', 'file')
+    end
+    if vim.g['dotnet_last_cwd'] == nil then
+        vim.g['dotnet_last_cwd'] = request()
+    else
+        if vim.fn.confirm('Do you want to change the previous cwd? ' .. vim.g['dotnet_last_cwd'], '&yes\n&no', 2) == 1 then
+            vim.g['dotnet_last_cwd'] = request()
+        end
+    end
+end
 
+vim.g.dotnet_set_url = function ()
+    local request = function()
+        return vim.fn.input('Specify the Port: ', 'http://localhost:')
+    end
+    if vim.g['dotnet_last_port'] == nil then
+        vim.g['dotnet_last_port'] = request()
+    else
+        if vim.fn.confirm('Do you want to change the previous cwd? ' .. vim.g['dotnet_last_port'], '&yes\n&no', 2) == 1 then
+            vim.g['dotnet_last_port'] = request()
+        end
+    end
+
+end
 
 -- used by nvim-dap
 --
@@ -120,9 +145,6 @@ dap.adapters.coreclr = {
 	command =  'netcoredbg',
 	args = { '--interpreter=vscode' },
 }
-
-local path_to_csharp_test = ""
-local test_name = ""
 dap.configurations.cs = {
   {
       type = "coreclr",
@@ -132,12 +154,13 @@ dap.configurations.cs = {
           if vim.fn.confirm('Should I recompile first?', '&yes\n&no', 2) == 1 then
               vim.g.dotnet_build_project()
           end
-          vim.g.dotnet_get_appsettings()
+          vim.g.set_debug_cwd()
+          vim.g.dotnet_set_url()
           return vim.g.dotnet_get_dll_path()
       end,
-      args = {},  -- Add additional command-line arguments here
-      cwd = vim.fn.getcwd(),  -- Set the working directory to the current project directory
+      cwd = vim.g['dotnet_last_cwd'],
       stopOnEntry = false,
+      args = { "--environment", "Development", "--urls", vim.g['dotnet_last_port'] },
       serverReadyAction = {
           action = "openExternally",
           pattern = "\\bNow listening on:\\s+(https?://\\S+)"
@@ -174,13 +197,13 @@ dapui.setup{
         icons = {
             disconnect = "",
             pause = "",
-            play = "",
-            run_last = "",
-            step_back = "",
-            step_into = "",
-            step_out = "",
+            play = "",
+            run_last = "󰦛 ",
+            step_back = "󱞧 ",
+            step_into = "󱞣 ",
+            step_out = "󱞿 ",
             step_over = "",
-            terminate = ""
+            terminate = ""
         }
     },
     mappings = {
@@ -197,8 +220,8 @@ dapui.setup{
             id = "repl",
             size = 0.33
         } },
-        position = "bottom",
-        size = 10
+        position = "right",
+        size = 40
     } },
 }
 

@@ -62,14 +62,13 @@ local vaporlush_theme = {
 
 local function replaceVimModes()
     local mode_map = {
-        n = '󰌓 ',
-        i = '󱦹 ',
-        c = '󰧼 ',
-        V = '󰢷 ',
-        [''] = '󰢷 ',
-        v = '󰢷 ',
+        n = '󰆾 ',
+        i = '',
+        c = '',
+        V = '󰛐 ',
+        [''] = '󰛐 ',
+        v = '󰛐 ',
         t = '󰲌 ',
-        R = '󰌓 ',
         default = '',
     }
     -- get the current mode
@@ -171,7 +170,7 @@ end
 ins_right {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
+    local msg = ''
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
@@ -189,4 +188,9 @@ ins_right {
   color = { fg = '#00cc99', gui = 'bold' },
 }
 
-require('lualine').setup(config)
+return {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true },
+    opts = config
+}
+

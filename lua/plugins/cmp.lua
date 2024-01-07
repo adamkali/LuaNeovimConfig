@@ -69,6 +69,8 @@ return {
                         col_offset = -3,
                         side_padding = 0,
                     },
+                    bor
+                    
                 },
                 formatting = {
                     fields = { "kind", "abbr", "menu" }, 

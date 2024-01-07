@@ -7,8 +7,8 @@ return {
         "Gdelete", "Gremove", "Gbrowse",
     },
     keys = {
-        { '-tt', "<cmd>Git<cr>", "Open Git" },
-        { '-tn', "<cmd>Git pull<cr>", "Pull Git" },
-        { '-ts', "<cmd>Gdiffsplit", "Git Diff" }
+        { '-tt', "<cmd>Git<cr>", desc ="Open Git" },
+        { '-tn', "<cmd>Git pull<cr>", desc = "Pull Git" },
+        { '-ts', "<cmd>Gdiffsplit", desc ="Git Diff" }
     }
 }

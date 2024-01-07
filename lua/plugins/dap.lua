@@ -5,15 +5,15 @@ return {
     {
         "rcarriga/nvim-dap-ui",
         keys = {
-            { "-uu", ":lua require('dapui').toggle()<CR>", 'Toggle Ui'},
-            { "-ue", ":DapToggleBreakpoint<CR>", 'Toggle Breakpoint'},
-            { "-uo", ":lua require('dap').eval()<CR>", 'Evaluate' },
+            { "-uu", ":lua require('dapui').toggle()<CR>", desc = 'Toggle Ui'},
+            { "-ue", ":DapToggleBreakpoint<CR>", desc ='Toggle Breakpoint'},
+            { "-uo", ":lua require('dap').eval()<CR>", desc ='Evaluate' },
 
-            { "-ss" ,  ":lua require('dap').step_over<CR>", 'Step Over' },
-            { "-st" ,  ":lua require('dap').step_into<CR>", 'Step Into' },
-            { "-sn" ,  ":lua require('dap').step_out<CR>", 'Step Out' },
-            { "-sh" ,  ":lua require('dap').continue<CR>", 'Continue' },
-            { "-sd" ,  ":lua require('dap').close<CR>", 'Stop' }
+            { "-ss" ,  ":lua require('dap').step_over<CR>", desc ='Step Over' },
+            { "-st" ,  ":lua require('dap').step_into<CR>", desc ='Step Into' },
+            { "-sn" ,  ":lua require('dap').step_out<CR>", desc ='Step Out' },
+            { "-sh" ,  ":lua require('dap').continue<CR>", desc ='Continue' },
+            { "-sd" ,  ":lua require('dap').close<CR>", desc ='Stop' }
         },
         config = function ()
             local dap = require"dap"

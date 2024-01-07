@@ -13,37 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins") 
-
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-
-
--->   Better Writing <--
-map("n", "<A-a>", ":wa<CR>", opts)
-map("n", ";", ":", opts)
-
--- Normal move
-map('n', 't', 'j', { noremap = true, silent = true })
-map('n', 'n', 'k', { noremap = true, silent = true })
-map('n', 's', 'l', { noremap = true, silent = true })
-map('n', 'k', 'n', { noremap = true, silent = true })
-map('v', 't', 'j', { noremap = true, silent = true })
-map('v', 'n', 'k', { noremap = true, silent = true })
-map('v', 's', 'l', { noremap = true, silent = true })
-map('v', 'k', 'n', { noremap = true, silent = true })
-
--- Shift move 
-map('n', 'T', 'J', { noremap = true, silent = true })
-map('n', 'N', 'K', { noremap = true, silent = true })
-map('n', 'S', 'L', { noremap = true, silent = true })
-map('n', 'K', 'n', { noremap = true, silent = true })
-
--- Control move
-map("n", "<C-h>", ":wincmd h <CR>", opts)
-map("n", "<C-t>", ":wincmd j <CR>", opts)
-map("n", "<C-n>", ":wincmd k <CR>", opts)
-map("n", "<C-s>", ":wincmd l <CR>", opts)
+require("lazy").setup("plugins")
 
 -- opts
 vim.opt.guicursor = ""
@@ -77,3 +47,32 @@ vim.opt.showmode = false
 
 vim.opt.wrap = true
 
+
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-->   Better Writing <--
+map("n", "<A-a>", ":wa<CR>", opts)
+map("n", ";", ":", opts)
+
+-- Normal move
+map('n', 't', 'j', { noremap = true, silent = true })
+map('n', 'n', 'k', { noremap = true, silent = true })
+map('n', 's', 'l', { noremap = true, silent = true })
+map('n', 'k', 'n', { noremap = true, silent = true })
+map('v', 't', 'j', { noremap = true, silent = true })
+map('v', 'n', 'k', { noremap = true, silent = true })
+map('v', 's', 'l', { noremap = true, silent = true })
+map('v', 'k', 'n', { noremap = true, silent = true })
+
+-- Shift move 
+map('n', 'T', 'J', { noremap = true, silent = true })
+map('n', 'N', 'K', { noremap = true, silent = true })
+map('n', 'S', 'L', { noremap = true, silent = true })
+map('n', 'K', 'n', { noremap = true, silent = true })
+
+-- Control move
+map("n", "<C-h>", ":wincmd h <CR>", opts)
+map("n", "<C-t>", ":wincmd j <CR>", opts)
+map("n", "<C-n>", ":wincmd k <CR>", opts)
+map("n", "<C-s>", ":wincmd l <CR>", opts)

@@ -1,4 +1,3 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 return {
     {
@@ -19,33 +18,32 @@ return {
                 }
             }
         },
-        config = function()
-            local wk = require'which-key'
-            require("mason").setup()
-        end
     },
+    { "folke/neodev.nvim", opts = {} },
     {
         "neovim/nvim-lspconfig",
         config = function()
-            require("mason-lspconfig").setup {
-                ensure_installed = {
-                    "lua_ls",
-                    "rust_analyzer",
-                    "gopls",
-                    "tsserver",
-                    "docker_compose_language_service",
-                    "dockerls",
-                    "htmx",
-                    "html",
-                    "svelte",
-                    "marksman",
-                    "tailwindcss",
-                    "omnisharp",
-                },
+            local servers = {
+                "lua_ls",
+                "rust_analyzer",
+                "gopls",
+                "tsserver",
+                "docker_compose_language_service",
+                "dockerls",
+                "htmx",
+                "html",
+                "svelte",
+                "marksman",
+                "tailwindcss",
+                "omnisharp",
             }
-            local lspconfig = require("lspconfig")
+            require("mason-lspconfig").setup {
+                ensure_installed = servers,
+            }
+            local lspconfig = require"lspconfig"
             local wk = require'which-key'
-            local base_actions = function(_, opts)
+            local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+            local base_actions = function()
                 local opts = {
                     mode = "n", -- NORMAL mode
                     prefix = "",
@@ -64,13 +62,13 @@ return {
                         r = { function() vim.lsp.buf.rename() end, 'Rename File' },
                         R = { function() vim.lsp.buf.references() end, 'Find References' },
                         K = { function () vim.lsp.buf.hover() end, 'Show Hover Actions'},
-                        ['['] = {
+                        a = {
                             function ()
                                 vim.diagnostic.goto_prev({popup_opts = {border = "rounded", focusable = false}})
                             end,
                             'Go to previous diagnostic'
                         },
-                        [']'] = {
+                        s = {
                             function ()
                                 vim.diagnostic.goto_next({popup_opts = {border = "rounded", focusable = false}})
                             end,
@@ -95,42 +93,13 @@ return {
                 nowait = false, -- use `nowait` when creating keymaps
                 expr = false, -- use `expr` when creating keymaps
             }
-            lspconfig.lua_ls.setup{
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.gopls.setup{
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.htmx.setup {
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.html.setup{
-                on_attach = base_actions(_,opts)
-            }
-            lspconfig.docker_compose_language_service.setup{
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.dockerls.setup{
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.tailwindcss.setup{
-                on_attach = base_actions(_, opts),
-                userLanguages = {
-                    svg = "html"
+            for i, value in ipairs(servers) do
+                lspconfig[value].setup{
+                    on_attatch = base_actions(),
+                    capabilities = capabilities
                 }
-            }
-            lspconfig.tsserver.setup{
-                on_attach = base_actions(_, opts)
-            }
-            lspconfig.marksman.setup{ on_attach = base_actions(_, opts) }
-            lspconfig.omnisharp.setup{
-                on_attach = base_actions(_,opts)
-            }
-            lspconfig.svelte.setup{
-                on_attach = base_actions(_, opts)
-            }
+            end
         end
     },
-    { "folke/neodev.nvim", opts = {} }
 }
 

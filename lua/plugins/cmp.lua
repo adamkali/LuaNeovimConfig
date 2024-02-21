@@ -30,7 +30,6 @@ return {
                 Event = '󱅗 ',
                 Operator = '󰘫 ',
             }
-
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -159,7 +158,11 @@ return {
         'L3MON4D3/LuaSnip'
     },
     {
-        'L3MON4D3/LuaSnip'
+        'L3MON4D3/LuaSnip',
+        dependencies = { "rafamadriz/friendly-snippets" },
+        opts = function ()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end
     },
     {
         'saadparwaiz1/cmp_luasnip'

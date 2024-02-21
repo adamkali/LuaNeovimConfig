@@ -25,7 +25,7 @@ return {
         config = function()
             local servers = {
                 "lua_ls",
-                "rust_analyzer",
+--                "rust_analyzer",
                 "gopls",
                 "tsserver",
                 "docker_compose_language_service",
@@ -36,6 +36,8 @@ return {
                 "marksman",
                 "tailwindcss",
                 "omnisharp",
+                "emmet_ls",
+                "pyright"
             }
             require("mason-lspconfig").setup {
                 ensure_installed = servers,
@@ -84,15 +86,6 @@ return {
                     },
                 }, opts)
             end
-            local opts = {
-                mode = "n", -- NORMAL mode
-                prefix = "",
-                buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-                silent = true, -- use `silent` when creating keymaps
-                noremap = true, -- use `noremap` when creating keymaps
-                nowait = false, -- use `nowait` when creating keymaps
-                expr = false, -- use `expr` when creating keymaps
-            }
             for i, value in ipairs(servers) do
                 lspconfig[value].setup{
                     on_attatch = base_actions(),

@@ -55,6 +55,9 @@ local opts = { noremap = true, silent = true }
 map("n", "<A-a>", ":wa<CR>", opts)
 map("n", ";", ":", opts)
 
+-->  Close Buffer <--
+map("n", "<C-q>", ":bd<CR>", opts)
+
 -- Normal move
 map('n', 't', 'j', { noremap = true, silent = true })
 map('n', 'n', 'k', { noremap = true, silent = true })

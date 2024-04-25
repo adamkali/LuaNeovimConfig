@@ -1,38 +1,38 @@
-local function debuggable()
-    vim.cmd.RustLsp('debuggables')
-end
-
-local function debuggable_last()
-    vim.cmd.RustLsp{'debuggables', bang = true}
-end
-
-local function runnable()
-    vim.cmd.RustLsp('runnables')
-end
-
-local function runnable_last()
-    vim.cmd.RustLsp{'runnables', bang = true}
-end
-
-local function testable()
-    vim.cmd.RustLsp('testables')
-end
-
-local function testable_last()
-    vim.cmd.RustLsp{'testables', bang = true}
-end
- 
-local function codeAction()
-    vim.cmd.RustLsp('codeAction')
-end
-
-local function hover_actions()
-    vim.cmd.RustLsp { 'hover', 'actions' }
-end
-
-local function open_cargo()
-    vim.cmd.RustLsp('openCargo')
-end
+--local function debuggable()
+--    vim.cmd.RustLsp('debuggables')
+--end
+--
+--local function debuggable_last()
+--    vim.cmd.RustLsp{'debuggables', bang = true}
+--end
+--
+--local function runnable()
+--    vim.cmd.RustLsp('runnables')
+--end
+--
+--local function runnable_last()
+--    vim.cmd.RustLsp{'runnables', bang = true}
+--end
+--
+--local function testable()
+--    vim.cmd.RustLsp('testables')
+--end
+--
+--local function testable_last()
+--    vim.cmd.RustLsp{'testables', bang = true}
+--end
+-- 
+--local function codeAction()
+--    vim.cmd.RustLsp('codeAction')
+--end
+--
+--local function hover_actions()
+--    vim.cmd.RustLsp { 'hover', 'actions' }
+--end
+--
+--local function open_cargo()
+--    vim.cmd.RustLsp('openCargo')
+--end
 
 return {
     "mrcjkb/rustaceanvim",
@@ -43,47 +43,47 @@ return {
             on_attach = function(client, bufnr)
                 -- register which-key mappings
                 local wk = require("which-key")
-                wk.register({
-                    ["c"] = {
-                        name = "Rustacean",
-                        c = {
-                            codeAction(),
-                            "Code Action",
-                        },
-                        C = {
-                            open_cargo(),
-                            "Rust Hover Actions",
-                        },
-                        d = {
-                            debuggable(),
-                            "Rust debuggables",
-                        },
-                        D = {
-                            debuggable_last(),
-                            "Rust last debuggable",
-                        },
-                        t = {
-                            testable(),
-                            "Rust testables",
-                        },
-                        T = {
-                            testable_last(),
-                            "Rust last testable",
-                        },
-                        r = {
-                            runnable(),
-                            "Rust runnables",
-                        },
-                        R = {
-                            runnable_last(),
-                            "Rust last runnable",
-                        },
-                        h = {
-                            hover_actions(),
-                            "Rust Hover Actions",
-                        },
-                    }
-                }, { mode = "n", buffer = bufnr, prefix = "-"  })
+                --wk.register({
+                --    ["c"] = {
+                --        name = "Rustacean",
+                --        c = {
+                --            codeAction(),
+                --            "Code Action",
+                --        },
+                --        C = {
+                --            open_cargo(),
+                --            "Rust Hover Actions",
+                --        },
+                --        d = {
+                --            debuggable(),
+                --            "Rust debuggables",
+                --        },
+                --        D = {
+                --            debuggable_last(),
+                --            "Rust last debuggable",
+                --        },
+                --        t = {
+                --            testable(),
+                --            "Rust testables",
+                --        },
+                --        T = {
+                --            testable_last(),
+                --            "Rust last testable",
+                --        },
+                --        r = {
+                --            runnable(),
+                --            "Rust runnables",
+                --        },
+                --        R = {
+                --            runnable_last(),
+                --            "Rust last runnable",
+                --        },
+                --        h = {
+                --            hover_actions(),
+                --            "Rust Hover Actions",
+                --        },
+                --    }
+                --}, { mode = "n", buffer = bufnr, prefix = "-"  })
             end,
             settings = {
                 -- rust-analyzer language server configuration

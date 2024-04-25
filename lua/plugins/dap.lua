@@ -1,52 +1,37 @@
 return {
     {
-        "mfussenegger/nvim-dap",
-    },
-    {
         "rcarriga/nvim-dap-ui",
-        keys = {
-            { "-uu", ":lua require('dapui').toggle()<CR>", desc = 'Toggle Ui'},
-            { "-ue", ":DapToggleBreakpoint<CR>", desc ='Toggle Breakpoint'},
-            { "-uo", ":lua require('dap').eval()<CR>", desc ='Evaluate' },
-
-            { "-ss" ,  ":lua require('dap').step_over<CR>", desc ='Step Over' },
-            { "-st" ,  ":lua require('dap').step_into<CR>", desc ='Step Into' },
-            { "-sn" ,  ":lua require('dap').step_out<CR>", desc ='Step Out' },
-            { "-sh" ,  ":lua require('dap').continue<CR>", desc ='Continue' },
-            { "-sd" ,  ":lua require('dap').close<CR>", desc ='Stop' }
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
+            "theHamsta/nvim-dap-virtual-text",
         },
-        config = function ()
-            local dap = require"dap"
-            local dapui = require"dapui"
+        keys = {
+            { "-uu",  "<cmd>DapToggleBreakpoint<CR>",           desc = 'Toggle Breakpoint' },
+            { "-ui",  function () require('dapui').open() end, desc = 'Toggle Ui'},
+            { "-ue",  function () require('dap').eval() end,     desc = 'Evaluate' },
+            { "-sh",  function () require('dap').step_over() end,  desc = 'Step Over' },
+            { "-st",  function () require('dap').step_into() end,  desc = 'Step Into' },
+            { "-sn",  function () require('dap').step_out() end,   desc = 'Step Out' },
+            { "-ss",  function () require('dap').continue() end,   desc = 'Continue' },
+            { "-sd",  function () require('dap').close() end,      desc = 'Stop' }
+        },
+        config = function()
+            local dap = require "dap"
+            local dapui = require "dapui"
 
             dap.listeners.after.event_initialized["dapui_config"] = function()
-              dapui.open()
+                dapui.open()
             end
             dap.listeners.before.event_terminated["dapui_config"] = function()
-              dapui.close()
+                dapui.close()
             end
             dap.listeners.before.event_exited["dapui_config"] = function()
-              dapui.close()
+                dapui.close()
             end
 
-            vim.fn.sign_define('DapBreakpoint', { text='󱠡 ', texthl='Title', linehl='DapBreakpoint', numhl='Title' })
-            vim.fn.sign_define('DapStopped', { text='󰙦', texthl='Delimiter', linehl='Underlined', numhl='Underlined' })
-
-            dap.adapters.go = {
-                type = 'executable',
-                command = 'node',
-                args = { os.getenv('LOCALAPPDATA') .. '/vscode-go/dist/debugAdapter.js' },
-            }
-            dap.configurations.go = {
-                {
-                    type = 'go',
-                    name = 'Debug',
-                    request = 'launch',
-                    program = vim.fn.getcwd() .. '/main.go',
-                    dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
-                }
-            }
-
+            vim.fn.sign_define('DapBreakpoint', { text = '󱠡', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
+            vim.fn.sign_define('DapStopped', { text = '', texthl = 'Delimiter', linehl = 'Underlined', numhl = 'Underlined' })
         end,
         opts = {
             controls = {
@@ -54,13 +39,8 @@ return {
                 enabled = true,
                 icons = {
                     disconnect = "",
-                    pause = "",
-                    play = "",
-                    run_last = "󰦛 ",
-                    step_back = "󱞧 ",
-                    step_into = "󱞣 ",
-                    step_out = "󱞿 ",
-                    step_over = "",
+                    pause = "",
+                    play = "",
                     terminate = ""
                 }
             },
@@ -81,6 +61,34 @@ return {
                 position = "right",
                 size = 40
             } },
+        }
+    },
+    {
+        'leoluz/nvim-dap-go',
+        opts = {
+            dap_configurations = {
+                {
+                    type = "go",
+                    name = "Attach remote",
+                    mode = "remote",
+                    request = "attach",
+                },
+            },
+            delve = {
+                path = "dlv",
+                initialize_timeout_sec = 20,
+                port = "${port}",
+                -- additional args to pass to dlv
+                args = {},
+                -- the build flags that are passed to delve.
+                -- defaults to empty string, but can be used to provide flags
+                -- such as "-tags=unit" to make sure the test suite is
+                -- compiled during debugging, for example.
+                -- passing build flags using args is ineffective, as those are
+                -- ignored by delve in dap mode.
+                build_flags = "",
+                detached = true
+            },
         }
     }
 }

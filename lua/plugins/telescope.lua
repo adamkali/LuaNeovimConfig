@@ -10,7 +10,6 @@ return {
 		{ "-hb", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
 		{ "-hd", "<cmd>Telescope diagnostics<cr>", desc = "Lsp Diagnostics" },
 		{ "-hr", "<cmd>Telescope lsp_refrences<cr>", desc = "Lsp Refrences" },
-        { "-hm", function() vim.lsp.buf.code_action() end, 'Code action' },
 	},
 	opts = {
 		defaults = {

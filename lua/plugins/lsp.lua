@@ -85,6 +85,10 @@ return {
                         s = { function() vim.lsp.buf.workspace_symbol() end, 'Search workspace symbols' },
                     },
                 }, opts)
+                wk.register({
+                    ["<F2>"] = { function() vim.lsp.buf.code_action() end, 'Code action' }
+                })
+
             end
             for i, value in ipairs(servers) do
                 lspconfig[value].setup{

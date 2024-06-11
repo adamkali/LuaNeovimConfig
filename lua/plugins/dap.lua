@@ -1,3 +1,27 @@
+local function go_dap()
+    return {
+        'leoluz/nvim-dap-go',
+        opts = {
+            dap_configurations = {
+                {
+                    type = 'go',
+                    name = 'API Debug',
+                    request = 'launch',
+                    program = './main.go'
+                }
+            },
+            delve = {
+                path = "dlv",
+                initialize_timeout_sec = 20,
+                port = "${port}",
+                args = {},
+                build_flags = "",
+                detached = true
+            },
+        }
+    }
+end
+
 local function python_dap()
     return {
         "mfussenegger/nvim-dap-python",
@@ -20,23 +44,34 @@ local function venv_selector()
     }
 end
 
+local function virtual_text()
+    return {
+        enabled=true,
+        enabeled_commands = true,
+        commented = true
+    }
+end
+
 return {
     {
         "rcarriga/nvim-dap-ui",
         dependencies = {
             "mfussenegger/nvim-dap",
             "nvim-neotest/nvim-nio",
-            "theHamsta/nvim-dap-virtual-text",
+            {
+                "theHamsta/nvim-dap-virtual-text",
+                opts = virtual_text()
+            }
         },
         keys = {
             { "<space>b", "<cmd>DapToggleBreakpoint<CR>",            desc = 'Toggle Breakpoint' },
-            { "<space>e", function() require 'dap'.eval() end,       desc = 'Evaluate Under Cursor' },
+            { "<space>e", function() require 'dapui'.eval() end,     desc = 'Evaluate Under Cursor' },
             { "<space>u", function() require('dapui').toggle() end,  desc = 'Toggle Ui' },
+            { "<space>g", function() require('dap').goto_() end,     desc = 'Go Here' },
             { "<F3>",     function() require('dap').continue() end,  desc = 'Continue' },
             { "<F15>",    function() require('dap').restart() end,   desc = 'Restart' },
             { "<F27>",    function() require('dap').close() end,     desc = 'Stop' },
             { "<F4>",     function() require('dap').step_over() end, desc = 'Step Over' },
-            { "<F16>",    function() require('dap').goto_() end,     desc = 'Go Here' },
             { "<F5>",     function() require('dap').step_into() end, desc = 'Step Into' },
             { "<F17>",    function() require('dap').step_out() end,  desc = 'Step Out' },
         },
@@ -62,7 +97,6 @@ return {
             vim.fn.sign_define('DapBreakpointRejected',
                 { text = '󰍑', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'Macro' })
 
-
             return {
                 controls = {
                     element = "repl",
@@ -73,6 +107,9 @@ return {
                         play = "",
                         terminate = ""
                     }
+                },
+                mappings = {
+                    toggle = "l"
                 },
                 layouts = { {
                     elements = { {
@@ -86,32 +123,12 @@ return {
                         size = 0.33
                     } },
                     position = "right",
-                    size = 50
+                    size = 60
                 } },
             }
         end,
     },
     venv_selector(),
     python_dap(),
-    {
-        'leoluz/nvim-dap-go',
-        opts = {
-            dap_configurations = {
-                {
-                    type = 'go',
-                    name = 'API Debug',
-                    request = 'launch',
-                    program = './main.go'
-                }
-            },
-            delve = {
-                path = "dlv",
-                initialize_timeout_sec = 20,
-                port = "${port}",
-                args = {},
-                build_flags = "",
-                detached = true
-            },
-        }
-    },
+    go_dap(),
 }

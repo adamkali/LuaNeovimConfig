@@ -1,63 +1,58 @@
---local function debuggable()
---    vim.cmd.RustLsp('debuggables')
---end
---
---local function debuggable_last()
---    vim.cmd.RustLsp{'debuggables', bang = true}
---end
---
---local function runnable()
---    vim.cmd.RustLsp('runnables')
---end
---
---local function runnable_last()
---    vim.cmd.RustLsp{'runnables', bang = true}
---end
---
---local function testable()
---    vim.cmd.RustLsp('testables')
---end
---
---local function testable_last()
---    vim.cmd.RustLsp{'testables', bang = true}
---end
--- 
---local function codeAction()
---    vim.cmd.RustLsp('codeAction')
---end
---
---local function hover_actions()
---    vim.cmd.RustLsp { 'hover', 'actions' }
---end
---
---local function open_cargo()
---    vim.cmd.RustLsp('openCargo')
---end
-
+map = vim.keymap.set
 return {
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended
     ft = { "rust" },
-    keys = {
-		{ "lt", "<cmd>RustLsp testables <cr>", desc = "Find Files" },
-		{ "lg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-		{ "lc", "<cmd>Telescope commands<cr>", desc = "List Commands" },
-		{ "lb", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
-		{ "ld", "<cmd>Telescope diagnostics<cr>", desc = "Lsp Diagnostics" },
-		{ "lr", "<cmd>Telescope lsp_refrences<cr>", desc = "Lsp Refrences" },
-    },
     opts = {
         server = {
-            on_attach = function(client, bufnr)
-                -- register which-key mappings
+            on_attach = function(_, bufnr)
+                map (
+                    "n",
+                    "<leader>rd",
+                    function() vim.cmd.RustLsp { 'debuggables' } end,
+                    {desc = "Rust Debuggables", buffer = bufnr}
+                )
+                map (
+                    "n",
+                     "<leader>rD",
+                    function() vim.cmd.RustLsp { 'debuggables', bang = true } end,
+                    {desc = "Last Debuggables", buffer = bufnr}
+                )
+                map (
+                    "n",
+                     "<leader>rt",
+                    function() vim.cmd.RustLsp { 'testables'} end,
+                    {desc = "Rust Testables", buffer = bufnr}
+                )
+                map (
+                    "n",
+                     "<leader>rT",
+                    function() vim.cmd.RustLsp { 'testables', bang = true} end,
+                    {desc = "Last Testables", buffer = bufnr}
+                )
+                map (
+                    "n",
+                     "<F2>",
+                    function() vim.cmd.RustLsp { 'codeAction'} end,
+                    {desc = "Code Actions", buffer = bufnr}
+                )
+                map (
+                    "n",
+                    "<leader>rc", function ()
+                        vim.cmd.RustLsp 'openCargo'
+                    end,
+                    {desc = "Open Cargo.toml", buffer = bufnr}
+                )
             end,
-            settings = {
+            default_settings = {
                 -- rust-analyzer language server configuration
                 ["rust-analyzer"] = {
                     cargo = {
                         allFeatures = true,
                         loadOutDirsFromCheck = true,
-                        runBuildScripts = true,
+                        buildScripts = {
+                            enable = true,
+                        },
                     },
                     -- Add clippy lints for Rust.
                     checkOnSave = {
@@ -78,6 +73,7 @@ return {
         },
     },
     config = function(_, opts)
-        vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
+        vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
     end,
 }
+

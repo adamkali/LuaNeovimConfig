@@ -46,6 +46,7 @@ vim.opt.updatetime = 50
 vim.opt.showmode = false
 
 vim.opt.wrap = true
+vim.g.python3_host_prog="/usr/bin/python3"
 
 
 local map = vim.api.nvim_set_keymap
@@ -54,6 +55,8 @@ local opts = { noremap = true, silent = true }
 -->   Better Writing <--
 map("n", "<A-a>", ":wa<CR>", opts)
 map("n", ";", ":", opts)
+map("n", "Y", '"+y', opts)
+map("v", "Y", '"+y', opts)
 
 -->  Close Buffer <--
 map("n", "<C-q>", ":bd<CR>", opts)
@@ -79,3 +82,6 @@ map("n", "<C-h>", ":wincmd h <CR>", opts)
 map("n", "<C-t>", ":wincmd j <CR>", opts)
 map("n", "<C-n>", ":wincmd k <CR>", opts)
 map("n", "<C-s>", ":wincmd l <CR>", opts)
+
+
+

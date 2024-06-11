@@ -1,3 +1,25 @@
+local function python_dap()
+    return {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+            require("dap-python").setup("/usr/bin/python3")
+        end,
+    }
+end
+
+local function venv_selector()
+    return {
+        'linux-cultist/venv-selector.nvim',
+        dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+        opts = {},
+        event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+        keys = {
+            { '<leader>hv', '<cmd>VenvSelect<cr>' },
+            { '<leader>hV', '<cmd>VenvSelectCached<cr>' },
+        },
+    }
+end
+
 return {
     {
         "rcarriga/nvim-dap-ui",
@@ -7,16 +29,19 @@ return {
             "theHamsta/nvim-dap-virtual-text",
         },
         keys = {
-            { "-uu",  "<cmd>DapToggleBreakpoint<CR>",           desc = 'Toggle Breakpoint' },
-            { "-ui",  function () require('dapui').open() end, desc = 'Toggle Ui'},
-            { "-ue",  function () require('dap').eval() end,     desc = 'Evaluate' },
-            { "-sh",  function () require('dap').step_over() end,  desc = 'Step Over' },
-            { "-st",  function () require('dap').step_into() end,  desc = 'Step Into' },
-            { "-sn",  function () require('dap').step_out() end,   desc = 'Step Out' },
-            { "-ss",  function () require('dap').continue() end,   desc = 'Continue' },
-            { "-sd",  function () require('dap').close() end,      desc = 'Stop' }
+            { "<space>b", "<cmd>DapToggleBreakpoint<CR>",            desc = 'Toggle Breakpoint' },
+            { "<space>e", function() require 'dap'.eval() end,       desc = 'Evaluate Under Cursor' },
+            { "<space>u", function() require('dapui').toggle() end,  desc = 'Toggle Ui' },
+            { "<F3>",     function() require('dap').continue() end,  desc = 'Continue' },
+            { "<F15>",    function() require('dap').restart() end,   desc = 'Restart' },
+            { "<F27>",    function() require('dap').close() end,     desc = 'Stop' },
+            { "<F4>",     function() require('dap').step_over() end, desc = 'Step Over' },
+            { "<F16>",    function() require('dap').goto_() end,     desc = 'Go Here' },
+            { "<F5>",     function() require('dap').step_into() end, desc = 'Step Into' },
+            { "<F17>",    function() require('dap').step_out() end,  desc = 'Step Out' },
         },
-        config = function()
+
+        opts = function()
             local dap = require "dap"
             local dapui = require "dapui"
 
@@ -30,65 +55,63 @@ return {
                 dapui.close()
             end
 
-            vim.fn.sign_define('DapBreakpoint', { text = '󱠡', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
-            vim.fn.sign_define('DapStopped', { text = '', texthl = 'Delimiter', linehl = 'Underlined', numhl = 'Underlined' })
-        end,
-        opts = {
-            controls = {
-                element = "repl",
-                enabled = true,
-                icons = {
-                    disconnect = "",
-                    pause = "",
-                    play = "",
-                    terminate = ""
-                }
-            },
-            mappings = {
-                toggle = "g"
-            },
-            layouts = { {
-                elements = { {
-                    id = "scopes",
-                    size = 0.33
-                }, {
-                    id = "breakpoints",
-                    size = 0.33
-                }, {
-                    id = "repl",
-                    size = 0.33
+            vim.fn.sign_define('DapBreakpoint',
+                { text = '󰍒', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
+            vim.fn.sign_define('DapStopped',
+                { text = '󱋜', texthl = 'Label', linehl = 'Underlined', numhl = 'Label' })
+            vim.fn.sign_define('DapBreakpointRejected',
+                { text = '󰍑', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'Macro' })
+
+
+            return {
+                controls = {
+                    element = "repl",
+                    enabled = true,
+                    icons = {
+                        disconnect = "",
+                        pause = "",
+                        play = "",
+                        terminate = ""
+                    }
+                },
+                layouts = { {
+                    elements = { {
+                        id = "scopes",
+                        size = 0.33
+                    }, {
+                        id = "breakpoints",
+                        size = 0.33
+                    }, {
+                        id = "repl",
+                        size = 0.33
+                    } },
+                    position = "right",
+                    size = 50
                 } },
-                position = "right",
-                size = 40
-            } },
-        }
+            }
+        end,
     },
+    venv_selector(),
+    python_dap(),
     {
         'leoluz/nvim-dap-go',
         opts = {
             dap_configurations = {
                 {
-                    type = "go",
-                    name = "Attach remote",
-                    mode = "remote",
-                    request = "attach",
-                },
+                    type = 'go',
+                    name = 'API Debug',
+                    request = 'launch',
+                    program = './main.go'
+                }
             },
             delve = {
                 path = "dlv",
                 initialize_timeout_sec = 20,
                 port = "${port}",
-                -- additional args to pass to dlv
                 args = {},
-                -- the build flags that are passed to delve.
-                -- defaults to empty string, but can be used to provide flags
-                -- such as "-tags=unit" to make sure the test suite is
-                -- compiled during debugging, for example.
-                -- passing build flags using args is ineffective, as those are
-                -- ignored by delve in dap mode.
                 build_flags = "",
                 detached = true
             },
         }
-    }
+    },
 }

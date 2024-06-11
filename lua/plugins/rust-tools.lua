@@ -38,52 +38,18 @@ return {
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended
     ft = { "rust" },
+    keys = {
+		{ "lt", "<cmd>RustLsp testables <cr>", desc = "Find Files" },
+		{ "lg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+		{ "lc", "<cmd>Telescope commands<cr>", desc = "List Commands" },
+		{ "lb", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
+		{ "ld", "<cmd>Telescope diagnostics<cr>", desc = "Lsp Diagnostics" },
+		{ "lr", "<cmd>Telescope lsp_refrences<cr>", desc = "Lsp Refrences" },
+    },
     opts = {
         server = {
             on_attach = function(client, bufnr)
                 -- register which-key mappings
-                local wk = require("which-key")
-                --wk.register({
-                --    ["c"] = {
-                --        name = "Rustacean",
-                --        c = {
-                --            codeAction(),
-                --            "Code Action",
-                --        },
-                --        C = {
-                --            open_cargo(),
-                --            "Rust Hover Actions",
-                --        },
-                --        d = {
-                --            debuggable(),
-                --            "Rust debuggables",
-                --        },
-                --        D = {
-                --            debuggable_last(),
-                --            "Rust last debuggable",
-                --        },
-                --        t = {
-                --            testable(),
-                --            "Rust testables",
-                --        },
-                --        T = {
-                --            testable_last(),
-                --            "Rust last testable",
-                --        },
-                --        r = {
-                --            runnable(),
-                --            "Rust runnables",
-                --        },
-                --        R = {
-                --            runnable_last(),
-                --            "Rust last runnable",
-                --        },
-                --        h = {
-                --            hover_actions(),
-                --            "Rust Hover Actions",
-                --        },
-                --    }
-                --}, { mode = "n", buffer = bufnr, prefix = "-"  })
             end,
             settings = {
                 -- rust-analyzer language server configuration
@@ -109,7 +75,6 @@ return {
                     },
                 },
             },
-            dap = {}
         },
     },
     config = function(_, opts)

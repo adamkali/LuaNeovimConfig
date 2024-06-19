@@ -1,3 +1,15 @@
+local function setup_neotest()
+    return {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter"
+        }
+    }
+end
+
 local function go_dap()
     return {
         'leoluz/nvim-dap-go',
@@ -31,22 +43,9 @@ local function python_dap()
     }
 end
 
-local function venv_selector()
-    return {
-        'linux-cultist/venv-selector.nvim',
-        dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
-        opts = {},
-        event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
-        keys = {
-            { '<leader>hv', '<cmd>VenvSelect<cr>' },
-            { '<leader>hV', '<cmd>VenvSelectCached<cr>' },
-        },
-    }
-end
-
 local function virtual_text()
     return {
-        enabled=true,
+        enabled = true,
         enabeled_commands = true,
         commented = true
     }
@@ -128,7 +127,7 @@ return {
             }
         end,
     },
-    venv_selector(),
     python_dap(),
     go_dap(),
+    setup_neotest()
 }

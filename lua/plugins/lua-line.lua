@@ -1,3 +1,4 @@
+-- TODO: move to vapor lush
 local colors = {
     Background = "#0E082B",
     Primary = {
@@ -88,8 +89,8 @@ local function get_file_status()
     return ' ' .. fname .. ' '
 end
 
--- 
--- 
+-- 
+-- 
 local config = {
     options = {
         icons_enabled = true,
@@ -122,7 +123,7 @@ local config = {
             { 'FugitiveHead', icon = "", right_padding = 2 },
             {
                 'diff',
-                symbols = { added = '', modified = '', removed = '' },
+                symbols = { added = ' ', modified = ' ', removed = '' },
                 color_added = colors.Tertiary.shade1,
                 color_modified = colors.Tertiary.shade2,
                 color_removed = colors.Tertiary.shade3,
@@ -188,13 +189,49 @@ ins_right {
     color = { fg = '#00cc99', gui = 'bold' },
 }
 
+local function debug_nvim_web_dev_icons()
+
+end
+
 return {
     {
         'nvim-tree/nvim-web-devicons',
-        opt = { }
+        config = function()
+            local ndevicons = require 'nvim-web-devicons'
+            ndevicons.set_icon {
+                gleam = {
+                    icon = "󰊠",
+                    color = "#ef57e5",
+                    cterm_color = "65",
+                    name = "Gleam"
+                },
+                cs = {
+                    icon = "",
+                    color = "#33ffff",
+                    cterm_color = "65",
+                    name = "Csharp"
+                },
+                lua = {
+                    icon = "󰣙",
+                    color = "#51a0cf",
+                    cterm_color = "65",
+                    name = "Lua"
+                },
+                csproj = {
+                    icon = "",
+                    color = "#3333ff",
+                    name="CSharpProject"
+                },
+            }
+        end,
+        keys = {
+            { "--vd", debug_nvim_web_dev_icons, desc = "Find Files" }
+        }
     },
     {
         'nvim-lualine/lualine.nvim',
         opts = config
-    }
+    },
+    { 'MunifTanjim/nui.nvim' }
+
 }

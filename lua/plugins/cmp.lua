@@ -3,7 +3,6 @@ return {
         'hrsh7th/nvim-cmp',
         config = function()
             local cmp = require('cmp')
-
             local cmp_kinds = {
                 Text = '󰈍 ',
                 Method = ' ',
@@ -68,17 +67,19 @@ return {
                         col_offset = -3,
                         side_padding = 0,
                     },
-                    bor
-                    
                 },
                 formatting = {
-                    fields = { "kind", "abbr", "menu" }, 
+                    fields = { "kind", "abbr", "menu" },
                     format = function(entry, vim_item)
                         local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
                         local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                        kind.kind = cmp_kinds[strings[2]] or stirngs[1]
-                        kind.menu = "    (" .. (strings[2] or "") .. ")"
-
+                        if strings ~= nil then
+                            kind.kind = cmp_kinds[strings[2]] or strings[1]
+                            kind.menu = "    (" .. (strings[2] or "") .. ")"
+                        else
+                            kind.kind = ""
+                            kind.menu = ""
+                        end
                         return kind
                     end,
                 },
@@ -100,7 +101,7 @@ return {
                     { name = 'path' },
                 }
             })
-            
+            -- TODO: move to vaporlush 
             -- Customization for Pmenu
             vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#7E8294", bg = "NONE", strikethrough = true })
             vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#82AAFF", bg = "NONE", bold = true })
@@ -162,6 +163,7 @@ return {
         dependencies = { "rafamadriz/friendly-snippets" },
         opts = function ()
             require("luasnip.loaders.from_vscode").lazy_load()
+            -- require("custom.snippets")
         end
     },
     {
@@ -171,4 +173,5 @@ return {
         'onsails/lspkind.nvim'
     }
 }
+
 

@@ -34,6 +34,10 @@ local function go_dap()
     }
 end
 
+local function csharp_dap()
+    return { }
+end
+
 local function python_dap()
     return {
         "mfussenegger/nvim-dap-python",

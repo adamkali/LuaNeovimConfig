@@ -19,6 +19,9 @@ return {
                 "gowork",
                 "gomod",
                 "gosum",
+                "comment",
+                "templ",
+                "gleam"
             },
             highlight = {
                 enable = true,

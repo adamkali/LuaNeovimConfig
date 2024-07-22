@@ -8,15 +8,8 @@ local visual_opts = {
 
 return {
     "epwalsh/obsidian.nvim",
+    ft = { 'md' },
     opts = function ()
-        local wk = require'which-key'
-        wk.register({
-            ["="] = {
-                name = "Obsidian Visual",
-                n = { "<cmd>:ObsidianLinkNew<CR>" , 'Follow Link' },
-            }
-        }, visual_opts)
-
         return {
             dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
             --dir = "P:\\
@@ -38,8 +31,8 @@ return {
             }
         }
     end,
-   keys = {
-        { '=d', '<cmd>:ObsidianFollowLink<CR>', desc = 'Go To' },
+    keys = {
+       -- { '=d', '<cmd>:ObsidianFollowLink<CR>', desc = 'Go To' },
         { '=v', '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split vertically' },
         { '=V', '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split horizontally' },
         { '=b', '<cmd>:ObsidianBacklinks<CR>', desc = 'Show Back Links' },

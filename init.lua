@@ -53,13 +53,12 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -->   Better Writing <--
-map("n", "<A-a>", ":wa<CR>", opts)
+map("n", "<C-a>", ":wa<CR>", opts)
+map("n", "<C-q>", ":bd!<CR>", opts)
 map("n", ";", ":", opts)
 map("n", "Y", '"+y', opts)
 map("v", "Y", '"+y', opts)
 
--->  Close Buffer <--
-map("n", "<C-q>", ":bd<CR>", opts)
 
 -- Normal move
 map('n', 't', 'j', { noremap = true, silent = true })

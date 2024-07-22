@@ -1,13 +1,27 @@
+vim.filetype.add({ extension = { templ = "templ" } })
+
+local glob_opts = {
+    mode = "n",     -- NORMAL mode
+    prefix = "",
+    buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
+    expr = false,   -- use `expr` when creating keymaps
+}
+
 
 return {
     {
         "williamboman/mason.nvim",
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
+            "folke/neoconf.nvim",
+            "folke/neodev.nvim",
         },
         keys = {
             { "+mu", "<cmd>:MasonUpdate<cr>", desc = "Mason Update" },
-            { "+mo", "<cmd>:Mason <cr>", desc = "Mason Open Menu" }
+            { "+mo", "<cmd>:Mason <cr>",      desc = "Mason Open Menu" }
         },
         opts = {
             ui = {
@@ -19,13 +33,23 @@ return {
             }
         },
     },
-    { "folke/neodev.nvim", opts = {} },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {},
+        keys = function()
+            return {
+                { "<leader>tt", "<cmd>TodoTelescope keywords=TODO,FIX<cr>", desc = "Search TODOs" },
+                { "<leader>tw", "<cmd>TodoTelescope keywords=WARN<cr>",     desc = "Search WARNs" },
+            }
+        end
+    },
     {
         "neovim/nvim-lspconfig",
         config = function()
             local servers = {
                 "lua_ls",
---                "rust_analyzer",
+                --                "rust_analyzer",
                 "gopls",
                 "tsserver",
                 "docker_compose_language_service",
@@ -35,25 +59,27 @@ return {
                 "svelte",
                 "marksman",
                 "tailwindcss",
-                "omnisharp",
+                -- "omnisharp",
                 "emmet_ls",
+                "templ",
                 "pyright"
             }
+
             require("mason-lspconfig").setup {
                 ensure_installed = servers,
             }
-            local lspconfig = require"lspconfig"
-            local wk = require'which-key'
-            local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+            local lspconfig = require "lspconfig"
+            local wk = require 'which-key'
+            local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
             local base_actions = function()
                 local opts = {
-                    mode = "n", -- NORMAL mode
+                    mode = "n",     -- NORMAL mode
                     prefix = "",
                     buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-                    silent = true, -- use `silent` when creating keymaps
+                    silent = true,  -- use `silent` when creating keymaps
                     noremap = true, -- use `noremap` when creating keymaps
                     nowait = false, -- use `nowait` when creating keymaps
-                    expr = false, -- use `expr` when creating keymaps
+                    expr = false,   -- use `expr` when creating keymaps
                 }
                 wk.register({
                     g = {
@@ -63,16 +89,16 @@ return {
                         i = { function() vim.lsp.buf.implementation() end, 'Go to implementation' },
                         r = { function() vim.lsp.buf.rename() end, 'Rename File' },
                         R = { function() vim.lsp.buf.references() end, 'Find References' },
-                        K = { function () vim.lsp.buf.hover() end, 'Show Hover Actions'},
+                        K = { function() vim.lsp.buf.hover() end, 'Show Hover Actions' },
                         a = {
-                            function ()
-                                vim.diagnostic.goto_prev({popup_opts = {border = "rounded", focusable = false}})
+                            function()
+                                vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
                             end,
                             'Go to previous diagnostic'
                         },
                         s = {
-                            function ()
-                                vim.diagnostic.goto_next({popup_opts = {border = "rounded", focusable = false}})
+                            function()
+                                vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
                             end,
                             'Go to next diagnostic'
                         }
@@ -88,15 +114,40 @@ return {
                 wk.register({
                     ["<F2>"] = { function() vim.lsp.buf.code_action() end, 'Code action' }
                 })
-
             end
             for i, value in ipairs(servers) do
-                lspconfig[value].setup{
+                lspconfig[value].setup {
                     on_attatch = base_actions(),
                     capabilities = capabilities
                 }
             end
+            -- for gleam as well
+            lspconfig.gleam.setup({
+                on_attatch = base_actions(),
+                capabilities = capabilities
+            })
+            lspconfig.html.setup({
+                on_attach = base_actions,
+                capabilities = capabilities,
+                filetypes = { "html", "templ" },
+            })
+            lspconfig.htmx.setup({
+                on_attach = base_actions,
+                capabilities = capabilities,
+                filetypes = { "html", "templ" },
+            })
+            lspconfig.tailwindcss.setup({
+                on_attach = base_actions,
+                capabilities = capabilities,
+                filetypes = { "templ", "astro", "javascript", "typescript", "react", "svelte" },
+                settings = {
+                    tailwindCSS = {
+                        includeLanguages = {
+                            templ = "html",
+                        },
+                    },
+                },
+            })
         end
     },
 }
-

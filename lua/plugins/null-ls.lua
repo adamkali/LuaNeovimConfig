@@ -10,7 +10,8 @@ return {
                 null_ls.builtins.formatting.prettierd,
                 null_ls.builtins.diagnostics.eslint_d,
                 null_ls.builtins.formatting.jq,
-                null_ls.builtins.formatting.xmllint
+                null_ls.builtins.formatting.xmllint,
+                null_ls.builtins.diagnostics.luacheckrc
             }
         })
     end,

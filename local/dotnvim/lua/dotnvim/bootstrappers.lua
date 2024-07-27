@@ -38,9 +38,20 @@ function M.bootstrap_api_controller(name, namespace)
 end
 
 function M.bootstrap_api_controller_rw(name, namespace)
+    local path = ''
     if namespace == nil then
-        namespace = dotnet_utils.get_curr_file_and_namespace().namespace
+        local n = dotnet_utils.get_curr_file_and_namespace()
+        path = n.path
+        namespace = n.namespace
+    else
+        -- for now wory about lin and wsl
+        path = string.gsub(namespace, '.', '/')
     end
+    return {
+        filename = path .. name .. ".cs",
+        filepath = path,
+        buffer = dotnvim_templates.dotnvim_api_mvc_controller_template(name, namespace)
+    }
 end
 
 
@@ -54,7 +65,7 @@ M.bootstrappers = {
         end,
         func = function (name, namespace)
             return M.bootstrap_api_model(name, namespace)
-        end
+        end,
     },
     {
         search = "asp_net_api_controller_blank",
@@ -64,7 +75,7 @@ M.bootstrappers = {
         end,
         func = function (name, namespace)
             return M.bootstrap_api_controller(name, namespace)
-        end
+        end,
     },
     {
         search = "asp_net_api_controller_read_write",
@@ -74,7 +85,7 @@ M.bootstrappers = {
         end,
         func = function (name, namespace)
             return M.bootstrap_api_controller(name, namespace)
-        end
+        end,
     }
 }
 

@@ -34,24 +34,21 @@ M.telescope_select_bootstrapper = function(bootstrappers)
             end
         },
         sorter = conf.generic_sorter(opts),
-        previewer = previewers.new_buffer_previewer {
-            define_preview = function(self, entry, status)
-                local bufnr = self.state.bufnr
+        --previewer = previewers.new_buffer_previewer {
+        --    define_preview = function(self, entry, status)
+        --        local bufnr = self.state.bufnr
 
-                vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
-                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
-                vim.api.nvim_buf_set_option(bufnr, 'modifiable', false)
-                vim.api.nvim_buf_set_lines(bufnr, 0, -1, false,
-                    vim.split(entry.value.callback("PREVIEW", "NAMESPACE"), "\n"))
-                vim.api.nvim_buf_set_option(bufnr, 'filetype', 'cs')
-
-            end
-        },
+        --        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, {})
+        --        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false,
+        --            vim.split(entry.value.callback("PREVIEW", "NAMESPACE"), "\n"))
+        --        vim.api.nvim_buf_set_option(bufnr, 'filetype', 'cs')
+        --    end
+        --},
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
+                print("got here")
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry().value
-                print('selection: ' .. selection.name)
                 vim.ui.input({ prompt = 'Class Name: ' }, function(input)
                     local out_space = default_out_space
                     if input then
@@ -59,7 +56,7 @@ M.telescope_select_bootstrapper = function(bootstrappers)
                         local extracted = extract_directory(out_space.filepath)
                         local plenary = require('plenary.path')
                         local path = plenary:new(extracted .. input .. '.cs')
-                        path:write(out_space.buffer, 'w')
+                        --path:write(out_space.buffer, 'w')
                         vim.cmd("edit " .. path.filename)
                     end
                 end)

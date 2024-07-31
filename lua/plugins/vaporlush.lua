@@ -9,7 +9,4 @@ return {
             vim.cmd([[colorscheme vaporlush]])
         end
     },
-    {
-        "catppuccin/nvim", name = "catppuccin", priority = 1000
-    }
 }

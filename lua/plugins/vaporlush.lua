@@ -6,10 +6,27 @@ return {
         name = "vaporlush",
         priority = 1000,
         config = function()
-            vim.cmd([[colorscheme vaporlush]])
         end
     },
     {
         "catppuccin/nvim", name = "catppuccin", priority = 1000
+    },
+    {
+        'maxmx03/fluoromachine.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            local fm = require 'fluoromachine'
+
+            fm.setup {
+                glow = true,
+                theme = 'fluoromachine',
+                transparent = false,
+                plugins = {
+                    neotree = false,
+                }
+            }
+            vim.cmd([[colorscheme fluoromachine]])
+        end
     }
 }

@@ -1,7 +1,8 @@
 return {
     "nvimtools/none-ls.nvim",
 	dependencies = {
-		{ "nvim-lua/plenary.nvim" }
+		{ "nvim-lua/plenary.nvim" },
+        { "gbprod/none-ls-luacheck.nvim" }
 	},
     config = function ()
         local null_ls = require"null-ls"
@@ -11,7 +12,7 @@ return {
                 null_ls.builtins.diagnostics.eslint_d,
                 null_ls.builtins.formatting.jq,
                 null_ls.builtins.formatting.xmllint,
-                null_ls.builtins.diagnostics.luacheckrc
+                require("none-ls-luacheck.diagnostics.luacheckrc"),
             }
         })
     end,

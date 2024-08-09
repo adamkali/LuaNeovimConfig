@@ -149,6 +149,7 @@ return {
                 },
             })
             lspconfig.omnisharp.setup({
+                on_attach=base_actions(),
                 capabilities = capabilities,
                 enable_roslyn_analysers = true,
                 enable_import_completion = true,

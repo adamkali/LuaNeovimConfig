@@ -94,7 +94,7 @@ end
 local config = {
     options = {
         icons_enabled = true,
-        theme = vaporlush_theme,
+        theme = 'flouromachine',
         component_separators = '',
         section_separators = { right = '', left = '' },
         disabled_filetypes = {

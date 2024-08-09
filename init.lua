@@ -17,7 +17,7 @@ require("lazy").setup("plugins")
 
 -- opts
 vim.opt.guicursor = ""
-
+vim.opt.conceallevel = 2
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -27,7 +27,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true

@@ -16,7 +16,6 @@ return {
             --dir = "~/me", -- Arch Laptop and Desktop
             templates = {
                 subdir = "templates",
-                -- subdir = "templates",
                 date_format = "%Y-%m-%d-%a",
                 time_format = "%H:%M",
             },
@@ -24,7 +23,6 @@ return {
             ui = {
                 enable = true,  -- set to false to disable all additional syntax features
                 update_debounce = 200,  -- update delay after a text change (in milliseconds)
-                -- Define how various check-boxes are displayed
                 reference_text = { hl_group = "ObsidianRefText" },
                 highlight_text = { hl_group = "ObsidianHighlightText" },
                 tags = { hl_group = "ObsidianTag" },

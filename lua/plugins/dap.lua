@@ -72,7 +72,7 @@ local function python_dap()
     return {
         "mfussenegger/nvim-dap-python",
         config = function()
-            require("dap-python").setup("/usr/bin/python3")
+            require("dap-python").setup("env/bin/python3.12")
         end,
     }
 end

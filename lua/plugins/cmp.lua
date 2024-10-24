@@ -30,10 +30,10 @@ return {
                 Operator = '󰘫 ',
             }
             mapping = cmp.mapping.preset.insert({
-                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
+                ['<C-b>'] = cmp.mapping.scroll_docs(-6),
+                ['<C-B>'] = cmp.mapping.scroll_docs(6),
+                ['<A-Space>'] = cmp.mapping.complete(),
+                ['<C-S-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
             })
             sources = cmp.config.sources(

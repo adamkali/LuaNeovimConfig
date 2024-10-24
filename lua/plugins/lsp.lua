@@ -59,6 +59,7 @@ return {
                 "svelte",
                 "marksman",
                 "tailwindcss",
+                "sqlls",
                 -- "omnisharp",
                 "emmet_ls",
                 "templ",

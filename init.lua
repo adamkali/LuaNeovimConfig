@@ -47,7 +47,7 @@ vim.opt.updatetime = 50
 vim.opt.showmode = false
 
 vim.opt.wrap = true
-vim.g.python3_host_prog="/usr/bin/python3"
+vim.g.python3_host_prog="/usr/bin/python3.12"
 
 
 local map = vim.api.nvim_set_keymap

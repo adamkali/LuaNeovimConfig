@@ -1,11 +1,16 @@
 return {
     {
-        "adamkali/vaporlush",
+        dir = '/home/adamkali/git/vaporlush',
         dependencies = { "rktjmp/lush.nvim" },
         lazy = false,
         name = "vaporlush",
         priority = 1000,
         config = function()
+            require 'vaporlush'.setup {
+                cache = true,
+                style = "vapor",
+            }
+            vim.cmd([[colorscheme vapor]])
         end
     },
     {
@@ -26,12 +31,17 @@ return {
                     neotree = false,
                 }
             }
-            vim.cmd([[colorscheme fluoromachine]])
         end
     },
-    {'norcalli/nvim-colorizer.lua',
-        config = function ()
+    {
+        "scottmckendry/cyberdream.nvim",
+        lazy = false,
+        priority = 1000,
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        config = function()
             require('colorizer').setup()
         end
-}
+    }
 }

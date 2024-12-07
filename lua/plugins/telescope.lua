@@ -5,6 +5,7 @@ return {
 	},
 	keys = {
 		{ "-hh", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+		{ "-hH", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
 		{ "-hg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
 		{ "-hc", "<cmd>Telescope commands<cr>", desc = "List Commands" },
 		{ "-hb", "<cmd>Telescope buffers<cr>", desc = "List Buffers" },
@@ -17,7 +18,7 @@ return {
 	},
 	opts = {
 		defaults = {
-			file_ignore_patterns = { "node_modules", "target" },
+			file_ignore_patterns = { "node_modules", "target", "bin" },
 		},
 	}
 }

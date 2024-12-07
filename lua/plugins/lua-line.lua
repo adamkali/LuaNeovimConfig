@@ -92,9 +92,9 @@ end
 -- 
 -- 
 local config = {
+    theme = vaporlush_theme,
     options = {
         icons_enabled = true,
-        theme = 'flouromachine',
         component_separators = '',
         section_separators = { right = '', left = '' },
         disabled_filetypes = {
@@ -233,5 +233,4 @@ return {
         opts = config
     },
     { 'MunifTanjim/nui.nvim' }
-
 }

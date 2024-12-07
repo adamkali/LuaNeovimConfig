@@ -59,7 +59,7 @@ map("n", "<C-q>", ":bd!<CR>", opts)
 map("n", ";", ":", opts)
 map("n", "Y", '"+y', opts)
 map("v", "Y", '"+y', opts)
-
+map("n", "<C-A-I>", "<C-^>", opts)
 
 -- Normal move
 map('n', 't', 'j', { noremap = true, silent = true })

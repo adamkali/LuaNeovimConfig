@@ -1,15 +1,7 @@
 vim.filetype.add({ extension = { templ = "templ" } })
 
-local glob_opts = {
-    mode = "n",     -- NORMAL mode
-    prefix = "",
-    buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,  -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = false, -- use `nowait` when creating keymaps
-    expr = false,   -- use `expr` when creating keymaps
-}
-
+local on_attatch = function(client, buffer)
+end
 
 return {
     {
@@ -46,12 +38,54 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        dependencies = {
+            {
+                "folke/lazydev.nvim",
+                ft = "lua", -- only load on lua files
+                opts = {
+                    library = {
+                        -- See the configuration section for more details
+                        -- Load luvit types when the `vim.uv` word is found
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    },
+                },
+            },
+        },
+        keys = {
+            { "g",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
+            { "gA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
+            { "gD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
+            { "gK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
+            { "gR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
+            { "gd", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
+            { "gi", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
+            { "gr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
+            {
+                "ga",
+                function()
+                    vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to previous diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+            {
+                "gs",
+                function()
+                    vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to next diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+        },
         config = function()
             local servers = {
                 "lua_ls",
-                --                "rust_analyzer",
                 "gopls",
-                "tsserver",
+                "ts_ls",
                 "docker_compose_language_service",
                 "dockerls",
                 "htmx",
@@ -60,7 +94,6 @@ return {
                 "marksman",
                 "tailwindcss",
                 "sqlls",
-                -- "omnisharp",
                 "emmet_ls",
                 "templ",
                 "pyright"
@@ -70,75 +103,25 @@ return {
                 ensure_installed = servers,
             }
             local lspconfig = require "lspconfig"
-            local wk = require 'which-key'
             local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-            local base_actions = function()
-                local opts = {
-                    mode = "n",     -- NORMAL mode
-                    prefix = "",
-                    buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
-                    silent = true,  -- use `silent` when creating keymaps
-                    noremap = true, -- use `noremap` when creating keymaps
-                    nowait = false, -- use `nowait` when creating keymaps
-                    expr = false,   -- use `expr` when creating keymaps
-                }
-                wk.register({
-                    g = {
-                        name = 'LSP Generic',
-                        d = { function() vim.lsp.buf.definition() end, 'Go to definition' },
-                        D = { function() vim.lsp.buf.declaration() end, 'Go to declaration' },
-                        i = { function() vim.lsp.buf.implementation() end, 'Go to implementation' },
-                        r = { function() vim.lsp.buf.rename() end, 'Rename File' },
-                        R = { function() vim.lsp.buf.references() end, 'Find References' },
-                        K = { function() vim.lsp.buf.hover() end, 'Show Hover Actions' },
-                        a = {
-                            function()
-                                vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
-                            end,
-                            'Go to previous diagnostic'
-                        },
-                        s = {
-                            function()
-                                vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
-                            end,
-                            'Go to next diagnostic'
-                        }
-                    }
-                }, opts)
-
-                wk.register({
-                    ["f"] = {
-                        name = 'LSP Workspace',
-                        s = { function() vim.lsp.buf.workspace_symbol() end, 'Search workspace symbols' },
-                    },
-                }, opts)
-                wk.register({
-                    ["<F2>"] = { function() vim.lsp.buf.code_action() end, 'Code action' }
-                })
-            end
             for i, value in ipairs(servers) do
                 lspconfig[value].setup {
-                    on_attatch = base_actions(),
                     capabilities = capabilities
                 }
             end
             -- for gleam as well
             lspconfig.gleam.setup({
-                on_attatch = base_actions(),
                 capabilities = capabilities
             })
             lspconfig.html.setup({
-                on_attach = base_actions,
                 capabilities = capabilities,
                 filetypes = { "html", "templ" },
             })
             lspconfig.htmx.setup({
-                on_attach = base_actions,
                 capabilities = capabilities,
                 filetypes = { "html", "templ" },
             })
             lspconfig.tailwindcss.setup({
-                on_attach = base_actions,
                 capabilities = capabilities,
                 filetypes = { "templ", "astro", "javascript", "typescript", "react", "svelte" },
                 settings = {
@@ -150,7 +133,6 @@ return {
                 },
             })
             lspconfig.omnisharp.setup({
-                on_attach=base_actions(),
                 capabilities = capabilities,
                 enable_roslyn_analysers = true,
                 enable_import_completion = true,

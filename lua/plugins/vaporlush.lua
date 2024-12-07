@@ -1,42 +1,20 @@
 return {
     {
-        dir = '/home/adamkali/git/vaporlush',
-        dependencies = { "rktjmp/lush.nvim" },
+        dir = "~/git/vaporlush",
+        --"adamkali/vaporlush",
+        --branch = "v2",
         lazy = false,
-        name = "vaporlush",
         priority = 1000,
         config = function()
-            require 'vaporlush'.setup {
-                cache = true,
+            require'vaporlush'.setup{
                 style = "vapor",
+                cache = true,
             }
             vim.cmd([[colorscheme vapor]])
         end
     },
     {
         "catppuccin/nvim", name = "catppuccin", priority = 1000
-    },
-    {
-        'maxmx03/fluoromachine.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            local fm = require 'fluoromachine'
-
-            fm.setup {
-                glow = true,
-                theme = 'fluoromachine',
-                transparent = false,
-                plugins = {
-                    neotree = false,
-                }
-            }
-        end
-    },
-    {
-        "scottmckendry/cyberdream.nvim",
-        lazy = false,
-        priority = 1000,
     },
     {
         'norcalli/nvim-colorizer.lua',

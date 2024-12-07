@@ -10,6 +10,7 @@ local function setup_neotest()
                 "nvim-treesitter/nvim-treesitter",
                 "nvim-neotest/neotest-plenary",
                 "nvim-neotest/neotest-vim-test",
+                "nvim-neotest/neotest-python",
                 "Issafalcon/neotest-dotnet",
             },
             opts = function()
@@ -22,22 +23,23 @@ local function setup_neotest()
                             },
                             dotnet_additional_args = { "--verbosity detailed" },
                             discovery_root = "project" -- Default
-                        })
+                        }),
+                        require("neotest-python")
                     }
                 }
             end,
             keys = {
-                { "=ta", function() require("neotest").run.attach() end, desc = "[T]est [a]ttach", },
-                { "=tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "[T]est run [f]ile", },
-                { "=tA", function() require("neotest").run.run(vim.uv.cwd()) end, desc = "[T]est [A]ll files", },
-                { "=tS", function() require("neotest").run.run({ suite = true }) end, desc = "[T]est [S]uite", },
-                { "=tn", function() require("neotest").run.run() end, desc = "[t]est [n]earest", },
-                { "=tl", function() require("neotest").run.run_last() end, desc = "[T]est [l]ast", },
-                { "=ts", function() require("neotest").summary.toggle() end, desc = "[T]est [s]ummary", },
-                { "=to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "[T]est [o]output", },
-                { "=tO", function() require("neotest").output_panel.toggle() end, desc = "[T]est [O]output panel", },
-                { "=tt", function() require("neotest").run.stop() end, desc = "[T]est [t]erminate", },
-                { "=td", function() require("neotest").run.run({ suite = false, strategy = "dap" }) end, desc = "Debug nearest test", },
+                { "=ta", function() require("neotest").run.attach() end,                                     desc = "Test attach", },
+                { "=tf", function() require("neotest").run.run(vim.fn.expand("%")) end,                      desc = "Test run file", },
+                { "=tA", function() require("neotest").run.run(vim.uv.cwd()) end,                            desc = "Test All files", },
+                { "=tS", function() require("neotest").run.run({ suite = true }) end,                        desc = "Test Suite", },
+                { "=tn", function() require("neotest").run.run() end,                                        desc = "Test Nearest", },
+                { "=tl", function() require("neotest").run.run_last() end,                                   desc = "Test last", },
+                { "=ts", function() require("neotest").summary.toggle() end,                                 desc = "Test summary", },
+                { "=to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Test output", },
+                { "=tO", function() require("neotest").output_panel.toggle() end,                            desc = "Test output panel", },
+                { "=tt", function() require("neotest").run.stop() end,                                       desc = "Test terminate", },
+                { "=td", function() require("neotest").run.run({ suite = false, strategy = "dap" }) end,     desc = "Debug nearest test", },
             },
         }
     }
@@ -102,12 +104,11 @@ return {
             { "<space>e", function() require 'dapui'.eval() end,     desc = 'Evaluate Under Cursor' },
             { "<space>u", function() require('dapui').toggle() end,  desc = 'Toggle Ui' },
             { "<space>g", function() require('dap').goto_() end,     desc = 'Go Here' },
-            { "<F3>",     function() require('dap').continue() end,  desc = 'Continue' },
-            { "<F15>",    function() require('dap').restart() end,   desc = 'Restart' },
-            { "<F27>",    function() require('dap').close() end,     desc = 'Stop' },
-            { "<F4>",     function() require('dap').step_over() end, desc = 'Step Over' },
-            { "<F5>",     function() require('dap').step_into() end, desc = 'Step Into' },
-            { "<F17>",    function() require('dap').step_out() end,  desc = 'Step Out' },
+            { "<F5>",     function() require('dap').continue() end,  desc = 'Continue' },
+            { "<F17>",    function() require('dap').restart() end,   desc = 'Restart' },
+            { "<F10>",    function() require('dap').step_over() end, desc = 'Step Over' },
+            { "<F11>",    function() require('dap').step_into() end, desc = 'Step Into' },
+            { "<F12>",    function() require('dap').step_out() end,  desc = 'Step Out' },
         },
 
         opts = function()

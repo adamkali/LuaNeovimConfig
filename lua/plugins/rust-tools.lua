@@ -1,7 +1,7 @@
-map = vim.keymap.set
+local map = vim.keymap.set
 return {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
+    version = "^5", -- Recommended
     ft = { "rust" },
     opts = {
         server = {
@@ -63,7 +63,6 @@ return {
                     procMacro = {
                         enable = true,
                         ignored = {
-                            ["async-trait"] = { "async_trait" },
                             ["napi-derive"] = { "napi" },
                             ["async-recursion"] = { "async_recursion" },
                         },

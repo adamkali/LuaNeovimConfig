@@ -20,6 +20,19 @@ return {
                     date_format = "%Y-%m-%d-%a",
                     time_format = "%H:%M",
                 },
+                notes_subdir = "notes",
+
+                -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
+                -- levels defined by "vim.log.levels.*".
+                log_level = vim.log.levels.INFO,
+
+                daily_notes = {
+                    folder = "05  Dailies",
+                    date_format = "%Y-%m-%d",
+                    alias_format = "%B %-d, %Y",
+                    default_tags = { "daily-notes" },
+                    template = nil
+                },
                 ui = {
                     enable = true,         -- set to false to disable all additional syntax features
                     update_debounce = 200, -- update delay after a text change (in milliseconds)
@@ -34,7 +47,9 @@ return {
             { '=v', '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split vertically' },
             { '=V', '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split horizontally' },
             { '=b', '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show Back Links' },
-            { '=t', '<cmd>:ObsidianToday<CR>',             desc = 'Open Daily' },
+            { '==', '<cmd>:ObsidianToday<CR>',             desc = 'Open Today' },
+            { '=N', '<cmd>:ObsidianYesterday<CR>',         desc = 'Open Yesterday' },
+            { '=n', '<cmd>:ObsidianTomorrow<CR>',         desc = 'Open Yesterday' },
             { '=T', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use Template' },
             { '=h', '<cmd>:ObsidianSearch<CR>',            desc = 'Search' },
         }

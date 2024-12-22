@@ -1,20 +1,18 @@
+local style = "vapor"
+--local style = "blossom"
+--local style = "1996"
+
 return {
     {
-        dir = "~/git/vaporlush",
-        --"adamkali/vaporlush",
-        --branch = "v2",
+        --dir = "~/git/vaporlush",
+        "adamkali/vaporlush",
+        branch = "v2",
         lazy = false,
         priority = 1000,
-        config = function()
-            require'vaporlush'.setup{
-                style = "vapor",
-                cache = true,
-            }
-            vim.cmd([[colorscheme vapor]])
-        end
-    },
-    {
-        "catppuccin/nvim", name = "catppuccin", priority = 1000
+        opts = {
+            cache = true,
+            style = style
+        },
     },
     {
         'norcalli/nvim-colorizer.lua',

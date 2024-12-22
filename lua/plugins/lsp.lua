@@ -1,6 +1,37 @@
 vim.filetype.add({ extension = { templ = "templ" } })
 
-local on_attatch = function(client, buffer)
+local on_attatch = function(_, _)
+    local wk = require 'which-key'
+    wk.add{
+            { "g",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
+            { "gA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
+            { "gD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
+            { "gK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
+            { "gR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
+            { "gd", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
+            { "gi", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
+            { "gr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
+            {
+                "ga",
+                function()
+                    vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to previous diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+            {
+                "gs",
+                function()
+                    vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to next diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+        }
 end
 
 return {
@@ -43,42 +74,21 @@ return {
                 "folke/lazydev.nvim",
                 ft = "lua", -- only load on lua files
                 opts = {
+
                     library = {
-                        -- See the configuration section for more details
-                        -- Load luvit types when the `vim.uv` word is found
-                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                      -- Library paths can be absolute
+                      "~/git/vaporlush/lua/vaporlush",
+                      -- Or relative, which means they will be resolved from the plugin dir.
+                      "lazy.nvim",
+                      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                      { path = "LazyVim", words = { "LazyVim" } },
                     },
-                },
-            },
-        },
-        keys = {
-            { "g",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
-            { "gA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
-            { "gD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
-            { "gK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
-            { "gR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
-            { "gd", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
-            { "gi", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
-            { "gr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
-            {
-                "ga",
-                function()
-                    vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
-                end,
-                desc = "Go to previous diagnostic",
-                expr = false,
-                nowait = false,
-                remap = false
-            },
-            {
-                "gs",
-                function()
-                    vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
-                end,
-                desc = "Go to next diagnostic",
-                expr = false,
-                nowait = false,
-                remap = false
+                    -- always enable unless `vim.g.lazydev_enabled = false`
+                    -- This is the default
+                    enabled = function(_)
+                      return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+                    end,
+                  },
             },
         },
         config = function()
@@ -104,24 +114,29 @@ return {
             }
             local lspconfig = require "lspconfig"
             local capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-            for i, value in ipairs(servers) do
+            for _, value in ipairs(servers) do
                 lspconfig[value].setup {
+                    on_attatch = on_attatch(),
                     capabilities = capabilities
                 }
             end
             -- for gleam as well
             lspconfig.gleam.setup({
+                on_attatch = on_attatch,
                 capabilities = capabilities
             })
             lspconfig.html.setup({
+                on_attatch = on_attatch,
                 capabilities = capabilities,
                 filetypes = { "html", "templ" },
             })
             lspconfig.htmx.setup({
+                on_attatch = on_attatch,
                 capabilities = capabilities,
                 filetypes = { "html", "templ" },
             })
             lspconfig.tailwindcss.setup({
+                on_attatch = on_attatch,
                 capabilities = capabilities,
                 filetypes = { "templ", "astro", "javascript", "typescript", "react", "svelte" },
                 settings = {
@@ -133,6 +148,7 @@ return {
                 },
             })
             lspconfig.omnisharp.setup({
+                on_attatch = on_attatch,
                 capabilities = capabilities,
                 enable_roslyn_analysers = true,
                 enable_import_completion = true,

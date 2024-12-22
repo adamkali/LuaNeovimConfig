@@ -11,7 +11,6 @@ return {
                 null_ls.builtins.formatting.biome,
                 null_ls.builtins.formatting.jq,
                 null_ls.builtins.formatting.xmllint,
-                require("none-ls-luacheck.diagnostics.luacheckrc"),
             }
         })
     end,

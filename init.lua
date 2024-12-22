@@ -33,7 +33,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
 
-vim.opt.hlsearch = true 
+vim.opt.hlsearch = true
 vim.opt.incsearch = false
 
 vim.opt.termguicolors = true
@@ -82,6 +82,7 @@ map("n", "<C-h>", ":wincmd h <CR>", opts)
 map("n", "<C-t>", ":wincmd j <CR>", opts)
 map("n", "<C-n>", ":wincmd k <CR>", opts)
 map("n", "<C-s>", ":wincmd l <CR>", opts)
+
 
 
 

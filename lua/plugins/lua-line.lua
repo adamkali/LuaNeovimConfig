@@ -1,6 +1,7 @@
 
 local function debug_nvim_web_dev_icons()
 
+    return config
 end
 
 return {
@@ -30,13 +31,10 @@ return {
                 csproj = {
                     icon = "",
                     color = "#3333ff",
-                    name="CSharpProject"
+                    name = "CSharpProject"
                 },
             }
         end,
-        keys = {
-            { "--vd", debug_nvim_web_dev_icons, desc = "Find Files" }
-        }
     },
     { 'MunifTanjim/nui.nvim' }
 }

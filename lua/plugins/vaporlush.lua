@@ -1,3 +1,7 @@
+local style = "vapor"
+--local style = "blossom"
+--local style = "1996"
+
 return {
     {
         --dir = "~/git/vaporlush",

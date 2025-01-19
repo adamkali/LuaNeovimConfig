@@ -1,7 +1,60 @@
-local style = "vapor"
---local style = "blossom"
---local style = "1996"
 
+local function replaceVimModes()
+    local mode_map = {
+        n = '  ',
+        i = '  ',
+        c = '  ',
+        V = '  ',
+        [''] = ' 󰛐 ',
+        v = ' 󰛐 ',
+        t = '󰞷',
+        default = '',
+    }
+    -- get the current mode
+    -- if mode is nil then return default
+    -- else return the mode
+    local mode = mode_map[vim.fn.mode()] or mode_map.default
+    return mode
+end
+
+-- a function to get the current file name without its extension
+-- and with if it is modified or not
+local function get_file_status()
+    local fname = vim.fn.expand('%:t')
+    if vim.bo.modified then
+        return '  ' .. fname .. ' '
+    end
+    return ' ' .. fname .. ' '
+end
+
+-- 
+-- 
+local config = {
+
+local function ins_right(component)
+    table.insert(config.sections.lualine_y, component)
+end
+ins_right { -- Lsp server name .
+    function()
+        local msg = ''
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then
+            
+            return msg
+        end
+        for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return client.name
+            end
+        end
+        return msg
+    end,
+    icon = ' ',
+    separator = { right = '', left = '' },
+    color = { fg = '#00cc99', gui = 'bold' },
+}
 return {
     {
         --dir = "~/git/vaporlush",
@@ -9,9 +62,7 @@ return {
         branch = "v2",
         dependencies = {
             'nvim-lualine/lualine.nvim',
-            opts = function ()
-                require('vaporlush.init')
-local config = {    
+            opts = {    
     options = {
         icons_enabled = true,
         theme = 'vaporlush',
@@ -43,10 +94,10 @@ local config = {
             {
                 'diff',
                 symbols = { added = ' ', modified = ' ', removed = '' },
-                color_added = vim.g.Vaporlush.palette.gitsigns.info,
-                color_modified = vim.g.Vaporlush.palette.gitsigns.add,
-                color_removed =  vim.g.Vaporlush.palette.gitsigns.change,
-                right_padding =  vim.g.Vaporlush.palette.gitsigns.danger
+                color_added = vim.g.Vaporlush.gitsigns.info,
+                color_modified = vim.g.Vaporlush.gitsigns.add,
+                color_removed =  vim.g.Vaporlush.gitsigns.change,
+                right_padding =  vim.g.Vaporlush.gitsigns.danger
             }
         },
         lualine_c = { get_file_status, },
@@ -81,62 +132,7 @@ local config = {
     inactive_winbar = {},
     extensions = {}
 }
-local function replaceVimModes()
-    local mode_map = {
-        n = '  ',
-        i = '  ',
-        c = '  ',
-        V = '  ',
-        [''] = ' 󰛐 ',
-        v = ' 󰛐 ',
-        t = '󰞷',
-        default = '',
-    }
-    -- get the current mode
-    -- if mode is nil then return default
-    -- else return the mode
-    local mode = mode_map[vim.fn.mode()] or mode_map.default
-    return mode
-end
-
--- a function to get the current file name without its extension
--- and with if it is modified or not
-local function get_file_status()
-    local fname = vim.fn.expand('%:t')
-    if vim.bo.modified then
-        return '  ' .. fname .. ' '
-    end
-    return ' ' .. fname .. ' '
-end
-
--- 
--- 
-local function ins_right(component)
-    table.insert(config.sections.lualine_y, component)
-end
-ins_right { -- Lsp server name .
-    function()
-        local msg = ''
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        local clients = vim.lsp.get_active_clients()
-        if next(clients) == nil then
-            
-            return msg
-        end
-        for _, client in ipairs(clients) do
-            local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                return client.name
-            end
-        end
-        return msg
-    end,
-    icon = ' ',
-    separator = { right = '', left = '' },
-    color = { fg = '#00cc99', gui = 'bold' },
-}
-end
-                    
+                
         },
         lazy = false,
         priority = 1000,

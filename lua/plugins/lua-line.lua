@@ -1,8 +1,4 @@
 
-local function debug_nvim_web_dev_icons()
-
-    return config
-end
 
 return {
     {

@@ -21,7 +21,7 @@ return {
         },
         opts = {
             defaults = {
-                file_ignore_patterns = { "node_modules", "target", "bin", "env" },
+                file_ignore_patterns = { "node_modules", "target", "env" },
             },
         },
     },

@@ -5,7 +5,8 @@ return {
     keys = {
         { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
         { "<M-c>",     function() Snacks.terminal.open() end,         desc = "Open Terminal" },
-        { "<M-C>",     function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal" }
+        { "<M-C>",     function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal" },
+        { "<leader>g", function() Snacks.lazygit.open() end, desc = "Open Lazygit"},
     },
     opts = {
         bigfile = { enabled = true },

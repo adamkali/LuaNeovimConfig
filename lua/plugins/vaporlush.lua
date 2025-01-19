@@ -4,9 +4,9 @@ local style = "vapor"
 
 return {
     {
-        --dir = "~/git/vaporlush",
-        "adamkali/vaporlush",
-        branch = "v2",
+        dir = "~/git/vaporlush",
+        --"adamkali/vaporlush",
+        --branch = "v2",
         lazy = false,
         priority = 1000,
         opts = {

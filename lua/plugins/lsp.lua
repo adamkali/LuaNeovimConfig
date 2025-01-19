@@ -98,13 +98,13 @@ return {
                 "ts_ls",
                 "docker_compose_language_service",
                 "dockerls",
-                "htmx",
+                --"htmx",
                 "html",
                 "svelte",
                 "marksman",
                 "tailwindcss",
                 "sqlls",
-                "emmet_ls",
+                --"emmet_ls",
                 "templ",
                 "pyright"
             }
@@ -130,11 +130,11 @@ return {
                 capabilities = capabilities,
                 filetypes = { "html", "templ" },
             })
-            lspconfig.htmx.setup({
-                on_attatch = on_attatch,
-                capabilities = capabilities,
-                filetypes = { "html", "templ" },
-            })
+            --lspconfig.htmx.setup({
+            --    on_attatch = on_attatch,
+            --    capabilities = capabilities,
+            --    filetypes = { "html", "templ" },
+            --})
             lspconfig.tailwindcss.setup({
                 on_attatch = on_attatch,
                 capabilities = capabilities,

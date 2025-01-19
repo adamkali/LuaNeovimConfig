@@ -24,7 +24,10 @@ local function setup_neotest()
                             dotnet_additional_args = { "--verbosity detailed" },
                             discovery_root = "project" -- Default
                         }),
-                        require("neotest-python")
+                        require("neotest-python"),
+                        require("rustaceanvim.neotest")({
+                            dap
+                        }),
                     }
                 }
             end,

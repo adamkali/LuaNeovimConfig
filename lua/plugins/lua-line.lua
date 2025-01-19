@@ -30,8 +30,6 @@ local lualine_options = function()
     local config = {
         options = {
             theme = 'vaporlush',
-            --theme = 'blossom',
-            --theme = '1996',
             icons_enabled = true,
             component_separators = '',
             disabled_filetypes = {
@@ -62,7 +60,7 @@ local lualine_options = function()
             lualine_y = {
                 'progress',
                 {
-                    -- Lsp servcer name .
+                    -- Lsp server name .
                     function()
                         local msg = ''
                         local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -90,10 +88,6 @@ local lualine_options = function()
                         info  = ' 󰚩  ',
                         hint  = ' 󱜙  ',
                     },
-                    sources = { 'nvim_lsp', },
-                    left_padding = 2,
-                    colored = true,
-                    always_visible = true
                 }
             }
         },
@@ -120,6 +114,24 @@ return {
         config = function()
             local ndevicons = require 'nvim-web-devicons'
             ndevicons.set_icon {
+                ["docker-swarm.yml"] = {
+                    icon = " ",
+                    color = "#f6306f",
+                    cterm_color = "65",
+                    name = "DockerSwarm"
+                },
+                ["docker-swarm.yaml"] = {
+                    icon = " ",
+                    color = "#f6306f",
+                    cterm_color = "65",
+                    name = "DockerStack"
+                },
+                rs = {
+                    icon = " ",
+                    color = "#fe401f",
+                    cterm_color = "65",
+                    name ="DevIconRs"
+                },
                 gleam = {
                     icon = "󰊠",
                     color = "#ef57e5",
@@ -143,8 +155,11 @@ return {
                     color = "#3333ff",
                     name = "CSharpProject"
                 },
+
             }
         end,
+        opts = {
+        }
     },
     {
         'nvim-lualine/lualine.nvim',

@@ -1,5 +1,5 @@
-local style = "vapor"
---local style = "blossom"
+--local style = "vapor"
+local style = "blossom"
 --local style = "1996"
 local function replaceVimModes()
     local mode_map = {
@@ -31,7 +31,7 @@ end
 
 return {
     {
-        --dir = "~/git/vaporlush",
+        dir = "~/git/vaporlush",
         "adamkali/vaporlush",
         branch = "v2",
         dependencies = {

@@ -6,42 +6,42 @@ return {
     opts = {
         server = {
             on_attach = function(_, bufnr)
-                map (
+                map(
                     "n",
                     "<leader>rd",
                     function() vim.cmd.RustLsp { 'debuggables' } end,
-                    {desc = "Rust Debuggables", buffer = bufnr}
+                    { desc = "Rust Debuggables", buffer = bufnr }
                 )
-                map (
+                map(
                     "n",
-                     "<leader>rD",
+                    "<leader>rD",
                     function() vim.cmd.RustLsp { 'debuggables', bang = true } end,
-                    {desc = "Last Debuggables", buffer = bufnr}
+                    { desc = "Last Debuggables", buffer = bufnr }
                 )
-                map (
+                map(
                     "n",
-                     "<leader>rt",
-                    function() vim.cmd.RustLsp { 'testables'} end,
-                    {desc = "Rust Testables", buffer = bufnr}
+                    "<leader>rt",
+                    function() vim.cmd.RustLsp { 'testables' } end,
+                    { desc = "Rust Testables", buffer = bufnr }
                 )
-                map (
+                map(
                     "n",
-                     "<leader>rT",
-                    function() vim.cmd.RustLsp { 'testables', bang = true} end,
-                    {desc = "Last Testables", buffer = bufnr}
+                    "<leader>rT",
+                    function() vim.cmd.RustLsp { 'testables', bang = true } end,
+                    { desc = "Last Testables", buffer = bufnr }
                 )
-                map (
+                map(
                     "n",
-                     "<F2>",
-                    function() vim.cmd.RustLsp { 'codeAction'} end,
-                    {desc = "Code Actions", buffer = bufnr}
+                    "<F2>",
+                    function() vim.cmd.RustLsp { 'codeAction' } end,
+                    { desc = "Code Actions", buffer = bufnr }
                 )
-                map (
+                map(
                     "n",
-                    "<leader>rc", function ()
+                    "<leader>rc", function()
                         vim.cmd.RustLsp 'openCargo'
                     end,
-                    {desc = "Open Cargo.toml", buffer = bufnr}
+                    { desc = "Open Cargo.toml", buffer = bufnr }
                 )
             end,
             default_settings = {
@@ -69,10 +69,10 @@ return {
                     },
                 },
             },
+            dap = {}
         },
     },
     config = function(_, opts)
         vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
     end,
 }
-

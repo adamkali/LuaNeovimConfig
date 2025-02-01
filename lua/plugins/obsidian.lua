@@ -13,7 +13,8 @@ return {
         opts = function()
             return {
                 --dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
-                dir = "~/notes/My_Second_Mind",
+                -- dir = "~/notes/My_Second_Mind",
+                dir = "/mnt/c/Users/adam/Documents/notes/My_Second_Mind",
                 --dir = "~/me", -- Arch Laptop and Desktop
                 templates = {
                     subdir = "templates",
@@ -21,6 +22,7 @@ return {
                     time_format = "%H:%M",
                 },
                 notes_subdir = "notes",
+                disable_frontmatter = true,
 
                 -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
                 -- levels defined by "vim.log.levels.*".
@@ -31,14 +33,23 @@ return {
                     date_format = "%Y-%m-%d",
                     alias_format = "%B %-d, %Y",
                     default_tags = { "daily-notes" },
-                    template = nil
+                    template = "dailies-template.md"
                 },
                 ui = {
                     enable = true,         -- set to false to disable all additional syntax features
-                    update_debounce = 200, -- update delay after a text change (in milliseconds)
+                    update_debounce = 150, -- update delay after a text change (in milliseconds)
                     reference_text = { hl_group = "ObsidianRefText" },
                     highlight_text = { hl_group = "ObsidianHighlightText" },
                     tags = { hl_group = "ObsidianTag" },
+                    checkboxes = {
+                        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+                        ["x"] = { char = "󰔓", hl_group = "ObsidianDone" },
+                        [">"] = { char = "󰭻", hl_group = "ObsidianRightArrow" },
+                        ["~"] = { char = "󱜸", hl_group = "ObsidianTilde" },
+                        ["!"] = { char = "󰭺", hl_group = "ObsidianImportant" },
+                        --- custom ---
+                        ["n"] = { char = "", hl_group = "DiagnosticError"},
+                    }
                 }
             }
         end,
@@ -49,7 +60,7 @@ return {
             { '=b', '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show Back Links' },
             { '==', '<cmd>:ObsidianToday<CR>',             desc = 'Open Today' },
             { '=N', '<cmd>:ObsidianYesterday<CR>',         desc = 'Open Yesterday' },
-            { '=n', '<cmd>:ObsidianTomorrow<CR>',         desc = 'Open Yesterday' },
+            { '=n', '<cmd>:ObsidianTomorrow<CR>',          desc = 'Open Yesterday' },
             { '=T', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use Template' },
             { '=h', '<cmd>:ObsidianSearch<CR>',            desc = 'Search' },
         }

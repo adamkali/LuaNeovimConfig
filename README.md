@@ -52,6 +52,18 @@ NVIM_APPNAME=adamkali/LuaNeovimConfig/ nvim
 ### keybinding
 
 + [folke/which-key.nvim](https://dotfyle.com/plugins/folke/which-key.nvim)
+
+#### telescope
+
+| WHAT ? |  MNUMONIC ? |  DOES ? |
+| --------------- | --------------- | --------------- |
+| `<space>h` | Telescope () | Item3.1 |
+| `` | Item2.2 | Item3.2 |
+| `` | Item2.3 | Item3.3 |
+| `` | Item2.4 | Item3.4 |
+
+
+
 ### lsp
 
 + [onsails/lspkind.nvim](https://dotfyle.com/plugins/onsails/lspkind.nvim)

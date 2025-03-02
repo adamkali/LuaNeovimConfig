@@ -2,7 +2,8 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
-            { 'nvim-lua/plenary.nvim' }
+            { 'nvim-lua/plenary.nvim' },
+            { 'steavearc/dressing.nvim', opts = {}}
         },
         keys = {
             { "-hh", "<cmd>Telescope find_files<cr>",                    desc = "Find Files" },
@@ -17,7 +18,6 @@ return {
             { "-hr", "<cmd>Telescope lsp_refrences<cr>",                 desc = "Lsp Refrences" },
             { "-hn", "<cmd>Telescope nerdy<cr>",                         desc = "Nerdfonts " },
             { "-H",  "<cmd>Telescope <cr>",                              desc = "Open Telescope" },
-
         },
         opts = {
             defaults = {

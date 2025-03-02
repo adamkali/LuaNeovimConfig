@@ -3,16 +3,16 @@ vim.filetype.add({ extension = { templ = "templ" } })
 local on_attatch = function(_, _)
     local wk = require 'which-key'
     wk.add{
-            { "g",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
-            { "gA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
-            { "gD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
-            { "gK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
-            { "gR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
-            { "gd", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
-            { "gi", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
-            { "gr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
+            { "<M-m>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
+            { "<M-m>A", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
+            { "<M-m>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
+            { "<M-m>K", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
+            { "<M-m>R", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
+            { "<M-m>d", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
+            { "<M-m>i", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
+            { "<M-m>r", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
             {
-                "ga",
+                "<M-m>a",
                 function()
                     vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
                 end,
@@ -22,7 +22,7 @@ local on_attatch = function(_, _)
                 remap = false
             },
             {
-                "gs",
+                "<M-m>s",
                 function()
                     vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
                 end,
@@ -43,8 +43,8 @@ return {
             "folke/neodev.nvim",
         },
         keys = {
-            { "+mu", "<cmd>:MasonUpdate<cr>", desc = "Mason Update" },
-            { "+mo", "<cmd>:Mason <cr>",      desc = "Mason Open Menu" }
+            { "<M-M>u", "<cmd>:MasonUpdate<cr>", desc = "Mason Update" },
+            { "<M-M>o", "<cmd>:Mason <cr>",      desc = "Mason Open Menu" }
         },
         opts = {
             ui = {
@@ -99,6 +99,7 @@ return {
                 "docker_compose_language_service",
                 "dockerls",
                 --"htmx",
+                "clangd",
                 "html",
                 "svelte",
                 "marksman",

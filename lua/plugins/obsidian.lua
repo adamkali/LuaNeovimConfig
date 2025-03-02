@@ -26,8 +26,6 @@ return {
 
                 -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
                 -- levels defined by "vim.log.levels.*".
-                log_level = vim.log.levels.INFO,
-
                 daily_notes = {
                     folder = "05  Dailies",
                     date_format = "%Y-%m-%d",
@@ -53,17 +51,6 @@ return {
                 }
             }
         end,
-        keys = {
-            -- { '=d', '<cmd>:ObsidianFollowLink<CR>', desc = 'Go To' },
-            { '=v', '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split vertically' },
-            { '=V', '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split horizontally' },
-            { '=b', '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show Back Links' },
-            { '==', '<cmd>:ObsidianToday<CR>',             desc = 'Open Today' },
-            { '=N', '<cmd>:ObsidianYesterday<CR>',         desc = 'Open Yesterday' },
-            { '=n', '<cmd>:ObsidianTomorrow<CR>',          desc = 'Open Yesterday' },
-            { '=T', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use Template' },
-            { '=h', '<cmd>:ObsidianSearch<CR>',            desc = 'Search' },
-        }
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',

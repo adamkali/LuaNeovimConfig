@@ -1,5 +1,5 @@
 --local style = "vapor"
-local style = "blossom"
+local style = "vapor"
 --local style = "1996"
 local function replaceVimModes()
     local mode_map = {

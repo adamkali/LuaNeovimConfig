@@ -12,6 +12,12 @@ local function setup_neotest()
                 "nvim-neotest/neotest-vim-test",
                 "nvim-neotest/neotest-python",
                 "Issafalcon/neotest-dotnet",
+                {
+                    "fredrikaverpil/neotest-golang", -- Installation
+                    dependencies = {
+                        "leoluz/nvim-dap-go",
+                    },
+                },
             },
             opts = function()
                 return {
@@ -24,10 +30,11 @@ local function setup_neotest()
                             dotnet_additional_args = { "--verbosity detailed" },
                             discovery_root = "project" -- Default
                         }),
-                        require("neotest-python"),
-                        require("rustaceanvim.neotest")({
-                            dap
+                        require("neotest-python")({
+                            python = ".env/bin/python"
                         }),
+                        require("rustaceanvim.neotest"),
+                        require("neotest-golang")
                     }
                 }
             end,
@@ -48,30 +55,6 @@ local function setup_neotest()
     }
 end
 
-
-local function go_dap()
-    return {
-        'leoluz/nvim-dap-go',
-        opts = {
-            dap_configurations = {
-                {
-                    type = 'go',
-                    name = 'API Debug',
-                    request = 'launch',
-                    program = './main.go'
-                }
-            },
-            delve = {
-                path = "dlv",
-                initialize_timeout_sec = 20,
-                port = "${port}",
-                args = {},
-                build_flags = "",
-                detached = true
-            },
-        }
-    }
-end
 
 local function python_dap()
     return {
@@ -167,6 +150,5 @@ return {
         end,
     },
     python_dap(),
-    go_dap(),
     setup_neotest()
 }

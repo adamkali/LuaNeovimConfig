@@ -3,10 +3,8 @@ return {
     priority = 1000,
     lazy = false,
     keys = {
-        { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-        { "<M-c>",     function() Snacks.terminal.open() end,         desc = "Open Terminal" },
-        { "<M-C>",     function() Snacks.terminal.toggle() end,         desc = "Toggle Terminal" },
-        { "<leader>g", function() Snacks.lazygit.open() end, desc = "Open Lazygit"},
+        { "<c-s>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+        { "<c-s>g", function() Snacks.lazygit.open() end, desc = "Open Lazygit"},
     },
     opts = {
         bigfile = { enabled = true },

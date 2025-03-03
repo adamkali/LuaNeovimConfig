@@ -14,7 +14,8 @@ return {
             return {
                 --dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
                 -- dir = "~/notes/My_Second_Mind",
-                dir = "/mnt/c/Users/adam/Documents/notes/My_Second_Mind",
+                -- 
+                dir = "/mnt/p/My Mind",
                 --dir = "~/me", -- Arch Laptop and Desktop
                 templates = {
                     subdir = "templates",
@@ -53,17 +54,6 @@ return {
                 }
             }
         end,
-        keys = {
-            -- { '=d', '<cmd>:ObsidianFollowLink<CR>', desc = 'Go To' },
-            { '=v', '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split vertically' },
-            { '=V', '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split horizontally' },
-            { '=b', '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show Back Links' },
-            { '==', '<cmd>:ObsidianToday<CR>',             desc = 'Open Today' },
-            { '=N', '<cmd>:ObsidianYesterday<CR>',         desc = 'Open Yesterday' },
-            { '=n', '<cmd>:ObsidianTomorrow<CR>',          desc = 'Open Yesterday' },
-            { '=T', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use Template' },
-            { '=h', '<cmd>:ObsidianSearch<CR>',            desc = 'Search' },
-        }
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',

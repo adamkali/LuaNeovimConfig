@@ -2,36 +2,38 @@ vim.filetype.add({ extension = { templ = "templ" } })
 
 local on_attatch = function(_, _)
     local wk = require 'which-key'
-    wk.add{
-            { "g",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
-            { "gA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
-            { "gD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
-            { "gK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
-            { "gR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
-            { "gd", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
-            { "gi", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
-            { "gr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
-            {
-                "ga",
-                function()
-                    vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
-                end,
-                desc = "Go to previous diagnostic",
-                expr = false,
-                nowait = false,
-                remap = false
-            },
-            {
-                "gs",
-                function()
-                    vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
-                end,
-                desc = "Go to next diagnostic",
-                expr = false,
-                nowait = false,
-                remap = false
-            },
-        }
+    local lsp_leader = "<M-a>"
+    wk.add {
+        { lsp_leader, expr = false, group = "LSP Generic", nowait = false, remap = false, icon = { icon = "󰧑", hl = "Function" } },
+        --
+        { lsp_leader .. "A", function() vim.lsp.buf.code_action() end, desc = 'LSP Code action', expr = false, nowait = false, remap = false },
+        { lsp_leader .. "D", function() vim.lsp.buf.declaration() end, desc = "LSP Go to declaration", expr = false, nowait = false, remap = false },
+        { lsp_leader .. "K", function() vim.lsp.buf.hover() end, desc = "LSP Show Hover Actions", expr = false, nowait = false, remap = false },
+        { lsp_leader .. "R", function() vim.lsp.buf.references() end, desc = "LSP Find References", expr = false, nowait = false, remap = false },
+        { lsp_leader .. "d", function() vim.lsp.buf.definition() end, desc = "LSP Go to definition", expr = false, nowait = false, remap = false },
+        { lsp_leader .. "i", function() vim.lsp.buf.implementation() end, desc = "LSP Go to implementation", expr = false, nowait = false, remap = false },
+        { lsp_leader .. "r", function() vim.lsp.buf.rename() end, desc = "LSP Rename File", expr = false, nowait = false, remap = false },
+        {
+            "<M-x>",
+            function()
+                vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
+            end,
+            desc = "Go to previous diagnostic",
+            expr = false,
+            nowait = false,
+            remap = false
+        },
+        {
+            "<M-X>",
+            function()
+                vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
+            end,
+            desc = "Go to next diagnostic",
+            expr = false,
+            nowait = false,
+            remap = false
+        },
+    }
 end
 
 return {
@@ -76,19 +78,19 @@ return {
                 opts = {
 
                     library = {
-                      -- Library paths can be absolute
-                      "~/git/vaporlush/lua/vaporlush",
-                      -- Or relative, which means they will be resolved from the plugin dir.
-                      "lazy.nvim",
-                      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                      { path = "LazyVim", words = { "LazyVim" } },
+                        -- Library paths can be absolute
+                        "~/git/vaporlush/lua/vaporlush",
+                        -- Or relative, which means they will be resolved from the plugin dir.
+                        "lazy.nvim",
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                        { path = "LazyVim",            words = { "LazyVim" } },
                     },
                     -- always enable unless `vim.g.lazydev_enabled = false`
                     -- This is the default
                     enabled = function(_)
-                      return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+                        return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
                     end,
-                  },
+                },
             },
         },
         config = function()

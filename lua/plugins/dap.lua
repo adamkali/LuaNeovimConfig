@@ -102,17 +102,6 @@ return {
                 opts = virtual_text()
             }
         },
-        keys = {
-            { "<space>b", "<cmd>DapToggleBreakpoint<CR>",            desc = 'Toggle Breakpoint' },
-            { "<space>e", function() require 'dapui'.eval() end,     desc = 'Evaluate Under Cursor' },
-            { "<space>u", function() require('dapui').toggle() end,  desc = 'Toggle Ui' },
-            { "<space>g", function() require('dap').goto_() end,     desc = 'Go Here' },
-            { "<F5>",     function() require('dap').continue() end,  desc = 'Continue' },
-            { "<F17>",    function() require('dap').restart() end,   desc = 'Restart' },
-            { "<F10>",    function() require('dap').step_over() end, desc = 'Step Over' },
-            { "<F11>",    function() require('dap').step_into() end, desc = 'Step Into' },
-            { "<F12>",    function() require('dap').step_out() end,  desc = 'Step Out' },
-        },
 
         opts = function()
             local dap = require "dap"

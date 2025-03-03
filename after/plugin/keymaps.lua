@@ -49,6 +49,55 @@ wk {
     { '<leader>dw', function() require('dotnvim').watch(true) end,  desc = 'Watch Last Project' },
 }
 
+wk {
+    { "<space>f",     expr = false,                                       group = "[f]inder",          nowait = false, remap = false },
+    { "<space>ff",    "<cmd>Telescope find_files<cr>",                    desc = "[f]iles" },
+    { "<space>fh",    "<cmd>Telescope help_tags<cr>",                     desc = "[t]ags" },
+    { "<space>fg",    "<cmd>Telescope live_grep<cr>",                     desc = "[g]rep" },
+    { "<space>fc",    "<cmd>Telescope commands<cr>",                      desc = "[c]ommands" },
+    { "<space>fb",    "<cmd>Telescope buffers<cr>",                       desc = "[b]uffers" },
+    { "<space>fm",    "<cmd>Telescope marks<cr>",                         desc = "[m]arks" },
+    { "<space>fy",    "<cmd>Telescope registers<cr>",                     desc = "[r]egisters" },
+    { "<space>fls",   "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[l]sp [s]ymbols" },
+    { "<space>fld",   "<cmd>Telescope diagnostics<cr>",                   desc = "[l]sp [d]iagnostics" },
+    { "<space>flr",   "<cmd>Telescope lsp_refrences<cr>",                 desc = "[l]sp [r]efrences" },
+    { "<space>fn",    "<cmd>Telescope nerdy<cr>",                         desc = "[N]erdfonts " },
+    { "<space>fk",    "<cmd>Telescope keymaps<cr>",                       desc = "[k]eymaps" },
+    { "<space><C-f>", "<cmd>Telescope <cr>",                              desc = "Telescope Control" },
+}
+
+wk {
+    { "<space>d",     expr = false,                              group = "[d]ebuger",             nowait = false, remap = false },
+    { "<space>db",    "<cmd>DapToggleBreakpoint<CR>",            desc = 'Toggle [b]reakpoint' },
+    { "<space>de",    function() require 'dapui'.eval() end,     desc = '[e]valuate Under Cursor' },
+    { "<space>du",    function() require('dapui').toggle() end,  desc = 'Toggle [u]i' },
+    { "<space>dg",    function() require('dap').goto_() end,     desc = '[g]o Here' },
+    { "<space>d<F6>", function() require('dap').stop() end,      desc = 'Stop' },
+    { "<space>d<F5>", function() require('dap').restart() end,   desc = 'Restart' },
+    { "<F5>",         function() require('dap').continue() end,  desc = 'Continue' },
+    { "<F10>",        function() require('dap').step_over() end, desc = 'Step Over' },
+    { "<F11>",        function() require('dap').step_into() end, desc = 'Step Into' },
+    { "<F12>",        function() require('dap').step_out() end,  desc = 'Step Out' },
+}
+
+wk {
+    { "<space><c-d>",  expr = false,                                   group = "[d]otnet ",          nowait = false, remap = false },
+    { '<space><c-d>s', function() require('dotnvim').bootstrap() end,  desc = 'Boot[s]trap Class' },
+    { '<space><c-d>b', function() require('dotnvim').build(false) end, desc = '[b]uild Last Project' },
+}
+
+wk {
+    { "<c-o>",      expr = false,                          group = "[o]bsidian",         nowait = false, remap = false },
+    { '<c-o>v',     '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split [v]ertically' },
+    { '<c-o>h',     '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split [h]orizontally' },
+    { '<c-o>b',     '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show [b]ack Links' },
+    { '<c-o>t',     '<cmd>:ObsidianToday<CR>',             desc = 'Open [t]oday' },
+    { '<c-o>p',     '<cmd>:ObsidianYesterday<CR>',         desc = 'Open [p]revious day' },
+    { '<c-o>n',     '<cmd>:ObsidianTomorrow<CR>',          desc = 'Open [n]ext day' },
+    { '<c-o><c-t>', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use [t]emplate' },
+    { '<c-o>s',     '<cmd>:ObsidianSearch<CR>',            desc = '[s]earch' },
+}
+
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
 local state = {

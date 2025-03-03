@@ -2,38 +2,36 @@ vim.filetype.add({ extension = { templ = "templ" } })
 
 local on_attatch = function(_, _)
     local wk = require 'which-key'
-    local lsp_leader = "<M-a>"
-    wk.add {
-        { lsp_leader, expr = false, group = "LSP Generic", nowait = false, remap = false, icon = { icon = "󰧑", hl = "Function" } },
-        --
-        { lsp_leader .. "A", function() vim.lsp.buf.code_action() end, desc = 'LSP Code action', expr = false, nowait = false, remap = false },
-        { lsp_leader .. "D", function() vim.lsp.buf.declaration() end, desc = "LSP Go to declaration", expr = false, nowait = false, remap = false },
-        { lsp_leader .. "K", function() vim.lsp.buf.hover() end, desc = "LSP Show Hover Actions", expr = false, nowait = false, remap = false },
-        { lsp_leader .. "R", function() vim.lsp.buf.references() end, desc = "LSP Find References", expr = false, nowait = false, remap = false },
-        { lsp_leader .. "d", function() vim.lsp.buf.definition() end, desc = "LSP Go to definition", expr = false, nowait = false, remap = false },
-        { lsp_leader .. "i", function() vim.lsp.buf.implementation() end, desc = "LSP Go to implementation", expr = false, nowait = false, remap = false },
-        { lsp_leader .. "r", function() vim.lsp.buf.rename() end, desc = "LSP Rename File", expr = false, nowait = false, remap = false },
-        {
-            "<M-x>",
-            function()
-                vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
-            end,
-            desc = "Go to previous diagnostic",
-            expr = false,
-            nowait = false,
-            remap = false
-        },
-        {
-            "<M-X>",
-            function()
-                vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
-            end,
-            desc = "Go to next diagnostic",
-            expr = false,
-            nowait = false,
-            remap = false
-        },
-    }
+    wk.add{
+            { "<M-m>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
+            { "<M-m>A", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
+            { "<M-m>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
+            { "<M-m>K", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
+            { "<M-m>R", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
+            { "<M-m>d", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
+            { "<M-m>i", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
+            { "<M-m>r", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
+            {
+                "<M-m>a",
+                function()
+                    vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to previous diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+            {
+                "<M-m>s",
+                function()
+                    vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
+                end,
+                desc = "Go to next diagnostic",
+                expr = false,
+                nowait = false,
+                remap = false
+            },
+        }
 end
 
 return {
@@ -45,8 +43,8 @@ return {
             "folke/neodev.nvim",
         },
         keys = {
-            { "+mu", "<cmd>:MasonUpdate<cr>", desc = "Mason Update" },
-            { "+mo", "<cmd>:Mason <cr>",      desc = "Mason Open Menu" }
+            { "<M-M>u", "<cmd>:MasonUpdate<cr>", desc = "Mason Update" },
+            { "<M-M>o", "<cmd>:Mason <cr>",      desc = "Mason Open Menu" }
         },
         opts = {
             ui = {
@@ -101,6 +99,7 @@ return {
                 "docker_compose_language_service",
                 "dockerls",
                 --"htmx",
+                "clangd",
                 "html",
                 "svelte",
                 "marksman",

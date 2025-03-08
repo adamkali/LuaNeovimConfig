@@ -76,6 +76,10 @@ map('n', 'T', 'J', { noremap = true, silent = true })
 map('n', 'N', 'K', { noremap = true, silent = true })
 map('n', 'S', 'L', { noremap = true, silent = true })
 map('n', 'K', 'n', { noremap = true, silent = true })
+map('v', 'T', 'J', { noremap = true, silent = true })
+map('v', 'N', 'K', { noremap = true, silent = true })
+map('v', 'S', 'L', { noremap = true, silent = true })
+map('v', 'K', 'N', { noremap = true, silent = true })
 
 -- Control move
 map("n", "<C-h>", ":wincmd h <CR>", opts)

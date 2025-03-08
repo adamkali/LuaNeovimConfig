@@ -12,12 +12,6 @@ local function setup_neotest()
                 "nvim-neotest/neotest-vim-test",
                 "nvim-neotest/neotest-python",
                 "Issafalcon/neotest-dotnet",
-                {
-                    "fredrikaverpil/neotest-golang", -- Installation
-                    dependencies = {
-                        "leoluz/nvim-dap-go",
-                    },
-                },
             },
             opts = function()
                 return {
@@ -34,7 +28,6 @@ local function setup_neotest()
                             python = ".env/bin/python"
                         }),
                         require("rustaceanvim.neotest"),
-                        require("neotest-golang")
                     }
                 }
             end,
@@ -54,7 +47,6 @@ local function setup_neotest()
         }
     }
 end
-
 
 local function python_dap()
     return {

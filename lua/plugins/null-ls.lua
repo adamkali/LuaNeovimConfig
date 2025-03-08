@@ -15,6 +15,6 @@ return {
         })
     end,
 	keys = {
-		{ "<M-m>f", function () vim.lsp.buf.format() end, desc = "[f]ormat" },
+		{ "<space>lf", function () vim.lsp.buf.format() end, desc = "[f]ormat" },
     },
 }

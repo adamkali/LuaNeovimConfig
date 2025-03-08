@@ -3,16 +3,16 @@ vim.filetype.add({ extension = { templ = "templ" } })
 local on_attatch = function(_, _)
     local wk = require 'which-key'
     wk.add{
-            { "<M-m>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
-            { "<M-m>A", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
-            { "<M-m>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
-            { "<M-m>K", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
-            { "<M-m>R", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
-            { "<M-m>d", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
-            { "<M-m>i", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
-            { "<M-m>r", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
+            { "<space>l",  expr = false,                                group = "LSP Generic",         nowait = false, remap = false },
+            { "<space>lA", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = false },
+            { "<space>lD", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = false },
+            { "<space>lK", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = false },
+            { "<space>lR", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = false },
+            { "<space>ld", function() vim.lsp.buf.definition() end,     desc = "Go to definition",     expr = false,   nowait = false, remap = false },
+            { "<space>li", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = false },
+            { "<space>lr", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = false },
             {
-                "<M-m>a",
+                "<space>s",
                 function()
                     vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
                 end,
@@ -22,7 +22,7 @@ local on_attatch = function(_, _)
                 remap = false
             },
             {
-                "<M-m>s",
+                "<space>a",
                 function()
                     vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
                 end,

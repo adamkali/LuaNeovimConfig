@@ -55,9 +55,21 @@ wk {
     { '<c-o><c-t>', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use [t]emplate' },
     { '<c-o>s',     '<cmd>:ObsidianSearch<CR>',            desc = '[s]earch' },
 }
+local neorg_leader = "<space><c-n>"
+
+wk {
+    { "<space><c-n>",      expr = false,                         group = "[<C-N>]eorg",                   nowait = false, remap = false },
+    { neorg_leader .. 'n', '<cmd>:Neorg workspace org_mode<cr>', desc = '[<C-n>]eorg [n] activate' },
+    { neorg_leader .. 't', '<cmd>:Neorg toc qflist<cr>',         desc = '[<C-n>]eorg [t]able of contents' },
+}
+
+local golang_leader = "<space><c-g>"
+wk {
+    { "<space><c-g>",      expr = false,                         group = "[<C-G>]oPkg",                   nowait = false, remap = false },
+    { golang_leader..'p', '<cmd>:GoPkgOutline<cr>', desc = '[<C-n>]eorg [n] activate' },
+}
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
-
 local state = {
     floating = {
         buf = -1,

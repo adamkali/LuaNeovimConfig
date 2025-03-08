@@ -76,19 +76,19 @@ return {
                 opts = {
 
                     library = {
-                      -- Library paths can be absolute
-                      "~/git/vaporlush/lua/vaporlush",
-                      -- Or relative, which means they will be resolved from the plugin dir.
-                      "lazy.nvim",
-                      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-                      { path = "LazyVim", words = { "LazyVim" } },
+                        -- Library paths can be absolute
+                        "~/git/vaporlush/lua/vaporlush",
+                        -- Or relative, which means they will be resolved from the plugin dir.
+                        "lazy.nvim",
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                        { path = "LazyVim",            words = { "LazyVim" } },
                     },
                     -- always enable unless `vim.g.lazydev_enabled = false`
                     -- This is the default
                     enabled = function(_)
-                      return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+                        return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
                     end,
-                  },
+                },
             },
         },
         config = function()

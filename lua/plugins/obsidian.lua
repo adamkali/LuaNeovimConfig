@@ -14,7 +14,8 @@ return {
             return {
                 --dir = "C:\\src\\projects\\My_Second_Mind", -- Laptop
                 -- dir = "~/notes/My_Second_Mind",
-                dir = "/mnt/c/Users/adam/Documents/notes/My_Second_Mind",
+                -- 
+                dir = "/mnt/p/My Mind",
                 --dir = "~/me", -- Arch Laptop and Desktop
                 templates = {
                     subdir = "templates",

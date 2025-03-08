@@ -12,15 +12,16 @@ return {
             enabled = true,
             sections = {
                 {
-                    pane = 1,
                     section = "terminal",
-                    cmd = "ascii-image-converter /mnt/c/Users/adam/.config/cat.png -C --width 60",
-                    height = 40,
+                    cmd = "pokemon-colorscripts --no-title -n chimchar; sleep .1",
+                    pane = 1,
+                    indent = 4,
+                    height = 16
                 },
+                { pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+                { pane = 1, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
                 { section = "header", pane = 2 },
                 { section = "keys", gap = 1, pane = 2, padding = 5 },
-                { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-                { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
                 { section = "startup" },
             }
         },

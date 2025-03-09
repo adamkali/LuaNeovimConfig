@@ -13,7 +13,7 @@ return {
             sections = {
                 {
                     section = "terminal",
-                    cmd = "pokemon-colorscripts --no-title -n chimchar; sleep .1",
+                    cmd = "pokemon-colorscripts --no-title -n infernape; sleep .1",
                     pane = 1,
                     indent = 4,
                     height = 16

@@ -29,25 +29,52 @@ local function get_file_status()
     return ' ' .. fname .. ' '
 end
 
+-- a function to see if Ollama is thinking and generating code
+local function get_ollama_status()
+end
+
+vim.opt.termguicolors = true
 return {
     {
-        dir = "~/git/vaporlush",
-        "adamkali/vaporlush",
-        branch = "v2",
+        "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
         opts = {
-            cache = true,
-            style = style
-        }
+            style = "night",
+            transparent = true,
+            lualine_bold = true,
+        },
     },
+    {
+        "eldritch-theme/eldritch.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            transparent = true,
+            styles = {
+                comments = { italic = true },
+                keywords = { italic = true },
+            }
+        },
+    },
+    --{
+    --    dir = "~/git/vaporlush",
+    --    "adamkali/vaporlush",
+    --    branch = "v2",
+    --    lazy = false,
+    --    priority = 1000,
+    --    opts = {
+    --        cache = true,
+    --        style = style
+    --    }
+    --},
     {
         'nvim-lualine/lualine.nvim',
         opts = function()
             local config = {
                 options = {
                     icons_enabled = true,
-                    theme = 'vaporlush',
+                    theme = 'eldritch',
                     component_separators = '',
                     disabled_filetypes = {
                         statusline = {},

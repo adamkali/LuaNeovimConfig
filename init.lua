@@ -37,7 +37,6 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = false
 
 vim.opt.termguicolors = true
-
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 

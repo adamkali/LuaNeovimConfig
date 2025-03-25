@@ -29,9 +29,9 @@ local debug_ui = "u"
 
 wk {
     { debug_leader, expr = false, group = "Debug", nowait = false, remap = false, icon = { icon = "", hl = "@constructor.tsx" } },
-    { debug_leader .. debug_ui .."b", "<cmd>DapToggleBreakpoint<CR>", desc = 'Toggle Breakpoint' },
-    { debug_leader .. debug_ui .."e", function() require 'dapui'.eval() end, desc = 'Evaluate Under Cursor' },
-    { debug_leader .. debug_ui .."u", function() require('dapui').toggle() end, desc = 'Toggle Ui' },
+    { debug_leader .. debug_ui .. "b", "<cmd>DapToggleBreakpoint<CR>", desc = 'Toggle Breakpoint' },
+    { debug_leader .. debug_ui .. "e", function() require 'dapui'.eval() end, desc = 'Evaluate Under Cursor' },
+    { debug_leader .. debug_ui .. "u", function() require('dapui').toggle() end, desc = 'Toggle Ui' },
     { debug_leader .. debug_move, expr = false, group = "Debug Movements", nowait = false, remap = false, icon = { icon = "", hl = "@function.method" } },
     { debug_leader .. debug_move .. "g", function() require('dap').goto_() end, desc = 'Go Here' },
     { debug_leader .. debug_move .. "c", function() require('dap').continue() end, desc = 'Continue' },
@@ -39,14 +39,6 @@ wk {
     { debug_leader .. debug_move .. "s", function() require('dap').step_over() end, desc = 'Step Over' },
     { debug_leader .. debug_move .. "t", function() require('dap').step_into() end, desc = 'Step Into' },
     { debug_leader .. debug_move .. "n", function() require('dap').step_out() end, desc = 'Step Out' },
-}
-
-local dotnet_leader= "<leader>d"
-wk {
-    { dotnet_leader, expr = false, group = "Debug", nowait = false, remap = false, icon = { icon = "", hl = "Function" } },
-    { '<leader>ds', function() require('dotnvim').bootstrap() end,  desc = 'Bootstrap Class' },
-    { '<leader>db', function() require('dotnvim').build(false) end, desc = 'Build Last Project' },
-    { '<leader>dw', function() require('dotnvim').watch(true) end,  desc = 'Watch Last Project' },
 }
 
 wk {
@@ -97,18 +89,20 @@ wk {
     { '<c-o><c-t>', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use [t]emplate' },
     { '<c-o>s',     '<cmd>:ObsidianSearch<CR>',            desc = '[s]earch' },
 }
-local neorg_leader = "<space><c-n>"
+local neorg_leader = "<space>n"
 
 wk {
-    { "<space><c-n>",      expr = false,                         group = "[<C-N>]eorg",                   nowait = false, remap = false },
-    { neorg_leader .. 'n', '<cmd>:Neorg workspace org_mode<cr>', desc = '[<C-n>]eorg [n] activate' },
-    { neorg_leader .. 't', '<cmd>:Neorg toc qflist<cr>',         desc = '[<C-n>]eorg [t]able of contents' },
+    { neorg_leader,        expr = false,                          group = "[N]eorg",                   nowait = false, remap = false },
+    { neorg_leader .. 'n', '<cmd>:Neorg workspace org_mode<cr>',  desc = '[n]eorg [n] activate' },
+    { neorg_leader .. 't', '<cmd>:Neorg toc qflist<cr>',          desc = '[n]eorg [t]able of contents' },
+    { neorg_leader .. '.', '<cmd>:Neorg tangle current-file<cr>', desc = '[n]eorg tangle [.]' },
+    { neorg_leader .. 'i', '<cmd>:Neorg inject-metadata<cr>',     desc = '[n]eorg [i]nject metadata' },
 }
 
 local golang_leader = "<space><c-g>"
 wk {
-    { "<space><c-g>",      expr = false,                         group = "[<C-G>]oPkg",                   nowait = false, remap = false },
-    { golang_leader..'p', '<cmd>:GoPkgOutline<cr>', desc = '[<C-n>]eorg [n] activate' },
+    { "<space><c-g>",       expr = false,             group = "[<C-G>]oPkg",            nowait = false, remap = false },
+    { golang_leader .. 'p', '<cmd>:GoPkgOutline<cr>', desc = '[<C-n>]eorg [n] activate' },
 }
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")

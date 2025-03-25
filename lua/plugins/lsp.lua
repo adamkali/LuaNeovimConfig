@@ -107,10 +107,11 @@ return {
                 "sqlls",
                 --"emmet_ls",
                 "templ",
-                "pyright"
+                "pyright",
+                "svelte",
             }
-
             require("mason-lspconfig").setup {
+                automatic_installation = true,
                 ensure_installed = servers,
             }
             local lspconfig = require "lspconfig"

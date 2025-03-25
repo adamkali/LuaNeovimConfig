@@ -1,0 +1,21 @@
+--   "tabAutocompleteModel": {
+--    "title": "Qwen2.5-Coder 7B",
+--    "provider": "ollama",
+--    "model": "qwen2.5-coder:7b"
+--  },
+return {}
+--    'huggingface/llm.nvim',
+--    opts = {
+--        api_token = nil,          -- cf Install paragraph
+--        model = "codellama:7b",-- the model ID, behavior depends on backend
+--        backend = "ollama",       -- backend ID, "huggingface" | "ollama" | "openai" | "tgi"
+--        url = "http://localhost:11434", -- the http url of the backend
+--        --tokens_to_clear = { "<|endoftext|>" }, -- tokens to remove from the model's output
+--        -- parameters that are added to the request body, values are arbitrary, you can set any field:value pair here it will be passed as is to the backend
+--        debounce_ms = 150,
+--        accept_keymap = "<A-n>",
+--        dismiss_keymap = "<A-N>",
+--        tokenizer = nil, -- cf Tokenizer paragraph
+--        context_window = 1024, -- max number of tokens for the context window
+--    }
+--}

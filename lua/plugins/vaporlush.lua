@@ -57,24 +57,25 @@ return {
             }
         },
     },
-    --{
-    --    dir = "~/git/vaporlush",
-    --    "adamkali/vaporlush",
-    --    branch = "v2",
-    --    lazy = false,
-    --    priority = 1000,
-    --    opts = {
-    --        cache = true,
-    --        style = style
-    --    }
-    --},
+    {
+        dir = "~/git/vaporlush",
+        "adamkali/vaporlush",
+        branch = "v2",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            cache = true,
+            style = style,
+            transparent = true
+        }
+    },
     {
         'nvim-lualine/lualine.nvim',
         opts = function()
             local config = {
                 options = {
                     icons_enabled = true,
-                    theme = 'eldritch',
+                    theme = 'vaporlush',
                     component_separators = '',
                     disabled_filetypes = {
                         statusline = {},

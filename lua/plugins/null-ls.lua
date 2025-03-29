@@ -1,13 +1,13 @@
 return {
     "nvimtools/none-ls.nvim",
-	dependencies = {
-		{ "nvim-lua/plenary.nvim" },
+    dependencies = {
+        { "nvim-lua/plenary.nvim" },
         { "nvimtools/none-ls-extras.nvim" },
         { "gbprod/none-ls-luacheck.nvim" }
 
-	},
-    config = function ()
-        local null_ls = require"null-ls"
+    },
+    config = function()
+        local null_ls = require "null-ls"
         null_ls.setup({
             sources = {
                 null_ls.builtins.formatting.stylua,
@@ -21,7 +21,7 @@ return {
             }
         })
     end,
-	keys = {
-		{ "<space>lf", function () vim.lsp.buf.format() end, desc = "[f]ormat" },
+    keys = {
+        { "<space>lf", function() vim.lsp.buf.format() end, desc = "[f]ormat" },
     },
 }

@@ -1,1 +1,1 @@
-vim.cmd[[colorscheme eldritch]]
+vim.cmd[[colorscheme vapor]]

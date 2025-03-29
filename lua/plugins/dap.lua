@@ -1,50 +1,5 @@
 local function setup_neotest()
     return {
-        {
-            "nvim-neotest/neotest",
-            event = "VeryLazy",
-            dependencies = {
-                "nvim-neotest/nvim-nio",
-                "nvim-lua/plenary.nvim",
-                "antoinemadec/FixCursorHold.nvim",
-                "nvim-treesitter/nvim-treesitter",
-                "nvim-neotest/neotest-plenary",
-                "nvim-neotest/neotest-vim-test",
-                "nvim-neotest/neotest-python",
-                "Issafalcon/neotest-dotnet",
-            },
-            opts = function()
-                return {
-                    adapters = {
-                        require('neotest-dotnet')({
-                            dap = {
-                                args = { justMyCode = false },
-                                adaptername = "netcoredbg"
-                            },
-                            dotnet_additional_args = { "--verbosity detailed" },
-                            discovery_root = "project" -- Default
-                        }),
-                        require("neotest-python")({
-                            python = ".env/bin/python"
-                        }),
-                        require("rustaceanvim.neotest"),
-                    }
-                }
-            end,
-            keys = {
-                { "=ta", function() require("neotest").run.attach() end,                                     desc = "Test attach", },
-                { "=tf", function() require("neotest").run.run(vim.fn.expand("%")) end,                      desc = "Test run file", },
-                { "=tA", function() require("neotest").run.run(vim.uv.cwd()) end,                            desc = "Test All files", },
-                { "=tS", function() require("neotest").run.run({ suite = true }) end,                        desc = "Test Suite", },
-                { "=tn", function() require("neotest").run.run() end,                                        desc = "Test Nearest", },
-                { "=tl", function() require("neotest").run.run_last() end,                                   desc = "Test last", },
-                { "=ts", function() require("neotest").summary.toggle() end,                                 desc = "Test summary", },
-                { "=to", function() require("neotest").output.open({ enter = true, auto_close = true }) end, desc = "Test output", },
-                { "=tO", function() require("neotest").output_panel.toggle() end,                            desc = "Test output panel", },
-                { "=tt", function() require("neotest").run.stop() end,                                       desc = "Test terminate", },
-                { "=td", function() require("neotest").run.run({ suite = false, strategy = "dap" }) end,     desc = "Debug nearest test", },
-            },
-        }
     }
 end
 
@@ -131,5 +86,4 @@ return {
         end,
     },
     python_dap(),
-    setup_neotest()
 }

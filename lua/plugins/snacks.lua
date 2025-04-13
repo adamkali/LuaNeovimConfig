@@ -2,10 +2,6 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    keys = {
-        { "<leader>n", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-        { "<leader>g", function() Snacks.lazygit.open() end,          desc = "Open Lazygit" },
-    },
     opts = {
         bigfile = { enabled = true },
         dashboard = {
@@ -20,7 +16,7 @@ return {
                 },
                 { section = "startup" },
                 { pane = 1, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-                { pane = 2, section= "header" },
+                { pane = 2, section= "header", },
                 { section = "keys", gap = 1, pane = 2, padding = 5 },
                 { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
             }

@@ -9,6 +9,7 @@ return {
                 ["core.autocommands"] = {},
                 ["core.concealer"] = {},
                 ["core.export"] = {},
+                ["core.export.markdown"] = { config = { extensions="all" }},
                 ["core.keybinds"] = {},
                 ["core.dirman"] = {
                     config = {
@@ -20,7 +21,6 @@ return {
                 },
             },
         }
-
         vim.wo.foldlevel = 99
         vim.wo.conceallevel = 2
     end,

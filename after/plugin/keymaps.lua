@@ -1,109 +1,87 @@
+-- Here We will assign the Sub Leader Keys
+
 local wk = require('which-key').add
+local quickfix_leader = "<space>c"
+local debug_leader = "<space>d"
+local telescope_leader = "<space>f"
+local dotnet_leader = "<space>dn"
+local neorg_leader = "<space>n"
+local golang_leader = "<space>G"
+
+-- Add some Quickfix Functionality
+
 wk {
-    { "<space>c", expr = false, group = "Quickfix", nowait = false, remap = false, icon = { icon = "󰓅", hl = "Function" } },
-    { "<space>ca", function() vim.cmd [[cprev]] end, desc = 'Quickfix Prev', expr = false, nowait = false, remap = false },
-    { "<space>cc", function() vim.cmd [[cclose]] end, desc = 'Quickfix Close', expr = false, nowait = false, remap = false },
-    { "<space>co", function() vim.cmd [[copen]] end, desc = 'Quickfix Open List', expr = false, nowait = false, remap = false },
-    { "<space>cs", function() vim.cmd [[cnext]] end, desc = 'Quickfix Next', expr = false, nowait = false, remap = false },
+    { quickfix_leader, expr = false, group = "Quickfix", nowait = false, remap = false, icon = { icon = "󰓅", hl = "Function" } },
+    { quickfix_leader.."a", function() vim.cmd [[cprev]] end, desc = 'Quickfix Prev', expr = false, nowait = false, remap = false },
+    { quickfix_leader.."c", function() vim.cmd [[cclose]] end, desc = 'Quickfix Close', expr = false, nowait = false, remap = false },
+    { quickfix_leader.."o", function() vim.cmd [[copen]] end, desc = 'Quickfix Open List', expr = false, nowait = false, remap = false },
+    { quickfix_leader.."s", function() vim.cmd [[cnext]] end, desc = 'Quickfix Next', expr = false, nowait = false, remap = false },
 }
 
-local telescope_leader = "<leader>h"
-wk {
-    { telescope_leader,        group = "Telescope",                                nowait = false,            remap = false },
-    { telescope_leader .. "h", "<cmd>Telescope find_files<cr>",                    desc = "Find Files",       expr = false, nowait = false, remap = false },
-    { telescope_leader .. "H", "<cmd>Telescope help_tags<cr>",                     desc = "Find Help Tags",   expr = false, nowait = false, remap = false },
-    { telescope_leader .. "g", "<cmd>Telescope live_grep<cr>",                     desc = "Find Grep",        expr = false, nowait = false, remap = false },
-    { telescope_leader .. "c", "<cmd>Telescope commands<cr>",                      desc = "Find Commands",    expr = false, nowait = false, remap = false },
-    { telescope_leader .. "b", "<cmd>Telescope buffers<cr>",                       desc = "Find Buffers",     expr = false, nowait = false, remap = false },
-    { telescope_leader .. "m", "<cmd>Telescope marks<cr>",                         desc = "Find Marks",       expr = false, nowait = false, remap = false },
-    { telescope_leader .. "y", "<cmd>Telescope registers<cr>",                     desc = "Find Registers",   expr = false, nowait = false, remap = false },
-    { telescope_leader .. "d", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find Symbols",     expr = false, nowait = false, remap = false },
-    { telescope_leader .. "D", "<cmd>Telescope diagnostics<cr>",                   desc = "Find Diagnostics", expr = false, nowait = false, remap = false },
-    { telescope_leader .. "r", "<cmd>Telescope lsp_refrences<cr>",                 desc = "Find Refrences",   expr = false, nowait = false, remap = false },
-    { telescope_leader .. "n", "<cmd>Telescope nerdy<cr>",                         desc = "Find Icons",       expr = false, nowait = false, remap = false },
-    { telescope_leader .. "t", "<cmd>Telescope <cr>",                              desc = "Telescope",        expr = false, nowait = false, remap = false },
-}
-local debug_leader = "<space>d"
-local debug_move = "s"
-local debug_ui = "u"
+-- Add some debug Functionality
 
 wk {
     { debug_leader, expr = false, group = "Debug", nowait = false, remap = false, icon = { icon = "", hl = "@constructor.tsx" } },
-    { debug_leader .. debug_ui .. "b", "<cmd>DapToggleBreakpoint<CR>", desc = 'Toggle Breakpoint' },
-    { debug_leader .. debug_ui .. "e", function() require 'dapui'.eval() end, desc = 'Evaluate Under Cursor' },
-    { debug_leader .. debug_ui .. "u", function() require('dapui').toggle() end, desc = 'Toggle Ui' },
-    { debug_leader .. debug_move, expr = false, group = "Debug Movements", nowait = false, remap = false, icon = { icon = "", hl = "@function.method" } },
-    { debug_leader .. debug_move .. "g", function() require('dap').goto_() end, desc = 'Go Here' },
-    { debug_leader .. debug_move .. "c", function() require('dap').continue() end, desc = 'Continue' },
-    { debug_leader .. debug_move .. "r", function() require('dap').restart() end, desc = 'Restart' },
-    { debug_leader .. debug_move .. "s", function() require('dap').step_over() end, desc = 'Step Over' },
-    { debug_leader .. debug_move .. "t", function() require('dap').step_into() end, desc = 'Step Into' },
-    { debug_leader .. debug_move .. "n", function() require('dap').step_out() end, desc = 'Step Out' },
+    { debug_leader .. "b", "<cmd>DapToggleBreakpoint<CR>", desc = 'Toggle Breakpoint' },
+    { debug_leader .. "e", function() require 'dapui'.eval() end, desc = 'Evaluate Under Cursor' },
+    { debug_leader .. "u", function() require('dapui').toggle() end, desc = 'Toggle Ui' },
+    { debug_leader .. "g", function() require('dap').goto_() end, desc = 'Go Here' },
+    { debug_leader .. "r", function() require('dap').restart() end, desc = 'Restart' },
+    { "<F5>", function() require('dap').continue() end, desc = 'Continue' },
+    { "<F10>", function() require('dap').step_over() end, desc = 'Step Over' },
+    { "<F11>", function() require('dap').step_into() end, desc = 'Step Into' },
+    { "<F12>", function() require('dap').step_out() end, desc = 'Step Out' },
 }
 
-wk {
-    { "<space>f",     expr = false,                                       group = "[f]inder",          nowait = false, remap = false },
-    { "<space>ff",    "<cmd>Telescope find_files<cr>",                    desc = "[f]iles" },
-    { "<space>fh",    "<cmd>Telescope help_tags<cr>",                     desc = "[t]ags" },
-    { "<space>fg",    "<cmd>Telescope live_grep<cr>",                     desc = "[g]rep" },
-    { "<space>fc",    "<cmd>Telescope commands<cr>",                      desc = "[c]ommands" },
-    { "<space>fb",    "<cmd>Telescope buffers<cr>",                       desc = "[b]uffers" },
-    { "<space>fm",    "<cmd>Telescope marks<cr>",                         desc = "[m]arks" },
-    { "<space>fy",    "<cmd>Telescope registers<cr>",                     desc = "[r]egisters" },
-    { "<space>fls",   "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[l]sp [s]ymbols" },
-    { "<space>fld",   "<cmd>Telescope diagnostics<cr>",                   desc = "[l]sp [d]iagnostics" },
-    { "<space>flr",   "<cmd>Telescope lsp_refrences<cr>",                 desc = "[l]sp [r]efrences" },
-    { "<space>fn",    "<cmd>Telescope nerdy<cr>",                         desc = "[N]erdfonts " },
-    { "<space>fk",    "<cmd>Telescope keymaps<cr>",                       desc = "[k]eymaps" },
-    { "<space><C-f>", "<cmd>Telescope <cr>",                              desc = "Telescope Control" },
-}
+-- Telescope functions
 
 wk {
-    { "<space>d",     expr = false,                              group = "[d]ebuger",             nowait = false, remap = false },
-    { "<space>db",    "<cmd>DapToggleBreakpoint<CR>",            desc = 'Toggle [b]reakpoint' },
-    { "<space>de",    function() require 'dapui'.eval() end,     desc = '[e]valuate Under Cursor' },
-    { "<space>du",    function() require('dapui').toggle() end,  desc = 'Toggle [u]i' },
-    { "<space>dg",    function() require('dap').goto_() end,     desc = '[g]o Here' },
-    { "<space>d<F6>", function() require('dap').stop() end,      desc = 'Stop' },
-    { "<space>d<F5>", function() require('dap').restart() end,   desc = 'Restart' },
-    { "<F5>",         function() require('dap').continue() end,  desc = 'Continue' },
-    { "<F10>",        function() require('dap').step_over() end, desc = 'Step Over' },
-    { "<F11>",        function() require('dap').step_into() end, desc = 'Step Into' },
-    { "<F12>",        function() require('dap').step_out() end,  desc = 'Step Out' },
+    { telescope_leader,   expr = false, group = "[f]inder",  nowait = false, remap = false, icon = { icon = " ", hl = "@constructor.tsx" } },
+    { telescope_leader .. "f",  "<cmd>Telescope find_files<cr>",                    desc = "[f]iles" },
+    { telescope_leader .. "h",  "<cmd>Telescope help_tags<cr>",                     desc = "[t]ags" },
+    { telescope_leader .. "g",  "<cmd>Telescope live_grep<cr>",                     desc = "[g]rep" },
+    { telescope_leader .. "c",  "<cmd>Telescope commands<cr>",                      desc = "[c]ommands" },
+    { telescope_leader .. "b",  "<cmd>Telescope buffers<cr>",                       desc = "[b]uffers" },
+    { telescope_leader .. "m",  "<cmd>Telescope marks<cr>",                         desc = "[m]arks" },
+    { telescope_leader .. "y",  "<cmd>Telescope registers<cr>",                     desc = "[r]egisters" },
+    { telescope_leader .. "s",  "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "[l]sp [s]ymbols" },
+    { telescope_leader .. "d",  "<cmd>Telescope diagnostics<cr>",                   desc = "[l]sp [d]iagnostics" },
+    { telescope_leader .. "r",  "<cmd>Telescope lsp_refrences<cr>",                 desc = "[l]sp [r]efrences" },
+    { telescope_leader .. "n",  "<cmd>Telescope nerdy<cr>",                         desc = "[N]erdfonts " },
+    { telescope_leader .. "k",  "<cmd>Telescope keymaps<cr>",                       desc = "[k]eymaps" },
 }
 
-wk {
-    { "<space><c-d>",  expr = false,                                   group = "[d]otnet ",          nowait = false, remap = false },
-    { '<space><c-d>s', function() require('dotnvim').bootstrap() end,  desc = 'Boot[s]trap Class' },
-    { '<space><c-d>b', function() require('dotnvim').build(false) end, desc = '[b]uild Last Project' },
-}
+-- Dotnet Plugin
 
 wk {
-    { "<c-o>",      expr = false,                          group = "[o]bsidian",         nowait = false, remap = false },
-    { '<c-o>v',     '<cmd>:ObsidianFollowLink vsplit<CR>', desc = 'Split [v]ertically' },
-    { '<c-o>h',     '<cmd>:ObsidianFollowLink hsplit<CR>', desc = 'Split [h]orizontally' },
-    { '<c-o>b',     '<cmd>:ObsidianBacklinks<CR>',         desc = 'Show [b]ack Links' },
-    { '<c-o>t',     '<cmd>:ObsidianToday<CR>',             desc = 'Open [t]oday' },
-    { '<c-o>p',     '<cmd>:ObsidianYesterday<CR>',         desc = 'Open [p]revious day' },
-    { '<c-o>n',     '<cmd>:ObsidianTomorrow<CR>',          desc = 'Open [n]ext day' },
-    { '<c-o><c-t>', '<cmd>:ObsidianTemplate<CR>',          desc = 'Use [t]emplate' },
-    { '<c-o>s',     '<cmd>:ObsidianSearch<CR>',            desc = '[s]earch' },
+    { dotnet_leader,  expr = false, group = "[d]otnet ", nowait = false, remap = false , icon = { icon = "", hl = "@constructor.tsx" } },
+    { dotnet_leader ..'s', function() require('dotnvim').bootstrap() end,  desc = 'Boot[s]trap Class' },
+    { dotnet_leader ..'b', function() require('dotnvim').build(false) end, desc = '[b]uild Last Project' },
 }
-local neorg_leader = "<space>n"
 
+-- Neorg Keybindings
+
+local function add_to_posts()
+    local post_location = "/home/adamkali/git/blog.kalilarosa.xyz/content/posts/"
+    local post_name = vim.fn.expand("%:r")
+    return post_location .. post_name .. ".md"
+end
 wk {
-    { neorg_leader,        expr = false,                          group = "[N]eorg",                   nowait = false, remap = false },
-    { neorg_leader .. 'n', '<cmd>:Neorg workspace org_mode<cr>',  desc = '[n]eorg [n] activate' },
+    { neorg_leader, expr = false, group = "[N]eorg",nowait = false, remap = false, icon = { icon = "", "@constructor.tsx" } },
     { neorg_leader .. 't', '<cmd>:Neorg toc qflist<cr>',          desc = '[n]eorg [t]able of contents' },
     { neorg_leader .. '.', '<cmd>:Neorg tangle current-file<cr>', desc = '[n]eorg tangle [.]' },
     { neorg_leader .. 'i', '<cmd>:Neorg inject-metadata<cr>',     desc = '[n]eorg [i]nject metadata' },
+    { neorg_leader .. 'p', '<cmd>:Neorg export to-file '..add_to_posts()..' markdown<cr>',     desc = '[neorg] [p]ost to blog' },
 }
 
-local golang_leader = "<space><c-g>"
+-- Gonlang Plugins 
+
 wk {
-    { "<space><c-g>",       expr = false,             group = "[<C-G>]oPkg",            nowait = false, remap = false },
+    { golang_leader,       expr = false,             group = "[<C-G>]oPkg",            nowait = false, remap = false },
     { golang_leader .. 'p', '<cmd>:GoPkgOutline<cr>', desc = '[<C-n>]eorg [n] activate' },
 }
+
+-- From TJ's Wonderful 25 Days Of Neovim series
 
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 local state = {
@@ -113,11 +91,12 @@ local state = {
     }
 }
 
+-- The following code makes the Terminal window 
+
 local function create_floating_window(opts)
     opts = opts or {}
     local width = opts.width or math.floor(vim.o.columns * 0.8)
     local height = opts.height or math.floor(vim.o.lines * 0.8)
-
     -- Calculate the position to center the window
     local col = math.floor((vim.o.columns - width) / 2)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -147,6 +126,8 @@ local function create_floating_window(opts)
     return { buf = buf, win = win }
 end
 
+-- Create a function callback to be used to create a key bind
+
 local toggle_terminal = function()
     if not vim.api.nvim_win_is_valid(state.floating.win) then
         state.floating = create_floating_window { buf = state.floating.buf }
@@ -158,8 +139,8 @@ local toggle_terminal = function()
     end
 end
 
--- Example usage:
--- Create a floating window with default dimensions
+-- And the final keybinds
+
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
-vim.keymap.set("n", "<M-t>", toggle_terminal)
+vim.keymap.set("n", "<C-M-t>", toggle_terminal)

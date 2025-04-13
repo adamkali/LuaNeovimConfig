@@ -1,13 +1,8 @@
-local function setup_neotest()
-    return {
-    }
-end
-
 local function python_dap()
     return {
         "mfussenegger/nvim-dap-python",
         config = function()
-            require("dap-python").setup("env/bin/python3.12")
+            require("dap-python").setup("env/bin/python")
         end,
     }
 end
@@ -48,11 +43,11 @@ return {
             end
 
             vim.fn.sign_define('DapBreakpoint',
-                { text = '󰍒', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
+                { text = '󰒲', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
             vim.fn.sign_define('DapStopped',
-                { text = '󱋜', texthl = 'Label', linehl = 'Underlined', numhl = 'Label' })
+                { text = '󰞏', texthl = 'Label', linehl = 'Underlined', numhl = 'Label' })
             vim.fn.sign_define('DapBreakpointRejected',
-                { text = '󰍑', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'Macro' })
+                { text = '󱜞', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'Macro' })
 
             return {
                 controls = {

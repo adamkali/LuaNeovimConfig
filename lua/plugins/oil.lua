@@ -3,20 +3,8 @@ local function oil_keybinds()
         {
             "<leader>o",
             function() require 'oil'.open_float() end,
-            desc = 'Open Oil'
+            desc = 'Oil Mode'
         },
-        {
-            "=o",
-            function() require 'oil'.save() end,
-            desc = 'Oil Save'
-        },
-        {
-            "<leader>O",
-            function()
-                require 'oil'.close()
-            end,
-            desc = 'Oil Close'
-        }
     }
 end
 

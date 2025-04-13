@@ -110,9 +110,10 @@ return {
                         {
                             'diagnostics',
                             symbols = {
-                                error = ' 󱚝  ',
-                                warn  = ' 󱚟  ',
-                                info  = ' 󰚩  ',
+                                error = ' ',
+                                warn  = ' ',
+                                info  = ' ',
+                                hint  = ' ',
                             },
                             sources = { 'nvim_lsp', },
                             left_padding = 2,

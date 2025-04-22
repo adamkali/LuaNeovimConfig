@@ -1,6 +1,4 @@
 -- Map the Leader  
---
---
 
 vim.g.mapleader = "-"
 
@@ -18,6 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
+
 require("lazy").setup("plugins")
 
 -- This is specifically for Neorg 
@@ -30,6 +29,8 @@ vim.opt.nu = true
 
 vim.opt.relativenumber = true
 
+-- Tab Niceties
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -41,9 +42,8 @@ vim.opt.smartindent = true
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 
-
 vim.opt.swapfile = true
-vim.opt.backup = true
+vim.opt.backup = false
 vim.opt.undofile = true
 
 -- Some Search options to include
@@ -114,6 +114,11 @@ map("n", "<C-t>", ":wincmd j <CR>", opts)
 map("n", "<C-n>", ":wincmd k <CR>", opts)
 map("n", "<C-s>", ":wincmd l <CR>", opts)
 
+-- Adda some page movements 
+
+vim.keymap.set('n', '<C-f>', '<C-f>zz<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<C-b>', '<C-b>zz<CR>', {noremap = true, silent = true})
+
 -- Add in some Diagnostics
 
 local sign = function(opts)
@@ -138,12 +143,12 @@ function M.blend_bg(hex, amount, bg)
     return M.blend(hex, amount, bg or M.bg)
 end
 
-vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#ffaaaa', bg = '#ea286a'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignWarn',  { fg = '#aa4b00', bg = '#FFAB22'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignInfo',  { fg = '#0262a6', bg = '#2282E6'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignHint',  { fg = '#006060', bg = '#22f2f2'})
+vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#ffffff', bg = '#ea286a'})
+vim.api.nvim_set_hl(0, 'DiagnosticSignWarn',  { fg = '#000000', bg = '#FFAB22'})
+vim.api.nvim_set_hl(0, 'DiagnosticSignInfo',  { fg = '#ffffff', bg = '#2282E6'})
+vim.api.nvim_set_hl(0, 'DiagnosticSignHint',  { fg = '#000000', bg = '#22f2f2'})
 
-sign({ name = 'DiagnosticSignError', text = ' ', color = 'LspDiagnosticsError' })
-sign({ name = 'DiagnosticSignWarn',  text = '󰞏 ', color = 'LspDiagnosticsWarn' })
-sign({ name = 'DiagnosticSignInfo',  text = ' ', color = 'LspDiagnosticsInfo' })
-sign({ name = 'DiagnosticSignHint',  text = ' ', color = 'LspDiagnosticsHint' })
+sign({ name = 'DiagnosticSignError', text = '', color = 'LspDiagnosticsError' })
+sign({ name = 'DiagnosticSignWarn',  text = '󰞏', color = 'LspDiagnosticsWarn' })
+sign({ name = 'DiagnosticSignInfo',  text = '', color = 'LspDiagnosticsInfo' })
+sign({ name = 'DiagnosticSignHint',  text = '', color = 'LspDiagnosticsHint' })

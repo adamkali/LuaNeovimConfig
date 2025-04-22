@@ -47,4 +47,7 @@ return {
             },
         },
     },
+    {
+        "jmbuhr/otter.nvim"
+    },
 }

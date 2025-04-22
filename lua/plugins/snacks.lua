@@ -6,6 +6,28 @@ return {
         bigfile = { enabled = true },
         dashboard = {
             enabled = true,
+            preset = {
+                header = [[
+███▄▄▄▄      ▄████████  ▄██████▄     ▄█   ▄█▄    ▄████████  ▄█        ▄█ 
+███▀▀▀██▄   ███    ███ ███    ███   ███ ▄███▀   ███    ███ ███       ███ 
+███   ███   ███    █▀  ███    ███   ███▐██▀     ███    ███ ███       ███▌
+███   ███  ▄███▄▄▄     ███    ███  ▄█████▀      ███    ███ ███       ███▌
+███   ███ ▀▀███▀▀▀     ███    ███ ▀▀█████▄    ▀███████████ ███       ███▌
+███   ███   ███    █▄  ███    ███   ███▐██▄     ███    ███ ███       ███ 
+███   ███   ███    ███ ███    ███   ███ ▀███▄   ███    ███ ███▌    ▄ ███ 
+ ▀█   █▀    ██████████  ▀██████▀    ███   ▀█▀   ███    █▀  █████▄▄██ █▀  
+]],
+                keys = {
+                    { icon = " ", key = "n", desc = "Notes", action = '<cmd>:Neorg workspace org_mode<cr>' },
+                    { icon = " ", key = "f", desc = "Find File", action = "<cmd>:Telescope find_files<cr>" },
+                    { icon = " ", key = "g", desc = "Find Text", action = "<cmd>:Telescope live_grep<cr>" },
+                    { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+                    { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+                    { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+                    { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+                    { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+                }
+            },
             sections = {
                 {
                     section = "terminal",
@@ -19,7 +41,8 @@ return {
                 { pane = 2, section= "header", },
                 { section = "keys", gap = 1, pane = 2, padding = 5 },
                 { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-            }
+            },
+
         },
         notifier = { enabled = true },
         quickfile = { enabled = true },

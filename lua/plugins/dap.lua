@@ -1,11 +1,30 @@
+-- Set up ui options
+
+vim.fn.sign_define('DapBreakpoint',
+    { text = '󰒲', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
+vim.fn.sign_define('DapStopped',
+    { text = '󰞏', texthl = 'Label', linehl = 'Function', numhl = 'Function' })
+vim.fn.sign_define('DapBreakpointRejected',
+    { text = '󱜞', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'DapBreakpoint' })
+
+-- Python Debug setup
+
 local function python_dap()
     return {
         "mfussenegger/nvim-dap-python",
         config = function()
-            require("dap-python").setup("env/bin/python")
+            require("dap-python").setup("env/bin/python3")
         end,
     }
 end
+
+-- Golang Debug setup [nvim-dap-go]{https://github.com/leoluz/nvim-dap-go}
+
+local function golang_dap()
+    return { "leoluz/nvim-dap-go" }
+end
+
+-- Virtual Text to show what what they values are during debugging
 
 local function virtual_text()
     return {
@@ -15,6 +34,7 @@ local function virtual_text()
     }
 end
 
+-- The Plugin Table for dap.lua
 
 return {
     {
@@ -28,28 +48,30 @@ return {
             }
         },
 
+-- Options Table for nvim-dap-ui
+
         opts = function()
             local dap = require "dap"
             local dapui = require "dapui"
 
-            dap.listeners.after.event_initialized["dapui_config"] = function()
+-- To set up auto open
+
+            dap.listeners.before.attach.dapui_config = function()
                 dapui.open()
             end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
+            dap.listeners.before.launch.dapui_config = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated.dapui_config = function()
                 dapui.close()
             end
-            dap.listeners.before.event_exited["dapui_config"] = function()
+            dap.listeners.before.event_exited.dapui_config = function()
                 dapui.close()
             end
 
-            vim.fn.sign_define('DapBreakpoint',
-                { text = '󰒲', texthl = 'Title', linehl = 'DapBreakpoint', numhl = 'Title' })
-            vim.fn.sign_define('DapStopped',
-                { text = '󰞏', texthl = 'Label', linehl = 'Underlined', numhl = 'Label' })
-            vim.fn.sign_define('DapBreakpointRejected',
-                { text = '󱜞', texthl = 'Macro', linehl = 'DapBreakpointRejected', numhl = 'Macro' })
+-- Finally we create the returning options table
 
-            return {
+           return {
                 controls = {
                     element = "repl",
                     enabled = true,
@@ -80,5 +102,6 @@ return {
             }
         end,
     },
+    { "leoluz/nvim-dap-go", opts = {} },
     python_dap(),
 }

@@ -65,7 +65,7 @@ return {
             inline = { adapter = "cogito" },
             cmd = { adapter = "cogito" },
         },
-        system_prompt = function(opts) 
+        system_prompt = function(opts)
             return SYSTEM_PROMPT
         end
     },

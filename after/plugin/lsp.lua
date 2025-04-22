@@ -4,7 +4,7 @@ local on_attatch = function(_, _)
     local wk = require 'which-key'
     wk.add{
         { "<BS>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = true },
-        { "<BS>A", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = true },
+        { "<BS>c", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = true },
         { "<BS>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = true },
         { "<BS>k", function() vim.lsp.buf.hover() end,          desc = "Show Hover Actions",   expr = false,   nowait = false, remap = true },
         { "<BS>R", function() vim.lsp.buf.references() end,     desc = "Find References",      expr = false,   nowait = false, remap = true },
@@ -12,7 +12,7 @@ local on_attatch = function(_, _)
         { "<BS>i", function() vim.lsp.buf.implementation() end, desc = "Go to implementation", expr = false,   nowait = false, remap = true },
         { "<BS>r", function() vim.lsp.buf.rename() end,         desc = "Rename File",          expr = false,   nowait = false, remap = true },
         {
-            "<BS>a",
+            "<BS>s",
             function()
                 vim.diagnostic.goto_prev({ popup_opts = { border = "rounded", focusable = false } })
             end,
@@ -22,7 +22,7 @@ local on_attatch = function(_, _)
             remap = true
         },
         {
-            "<BS>s",
+            "<BS>a",
             function()
                 vim.diagnostic.goto_next({ popup_opts = { border = "rounded", focusable = false } })
             end,
@@ -42,7 +42,6 @@ local servers = {
     "ts_ls",
     "docker_compose_language_service",
     "dockerls",
-    --"htmx",
     "clangd",
     "html",
     "svelte",
@@ -50,10 +49,10 @@ local servers = {
     "tailwindcss",
     "sqlls",
     "elixirls",
-    --"emmet_ls",
     "templ",
     "pyright",
     "somesass_ls",
+    "hls",
     "svelte",
 }
 require("mason-lspconfig").setup {

@@ -1,3 +1,5 @@
+-- Setup Neorg with some basic settings
+
 return {
     "nvim-neorg/neorg",
     lazy = false,
@@ -9,7 +11,6 @@ return {
                 ["core.autocommands"] = {},
                 ["core.concealer"] = {},
                 ["core.export"] = {},
-                ["core.export.markdown"] = { config = { extensions="all" }},
                 ["core.keybinds"] = {},
                 ["core.dirman"] = {
                     config = {
@@ -19,8 +20,10 @@ return {
                         default_workspace = "org_mode",
                     },
                 },
+                ["core.integrations.otter"] = {},
             },
         }
+
         vim.wo.foldlevel = 99
         vim.wo.conceallevel = 2
     end,

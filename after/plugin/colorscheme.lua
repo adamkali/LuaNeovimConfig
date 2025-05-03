@@ -1,3 +1,3 @@
 -- Colorscheme Generally
 
-vim.cmd[[colorscheme vapor]]
+vim.cmd[[colorscheme tokyonight-storm]]

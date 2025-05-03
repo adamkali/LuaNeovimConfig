@@ -54,6 +54,7 @@ local servers = {
     "somesass_ls",
     "hls",
     "svelte",
+    "cssls",
 }
 require("mason-lspconfig").setup {
     automatic_installation = true,
@@ -73,6 +74,11 @@ lspconfig.gleam.setup({
     capabilities = capabilities
 })
 lspconfig.html.setup({
+    on_attatch = on_attatch,
+    capabilities = capabilities,
+    filetypes = { "html", "templ" },
+})
+lspconfig.htmx.setup({
     on_attatch = on_attatch,
     capabilities = capabilities,
     filetypes = { "html", "templ" },

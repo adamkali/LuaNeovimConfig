@@ -4,7 +4,7 @@ return {
 
 -- [dressing]{https://github.com/stevearc/dressing.nvim?tab=readme-ov-file#installation}
 
-    {'stevearc/dressing.nvim'}, 
+    {'stevearc/dressing.nvim'},
 
 -- [telescope]{https://github.com/nvim-telescope/telescope.nvim}
 
@@ -13,7 +13,7 @@ return {
      dependencies = { 'nvim-lua/plenary.nvim'  },
         opts = {
             defaults = {
-                file_ignore_patterns = { "node_modules", "target", "env" },
+                file_ignore_patterns = { "node_modules", "target", "env", "obj", "bin" },
             },
         },
     },

@@ -21,6 +21,11 @@ return {
                     },
                 },
                 ["core.integrations.otter"] = {},
+                ["core.integrations.treesitter"] = {
+                    config = {
+                        configure_parsers = true,
+                    }
+                },
             },
         }
 

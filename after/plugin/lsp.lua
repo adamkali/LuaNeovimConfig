@@ -2,7 +2,7 @@
 
 local on_attatch = function(_, _)
     local wk = require 'which-key'
-    wk.add{
+    wk.add {
         { "<BS>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = true },
         { "<BS>c", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = true },
         { "<BS>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = true },
@@ -81,7 +81,9 @@ lspconfig.html.setup({
 lspconfig.htmx.setup({
     on_attatch = on_attatch,
     capabilities = capabilities,
+    cmd = { "htmx-lsp" },
     filetypes = { "html", "templ" },
+    root_markers = { ".git" }
 })
 lspconfig.tailwindcss.setup({
     on_attatch = on_attatch,

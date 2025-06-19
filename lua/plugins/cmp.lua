@@ -14,24 +14,28 @@ return {
         end
     },
 
-    -- completion config
-
     opts = {
         keymap = { preset = 'default' },
         appearance = {
-            use_nvim_cmp_as_default = true,
-            nerd_font_variant = 'mono',
+            nerd_font_variant = 'propo',
+        },
+        completion = {
+            -- By default, you may press `<c-space>` to show the documentation.
+            -- Optionally, set `auto_show = true` to show the documentation after a delay.
+            documentation = { auto_show = true, auto_show_delay_ms = 500 },
         },
 
-        -- and the rest of the config
+        sources = {
+            default = { 'lsp', 'path', 'snippets', 'lazydev' },
+            providers = {
+                lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+            },
+        },
 
         snippets = { preset = 'luasnip' },
-        sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
-            per_filetype = {
-                codecompanion = { "codecompanion" },
-            }
-        }
+
+        fuzzy = { implementation = 'lua' },
+
+        signature = { enabled = true },
     }
 }
-

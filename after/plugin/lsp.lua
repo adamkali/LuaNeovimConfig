@@ -2,7 +2,7 @@
 
 local on_attatch = function(_, _)
     local wk = require 'which-key'
-    wk.add {
+    wk.add{
         { "<BS>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = true },
         { "<BS>c", function() vim.lsp.buf.code_action() end,    desc = 'Code action',          expr = false,   nowait = false, remap = true },
         { "<BS>D", function() vim.lsp.buf.declaration() end,    desc = "Go to declaration",    expr = false,   nowait = false, remap = true },
@@ -57,8 +57,8 @@ local servers = {
     "cssls",
 }
 require("mason-lspconfig").setup {
-    automatic_installation = true,
     ensure_installed = servers,
+    automatic_enable = false
 }
 local lspconfig = require "lspconfig"
 local capabilities = require('blink.cmp').get_lsp_capabilities()
@@ -70,23 +70,21 @@ for _, value in ipairs(servers) do
 end
 -- for gleam as well
 lspconfig.gleam.setup({
-    on_attatch = on_attatch,
+    on_attatch = on_attatch(),
     capabilities = capabilities
 })
 lspconfig.html.setup({
-    on_attatch = on_attatch,
+    on_attatch = on_attatch(),
     capabilities = capabilities,
     filetypes = { "html", "templ" },
 })
 lspconfig.htmx.setup({
-    on_attatch = on_attatch,
+    on_attatch = on_attatch(),
     capabilities = capabilities,
-    cmd = { "htmx-lsp" },
     filetypes = { "html", "templ" },
-    root_markers = { ".git" }
 })
 lspconfig.tailwindcss.setup({
-    on_attatch = on_attatch,
+    on_attatch = on_attatch(),
     capabilities = capabilities,
     filetypes = { "templ", "astro", "javascript", "typescript", "react", "svelte" },
     settings = {
@@ -97,8 +95,8 @@ lspconfig.tailwindcss.setup({
         },
     },
 })
-lspconfig.omnisharp.setup({
-    on_attatch = on_attatch,
+lspconfig.csharp_ls.setup({
+    on_attatch = on_attatch(),
     capabilities = capabilities,
     enable_roslyn_analysers = true,
     enable_import_completion = true,

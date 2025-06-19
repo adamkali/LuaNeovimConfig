@@ -11,7 +11,6 @@ return {
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
             "folke/neoconf.nvim",
-            "folke/neodev.nvim",
         },
         opts = {
             ui = {

@@ -66,7 +66,7 @@ return {
         opts = {
             cache = true,
             style = style,
-            transparent = true
+            transparent =false,
         }
     },
     {

@@ -66,6 +66,7 @@ vim.opt.wrap = true
 -- Use this as the general python interpreter
 
 vim.g.python3_host_prog="/usr/bin/python3.12"
+vim.cmd[[set guifont=Maple\ Mono\ NF:h20]]
 
 -- Create Keybindngs For me that I like 
 

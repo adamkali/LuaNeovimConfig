@@ -51,29 +51,35 @@ end
 -- The plugin configuration
 
 return {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
-    },
-    opts = {
-        adapters = {
-            cogito = cogito_adapter
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
         },
-        strategies = {
-            chat = { adapter = "cogito" },
-            inline = { adapter = "cogito" },
-            cmd = { adapter = "cogito" },
+        opts = {
+            adapters = {
+                cogito = cogito_adapter
+            },
+            strategies = {
+                chat = { adapter = "cogito" },
+                inline = { adapter = "cogito" },
+                cmd = { adapter = "cogito" },
+            },
+            system_prompt = function()
+                return SYSTEM_PROMPT
+            end
         },
-        system_prompt = function(opts)
-            return SYSTEM_PROMPT
-        end
-    },
-    display = {
-        window = {
-            position = "right",
-            border = "single",
-            width = 0.33
+        display = {
+            window = {
+                position = "right",
+                border = "single",
+                width = 0.33
+            }
         }
+    },
+    {
+        'Exafunction/windsurf.vim',
+        event = 'BufEnter'
     }
 }

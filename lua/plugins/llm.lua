@@ -37,16 +37,27 @@ When given a task:
 
 -- Configuring Adapter
 
-local function cogito_adapter()
+local function qwen_adapter()
     return require("codecompanion.adapters").extend("ollama", {
-        name = "cogito", -- Give this adapter a different name to differentiate it from the default ollama adapter
+        name = "kenny", -- Give this adapter a different name to differentiate it from the default ollama adapter
         schema = {
+            env = {
+                url = "https://192.168.1.97/api/generate",
+                api_key = read_openapi_key_env_var(),
+            },
             model = {
-                default = "cogito:latest",
+                default = "cogito",
             },
         },
+
     })
 end
+
+
+
+-- Configuring OpenAI API Key
+--  and rreturn
+
 
 -- The plugin configuration
 
@@ -59,12 +70,28 @@ return {
         },
         opts = {
             adapters = {
-                cogito = cogito_adapter
+                kenny = function()
+                    return require("codecompanion.adapters").extend("ollama", {
+                        name = "kenny",
+                        env = {
+                            url = "http://192.168.1.96:11434",
+                        },
+                        headers = {
+                            ["Content-Type"] = "application/json",
+                        },
+                        parameters = {
+                            sync = true,
+                        },
+                        model = {
+                            default = "qwen3:4b",
+                        },
+                    })
+                end,
             },
             strategies = {
-                chat = { adapter = "cogito" },
-                inline = { adapter = "cogito" },
-                cmd = { adapter = "cogito" },
+                chat = { adapter = "kenny" },
+                inline = { adapter = "kenny" },
+                cmd = { adapter = "kenny" },
             },
             system_prompt = function()
                 return SYSTEM_PROMPT
@@ -78,8 +105,4 @@ return {
             }
         }
     },
-    {
-        'Exafunction/windsurf.vim',
-        event = 'BufEnter'
-    }
 }

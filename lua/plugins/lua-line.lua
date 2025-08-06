@@ -3,38 +3,37 @@
 return {
     'nvim-lualine/lualine.nvim',
     opts = function()
+        -- We write out this function to replace icons for certain modes,
 
--- We write out this function to replace icons for certain modes,
+        local function replaceVimModes()
+            local mode_map = {
+                n = ' ॐ   ',
+                i = ' युज्  ',
+                c = ' आदेश ',
+                V = ' नेत्र ',
+                [''] = ' 󰛐 ',
+                v = ' नेत्र ',
+                t = '󰞷',
+                default = '',
+            }
+            -- get the current mode
+            -- if mode is nil then return default
+            -- else return the mode
+            local mode = mode_map[vim.fn.mode()] or mode_map.default
+            return mode
+        end
 
-local function replaceVimModes()
-    local mode_map = {
-        n = '  ',
-        i = '  ',
-        c = '  ',
-        V = '  ',
-        [''] = ' 󰛐 ',
-        v = ' 󰛐 ',
-        t = '󰞷',
-        default = '',
-    }
-    -- get the current mode
-    -- if mode is nil then return default
-    -- else return the mode
-    local mode = mode_map[vim.fn.mode()] or mode_map.default
-    return mode
-end
+        -- Format out if the file needs to pe saved
 
--- Format out if the file needs to pe saved 
+        local function get_file_status()
+            local fname = vim.fn.expand('%:t')
+            if vim.bo.modified then
+                return '  ' .. fname .. ' '
+            end
+            return ' ' .. fname .. ' '
+        end
 
-local function get_file_status()
-    local fname = vim.fn.expand('%:t')
-    if vim.bo.modified then
-        return '  ' .. fname .. ' '
-    end
-    return ' ' .. fname .. ' '
-end
-
--- Now we write out the config 
+        -- Now we write out the config
 
         local config = {
             options = {
@@ -80,10 +79,10 @@ end
                             hint  = '  ',
                         },
                         diagnostics_color = {
-                            error = { fg = '#ffffff', bg = '#ea286a'},
-                            warn = { fg = '#000000', bg = '#FFAB22'},
-                            info = { fg = '#ffffff', bg = '#2282E6'},
-                            hint = { fg = '#000000', bg = '#22f2f2'}
+                            error = { fg = '#ffffff', bg = '#ea286a' },
+                            warn = { fg = '#000000', bg = '#FFAB22' },
+                            info = { fg = '#ffffff', bg = '#2282E6' },
+                            hint = { fg = '#000000', bg = '#22f2f2' }
                         },
                         sources = { 'nvim_lsp', },
                         left_padding = 2,

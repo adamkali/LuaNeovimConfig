@@ -3,12 +3,12 @@ local style = "vapor"
 --local style = "1996"
 local function replaceVimModes()
     local mode_map = {
-        n = '  ',
-        i = '  ',
-        c = '  ',
-        V = '  ',
+        n = ' ॐ   ',
+        i = ' युज्  ',
+        c = ' आदेश ',
+        V = ' नेत्र ',
         [''] = ' 󰛐 ',
-        v = ' 󰛐 ',
+        v = ' नेत्र ',
         t = '󰞷',
         default = '',
     }
@@ -65,8 +65,7 @@ return {
         priority = 1000,
         opts = {
             cache = true,
-            style = style,
-            transparent =false,
+            transparent = true,
         }
     },
     {

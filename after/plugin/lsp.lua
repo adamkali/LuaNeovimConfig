@@ -55,6 +55,7 @@ local servers = {
     "hls",
     "svelte",
     "cssls",
+    "yamlls",
 }
 require("mason-lspconfig").setup {
     ensure_installed = servers,

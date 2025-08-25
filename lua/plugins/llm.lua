@@ -38,19 +38,19 @@ When given a task:
 -- Configuring Adapter
 
 local function qwen_adapter()
-    return require("codecompanion.adapters").extend("ollama", {
-        name = "kenny", -- Give this adapter a different name to differentiate it from the default ollama adapter
-        schema = {
-            env = {
-                url = "https://192.168.1.97/api/generate",
-                api_key = read_openapi_key_env_var(),
-            },
-            model = {
-                default = "cogito",
-            },
-        },
+	return require("codecompanion.adapters").extend("ollama", {
+		name = "kenny", -- Give this adapter a different name to differentiate it from the default ollama adapter
+		schema = {
+			env = {
+				url = "https://192.168.1.97/api/generate",
+				api_key = read_openapi_key_env_var(),
+			},
+			model = {
+				default = "cogito",
+			},
+		},
 
-    })
+	})
 end
 
 
@@ -62,47 +62,28 @@ end
 -- The plugin configuration
 
 return {
-    {
-        "olimorris/codecompanion.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        opts = {
-            adapters = {
-                kenny = function()
-                    return require("codecompanion.adapters").extend("ollama", {
-                        name = "kenny",
-                        env = {
-                            url = "http://192.168.1.96:11434",
-                        },
-                        headers = {
-                            ["Content-Type"] = "application/json",
-                        },
-                        parameters = {
-                            sync = true,
-                        },
-                        model = {
-                            default = "qwen3:4b",
-                        },
-                    })
-                end,
-            },
-            strategies = {
-                chat = { adapter = "kenny" },
-                inline = { adapter = "kenny" },
-                cmd = { adapter = "kenny" },
-            },
-            system_prompt = function()
-                return SYSTEM_PROMPT
-            end
-        },
-        display = {
-            window = {
-                position = "right",
-                border = "single",
-                width = 0.33
-            }
-        }
-    },
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			strategies = {
+				chat = { adapter = "anthropic" },
+				inline = { adapter = "anthropic" },
+				cmd = { adapter = "anthropic" },
+			},
+			system_prompt = function()
+				return SYSTEM_PROMPT
+			end
+		},
+		display = {
+			window = {
+				position = "right",
+				border = "single",
+				width = 0.33
+			}
+		}
+	},
 }

@@ -61,6 +61,7 @@ wk {
     { dotnet_leader, expr = false, group = "[d]otnet ", nowait = false, remap = false, icon = { icon = "", hl = "@constructor.tsx" } },
     { dotnet_leader .. 's', function() require('dotnvim').bootstrap() end, desc = 'Boot[s]trap Class' },
     { dotnet_leader .. 'b', function() require('dotnvim').build(false) end, desc = '[b]uild Last Project' },
+	{ dotnet_leader .. 't', '<cmd>DotnvimTaskRun<cr>', desc = '[t]ask [r]un' },
 }
 
 -- Neorg Keybindings
@@ -96,10 +97,6 @@ wk {
 
 -- Gonlang Plugins
 
-wk {
-    { golang_leader,        expr = false,             group = "[<C-G>]oPkg",            nowait = false, remap = false },
-    { golang_leader .. 'p', '<cmd>:GoPkgOutline<cr>', desc = '[<C-n>]eorg [n] activate' },
-}
 
 -- From TJ's Wonderful 25 Days Of Neovim series
 

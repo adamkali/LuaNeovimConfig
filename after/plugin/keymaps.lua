@@ -1,6 +1,6 @@
 
 local wk = require('which-key').add
-local custom = require('custom')
+-- local custom = require('custom')
 local quickfix_leader = "<space>c"
 local debug_leader = "<space>d"
 local dotnet_leader = "<space>dn"

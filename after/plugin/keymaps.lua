@@ -79,7 +79,7 @@ wk {
     { neorg_leader .. '.', '<cmd>:Neorg tangle current-file<cr>', desc = '[n]eorg tangle [.]' },
     { neorg_leader .. 'i', '<cmd>:Neorg inject-metadata<cr>', desc = '[n]eorg [i]nject metadata' },
     { neorg_leader .. 'p', '<cmd>:Neorg export to-file ' .. add_to_posts() .. ' markdown<cr>', desc = '[n]eorg [p]ost to blog' },
-    { neorg_leader .. 'e', custom.Neorg.export_configured, desc = "neorg configured export" },
+    { neorg_leader .. 'e', require('norbsidian').get_selections, desc = "neorg configured export" },
     { neorg_leader .. 's', '<cmd>:Neorg dew_catngo full<cr>', desc = '[n]eorg [s]earch categories' },
 }
 

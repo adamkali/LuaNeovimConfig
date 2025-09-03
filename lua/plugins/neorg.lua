@@ -11,6 +11,11 @@ return {
                 load = {
                     ["core.defaults"] = {},
                     ["core.autocommands"] = {},
+					["core.esupports.metagen"] = {
+						config = {
+							author = "Adam Kalinowski",
+						}
+					},
                     ["core.concealer"] = {
                         config = {
                             icons = {
@@ -33,6 +38,11 @@ return {
                         },
                     },
                     ["core.export"] = {},
+					["core.export.markdown"] = {
+						config = {
+							extensions = "all",
+						},
+					},
                     ["core.keybinds"] = {},
                     ["external.neorg-dew"] = {},
                     ["external.query"] = {},

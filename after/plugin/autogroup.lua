@@ -173,6 +173,7 @@ local call_anthropic_server = function()
 	}, {}, function(result)
 		if result.code == 0 and result.stdout then
 			local json = vim.json.decode(result.stdout)
+			vim.notify("\n" .. result.stdout, vim.log.levels.INFO, { title = "Inspi " .. topic.type, timeout = 5000 })
 			local content = json.content[1].text
 			content = string.gsub(content, "<think>(.*)</think>", "")
 			content = split_text_into_chunks(content, 50)
@@ -216,7 +217,7 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "VeryLazy",
     callback = function()
         vim.defer_fn(function()
-			call_anthropic_server()
+			--call_anthropic_server()
         end, 1000)  -- 1 second     
     end
 })

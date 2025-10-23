@@ -3,12 +3,12 @@ local style = "vapor"
 --local style = "1996"
 local function replaceVimModes()
     local mode_map = {
-        n = ' ॐ  ',
-        i = ' युज्  ',
-        c = ' आदेश ',
-        V = ' नेत्र ',
-        [''] = ' 󰛐 ',
-        v = ' नेत्र ',
+        n = '',
+        i = '',
+        c = '',
+        v = '',
+        V = '󰷊',
+        [''] = '󱝕',
         t = '󰞷',
         default = '',
     }
@@ -69,7 +69,7 @@ return {
         }
     },
 	{
-		dir = "~/projects/axolotl.nvim",
+		"adamkali/axolotl.nvim",
         lazy = false,
         priority = 1000,
         opts = {

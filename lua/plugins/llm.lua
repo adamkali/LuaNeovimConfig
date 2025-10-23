@@ -37,20 +37,8 @@ When given a task:
 
 -- Configuring Adapter
 
-local function qwen_adapter()
-	return require("codecompanion.adapters").extend("ollama", {
-		name = "kenny", -- Give this adapter a different name to differentiate it from the default ollama adapter
-		schema = {
-			env = {
-				url = "https://192.168.1.97/api/generate",
-				api_key = read_openapi_key_env_var(),
-			},
-			model = {
-				default = "cogito",
-			},
-		},
-
-	})
+-- See more
+local function zelda_adapter()
 end
 
 
@@ -68,11 +56,34 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		adapters = {
+			zelda = function()
+				return require("codecompanion.adapters").extend("ollama", {
+					name = "zelda", -- Give this adapter a different name to differentiate it from the default ollama adapter
+					schema = {
+						env = {
+							url = "https://zelda:11434/api/generate",
+						},
+						headers = {
+							["Content-Type"] = "application/json",
+						},
+						model = {
+							default = "gpt-oss:latest",
+						},
+						parameters = {
+							sync = true,
+							max_tokens = 20000
+						}
+					},
+
+				})
+			end
+		},
 		opts = {
 			strategies = {
-				chat = { adapter = "anthropic" },
-				inline = { adapter = "anthropic" },
-				cmd = { adapter = "anthropic" },
+				chat = { adapter = "zelda" },
+				inline = { adapter = "zelda" },
+				cmd = { adapter = "zelda" },
 			},
 			system_prompt = function()
 				return SYSTEM_PROMPT

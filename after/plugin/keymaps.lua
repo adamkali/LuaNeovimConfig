@@ -7,6 +7,7 @@ local telescope_leader = "<space>f"
 local dotnet_leader = "<space>dn"
 local neorg_leader_todo = "<space>nt"
 local neorg_leader = "<space>n"
+local cogitare_leader = "<space>nr"
 
 -- Add some Quickfix Functionality
 local quickfix_enhanced = require('quickfix_enhanced')
@@ -29,12 +30,12 @@ wk {
     { debug_leader .. "b", "<cmd>DapToggleBreakpoint<CR>", desc = 'Toggle Breakpoint' },
     { debug_leader .. "e", function() require 'dapui'.eval() end, desc = 'Evaluate Under Cursor' },
     { debug_leader .. "u", function() require('dapui').toggle() end, desc = 'Toggle Ui' },
-    { debug_leader .. "g", function() require('dap').goto_() end, desc = 'Go Here' },
+    { debug_leader .. "g", function() require('dap').goto() end, desc = 'Go Here' },
     { debug_leader .. "r", function() require('dap').restart() end, desc = 'Restart' },
+    { debug_leader .."o", function() require('dap').step_over() end, desc = 'Step Over' },
+    { debug_leader .."i", function() require('dap').step_into() end, desc = 'Step Into' },
+    { debug_leader .."O", function() require('dap').step_out() end, desc = 'Step Out' },
     { "<F5>", function() require('dap').continue() end, desc = 'Continue' },
-    { "<F10>", function() require('dap').step_over() end, desc = 'Step Over' },
-    { "<F11>", function() require('dap').step_into() end, desc = 'Step Into' },
-    { "<F12>", function() require('dap').step_out() end, desc = 'Step Out' },
 }
 
 -- Telescope functions
@@ -97,6 +98,12 @@ wk {
 
 -- Gonlang Plugins
 
+-- Cogitare Keybindings
+wk {
+	{ cogitare_leader, expr = false, group = "[n]eorg [c]ogitare Group", nowait = false, remap = false, icon = { icon = "󰧑", "@constructor.tsx" } },
+	{ cogitare_leader .. 't', require('cogitare').template, desc = '[c]ogitare [t]emplate' },
+	{ cogitare_leader .. 'm', require('cogitare').move_filename, desc = '[c]ogitare [m]ove to file' },
+}
 
 -- From TJ's Wonderful 25 Days Of Neovim series
 

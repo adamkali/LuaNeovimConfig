@@ -13,7 +13,7 @@ return {
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		opts = {
 			defaults = {
-				file_ignore_patterns = { "node_modules", "env", "obj", "bin", "htmx.min.js" },
+				file_ignore_patterns = { "node_modules", "obj", "bin", "htmx.min.js" },
 				layout_strategy = "center",
 				layout_config = {
 					center = {

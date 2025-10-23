@@ -22,7 +22,9 @@ return {
                     "gosum",
                     "comment",
                     "templ",
-                    "gleam"
+                    "gleam",
+					"latex",
+
                 },
                 highlight = {
                     enable = true,

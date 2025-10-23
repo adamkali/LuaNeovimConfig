@@ -11,10 +11,10 @@ vim.fn.sign_define('DapBreakpointRejected',
 
 local function python_dap()
     return {
-        "mfussenegger/nvim-dap-python",
-        config = function()
-            require("dap-python").setup("env/bin/python3")
-        end,
+        -- "mfussenegger/nvim-dap-python",
+        -- config = function()
+        --     require("dap-python").setup("env/bin/python3")
+        -- end,
     }
 end
 

@@ -3,7 +3,7 @@ local style = "vapor"
 --local style = "1996"
 local function replaceVimModes()
     local mode_map = {
-        n = ' ॐ   ',
+        n = ' ॐ  ',
         i = ' युज्  ',
         c = ' आदेश ',
         V = ' नेत्र ',
@@ -64,17 +64,31 @@ return {
         lazy = false,
         priority = 1000,
         opts = {
+			transparent = true,
             cache = true,
-            transparent = true,
         }
     },
+	{
+		dir = "~/projects/axolotl.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            style = "night",
+            transparent = true,
+            styles = {
+                comments = { italic = true },
+                keywords = { italic = true },
+            },
+            lualine_bold = true,
+        },
+	},
     {
         'nvim-lualine/lualine.nvim',
         opts = function()
             local config = {
                 options = {
                     icons_enabled = true,
-                    theme = 'vaporlush',
+                    theme = 'axolotl',
                     component_separators = '',
                     disabled_filetypes = {
                         statusline = {},

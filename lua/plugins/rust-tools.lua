@@ -33,7 +33,7 @@ return {
                     )
                     map(
                         "n",
-                        "<F2>",
+                        "<leader>ra",
                         function() vim.cmd.RustLsp { 'codeAction' } end,
                         { desc = "Code Actions", buffer = bufnr }
                     )
@@ -56,11 +56,7 @@ return {
                             },
                         },
                         -- Add clippy lints for Rust.
-                        checkOnSave = {
-                            allFeatures = true,
-                            command = "clippy",
-                            extraArgs = { "--no-deps" },
-                        },
+                        checkOnSave = true,
                         procMacro = {
                             enable = true,
                             ignored = {

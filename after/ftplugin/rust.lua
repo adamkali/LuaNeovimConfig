@@ -1,16 +1,8 @@
 local wk = require 'which-key'.add
-local rust_leader = "<M-l>"
-
-
-function Rust()
-    return {
-        rust_leader, expr = false, group = "Rust", nowait = false, remap = false, icon = { icon = " ", hl = "Function" }
-    }
-end
+local rust_leader = "-r"
 
 
 wk {
-
     { rust_leader, expr = false, group = "Rust", nowait = false, remap = false, icon = { icon = " ", hl = "Function" } },
     { rust_leader .. "D", '<cmd>RustLsp! debuggables<cr>', desc = "Rust Last Debuggables" },
     { rust_leader .. "d", '<cmd>RustLsp debuggables<cr>', desc = "Rust Debuggables" },

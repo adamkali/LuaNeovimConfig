@@ -5,7 +5,7 @@ local on_attatch = function(client, bufnr)
 	if client.supports_method("textDocument/inlayHint") then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
-	
+
 	local wk = require 'which-key'
 	wk.add {
 		{ "<BS>",  expr = false,                                group = "LSP Generic",         nowait = false, remap = true },
@@ -59,8 +59,8 @@ local servers = {
 	"somesass_ls",
 	"hls",
 	"cssls",
-	"yamlls",
 	"texlab",
+	"rust_analyzer",
 }
 require("mason-lspconfig").setup {
 	ensure_installed = servers,
@@ -129,9 +129,37 @@ vim.lsp.config("gopls", {
 	},
 })
 
+
+--	"jsonls",
+--	"yamlls",
+vim.lsp.config("yamlls", {
+	on_attach = on_attatch,
+	capabilities = capabilities,
+	settings = {
+		yaml = {
+			schemaStore = {
+				enable = false,
+				url = "",
+			},
+			schemas = require("schemastore").yaml.schemas(),
+
+		},
+	}
+})
+vim.lsp.config("jsonls", {
+	on_attach = on_attatch,
+	capabilities = capabilities,
+	settings = {
+		json = {
+			schemas = require('schemastore').json.schemas(),
+			validate = { enable = true },
+		},
+	},
+})
+
 -- Override ts_ls with performance optimizations
-vim.lsp.config("ts_ls", { 
-	on_attach = on_attatch, 
+vim.lsp.config("ts_ls", {
+	on_attach = on_attatch,
 	capabilities = capabilities,
 	settings = {
 		typescript = {

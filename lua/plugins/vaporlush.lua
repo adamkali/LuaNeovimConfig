@@ -69,12 +69,13 @@ return {
         }
     },
 	{
-		"adamkali/axolotl.nvim",
+		-- "adamkali/axolotl.nvim",
+		dir = "~/projects/axolotl.nvim",
         lazy = false,
         priority = 1000,
         opts = {
             style = "night",
-            transparent = true,
+            transparent = false,
             styles = {
                 comments = { italic = true },
                 keywords = { italic = true },

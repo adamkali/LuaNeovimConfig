@@ -21,18 +21,44 @@ return {
 								heading = {
 									enabled = true,
 									icons = {
-										"𞴁",
-										"𞴂",
-										"𞴃",
-										"𞴄",
-										"𞴅",
-										"𞴆",
-										"𞴇",
-										"𞴈",
-										"𞴉",
-										"𞴊",
+										"",
+										"",
+										"󰯬",
+										"󰯯",
+										"󰯲",
+										"󰯵",
+										"󰯸",
+										"󰯻",
+										"󰯾",
+										"󰰁",
 									}
 								},
+								todo = {
+									cancelled = {
+										icon = "󰚃",
+									},
+									done = {
+										icon = "󱤅",
+									},
+									pending = {
+										icon = "󰓏",
+									},
+									on_hold = {
+										icon = "󰙦",
+									},
+									recurring = {
+										icon = "󱍸",
+									},
+									uncertain = {
+										icon = "",
+									},
+									undone = {
+										icon = "",
+									},
+									urgent = {
+										icon = "󱠇",
+									}
+								}
 							},
 						},
 					},
@@ -84,6 +110,27 @@ return {
 							node_no_name = false, -- no suffix name in node filename
 							node_name_randomiser = false, -- Tokenise node name suffix for more randomisation
 							node_name_snake_case = false, -- snake_case the names if node_name_randomiser = false
+						}
+					},
+					["external.interim-ls"] = {
+						config = {
+							completion_provider = {
+								enable = true,
+								documentation = true,
+								-- Try to complete categories provided by Neorg Query. Requires `benlubas/neorg-query`
+								categories = true,
+								-- suggest heading completions from the given file for `{@x|}` where `|` is your cursor
+								-- and `x` is an alphanumeric character. `{@name}` expands to `[name]{:$/people:# name}`
+								people = {
+									enable = true,
+									-- path to the file you're like to use with the `{@x` syntax, relative to the
+									-- workspace root, without the `.norg` at the end.
+									-- ie. `folder/people` results in searching `$/folder/people.norg` for headings.
+									-- Note that this will change with your workspace, so it fails silently if the file
+									-- doesn't exist
+									path = "people",
+								}
+							}
 						}
 					},
 				}

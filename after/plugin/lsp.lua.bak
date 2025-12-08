@@ -2,9 +2,6 @@
 
 local on_attatch = function(client, bufnr)
 	-- Enable inlay hints if supported
-	if client.supports_method("textDocument/inlayHint") then
-		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-	end
 
 	local wk = require 'which-key'
 	wk.add {
@@ -42,6 +39,7 @@ end
 -- Configure the servers here
 
 local servers = {
+	"csharp_ls",
 	"lua_ls",
 	"gopls",
 	"ts_ls",
@@ -61,25 +59,42 @@ local servers = {
 	"cssls",
 	"texlab",
 	"rust_analyzer",
-}
-require("mason-lspconfig").setup {
-	ensure_installed = servers,
-	automatic_installation = false
+	"fish_lsp",
 }
 local capabilities = require('blink.cmp').get_lsp_capabilities()
-for _, value in ipairs(servers) do
-	vim.lsp.enable(value)
-	vim.lsp.config(value, { on_attach = on_attatch, capabilities = capabilities })
+
+-- Configure and enable servers
+for _, server_name in ipairs(servers) do
+	-- Enable the server
+	vim.lsp.enable(server_name)
+
+	-- Configure with custom settings
+	vim.lsp.config(server_name, {
+		on_attach = on_attatch,
+		capabilities = capabilities,
+	})
 end
 
+-- Additional servers with custom settings
 vim.lsp.enable("gleam")
-vim.lsp.config("gleam", { on_attach = on_attatch, capabilities = capabilities })
+vim.lsp.config("gleam", {
+	on_attach = on_attatch,
+	capabilities = capabilities,
+})
 
 vim.lsp.enable("html")
-vim.lsp.config("html", { on_attach = on_attatch, capabilities = capabilities, filetypes = { "html", "templ" } })
+vim.lsp.config("html", {
+	on_attach = on_attatch,
+	capabilities = capabilities,
+	filetypes = { "html", "templ" },
+})
 
 vim.lsp.enable("htmx")
-vim.lsp.config("htmx", { on_attach = on_attatch, capabilities = capabilities, filetypes = { "html", "templ" } })
+vim.lsp.config("htmx", {
+	on_attach = on_attatch,
+	capabilities = capabilities,
+	filetypes = { "html", "templ" },
+})
 
 vim.lsp.enable("tailwindcss")
 vim.lsp.config("tailwindcss", {
@@ -95,22 +110,8 @@ vim.lsp.config("tailwindcss", {
 	},
 })
 
-vim.lsp.enable("csharp_ls")
-vim.lsp.config("csharp_ls", {
-	on_attach = on_attatch,
-	capabilities = capabilities,
-	settings = {
-		csharp = {
-			enableRoslynAnalyzers = true,
-			enableImportCompletion = true,
-			organizeImportsOnFormat = true,
-			enableDecompilationSupport = true,
-		}
-	},
-	filetypes = { 'cs', 'vb', 'csproj', 'sln', 'slnx', 'props', 'csx', 'targets' }
-})
 
--- Configure gopls with inlay hints
+-- Override gopls with inlay hints
 vim.lsp.config("gopls", {
 	on_attach = on_attatch,
 	capabilities = capabilities,
@@ -132,6 +133,7 @@ vim.lsp.config("gopls", {
 
 --	"jsonls",
 --	"yamlls",
+vim.lsp.enable("yamlls")
 vim.lsp.config("yamlls", {
 	on_attach = on_attatch,
 	capabilities = capabilities,
@@ -146,6 +148,8 @@ vim.lsp.config("yamlls", {
 		},
 	}
 })
+
+vim.lsp.enable("jsonls")
 vim.lsp.config("jsonls", {
 	on_attach = on_attatch,
 	capabilities = capabilities,

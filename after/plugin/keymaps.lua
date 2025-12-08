@@ -150,6 +150,19 @@ local function create_floating_window(opts)
     return { buf = buf, win = win }
 end
 
+-- Create Terminal Buffer
+local function create_terminal_buf()
+	opts = opts or {}
+	-- create a new buffer and open a terminal in it
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_set_option_value("buftype", "terminal", { scope = "local", win = buf })
+
+	-- open the terminal in the new buffer
+	vim.api.nvim_command("terminal")
+
+	return buf
+end
+
 -- Create a function callback to be used to create a key bind
 
 local toggle_terminal = function()
@@ -163,8 +176,30 @@ local toggle_terminal = function()
     end
 end
 
+local open_buffer_terminal = function()
+	local buf = create_terminal_buf()
+	state.floating = create_floating_window { buf = buf }
+end
+
+-- Create a terminal in a regular buffer (like any other buffer)
+local create_buffer_terminal = function()
+    -- Create a new buffer
+    local buf = vim.api.nvim_create_buf(true, false) -- listed buffer, not scratch
+
+    -- Switch to the new buffer in the current window
+    vim.api.nvim_set_current_buf(buf)
+
+    -- Start a terminal in the buffer
+    vim.cmd.terminal()
+
+    -- Enter insert mode automatically
+    vim.cmd.startinsert()
+end
+
 -- And the final keybinds
 
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
+vim.api.nvim_create_user_command("Terminal", create_buffer_terminal, {})
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 vim.keymap.set("n", "<C-M-t>", toggle_terminal)
+vim.keymap.set("n", "<leader>tt", create_buffer_terminal, { desc = "Open terminal in buffer" })

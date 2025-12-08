@@ -1,4 +1,4 @@
--- Map the Leader  
+-- Map the Leader    
 
 vim.g.mapleader = "-"
 

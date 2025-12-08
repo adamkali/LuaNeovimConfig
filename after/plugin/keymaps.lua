@@ -112,6 +112,10 @@ local state = {
     floating = {
         buf = -1,
         win = -1,
+    },
+    bottom = {
+        buf = -1,
+        win = -1,
     }
 }
 
@@ -183,23 +187,101 @@ end
 
 -- Create a terminal in a regular buffer (like any other buffer)
 local create_buffer_terminal = function()
-    -- Create a new buffer
-    local buf = vim.api.nvim_create_buf(true, false) -- listed buffer, not scratch
+    -- Create a new buffer (listed, not scratch)
+    local buf = vim.api.nvim_create_buf(true, false)
 
     -- Switch to the new buffer in the current window
     vim.api.nvim_set_current_buf(buf)
 
-    -- Start a terminal in the buffer
-    vim.cmd.terminal()
+    -- Start a terminal in the buffer using termopen
+    -- This ensures the terminal is created in the current buffer
+    local shell = vim.o.shell
+    vim.fn.termopen(shell, {
+        on_exit = function()
+            -- Optional: close the buffer when terminal exits
+            vim.schedule(function()
+                if vim.api.nvim_buf_is_valid(buf) then
+                    vim.api.nvim_buf_delete(buf, { force = true })
+                end
+            end)
+        end
+    })
+
+    -- Set buffer options for terminal
+    vim.bo[buf].buflisted = true
+    vim.bo[buf].buftype = "terminal"
 
     -- Enter insert mode automatically
     vim.cmd.startinsert()
+
+    return buf
+end
+
+-- Toggle bottom terminal (VSCode-like)
+local toggle_bottom_terminal = function()
+    -- Check if the window is valid and visible
+    if vim.api.nvim_win_is_valid(state.bottom.win) then
+        -- Hide the terminal window
+        vim.api.nvim_win_hide(state.bottom.win)
+        state.bottom.win = -1
+    else
+        -- Calculate height for bottom terminal (30% of screen)
+        local height = math.floor(vim.o.lines * 0.3)
+
+        -- Create or reuse buffer
+        local buf = state.bottom.buf
+        if not vim.api.nvim_buf_is_valid(buf) then
+            buf = vim.api.nvim_create_buf(false, true)
+            state.bottom.buf = buf
+        end
+
+        -- Create a split at the bottom
+        vim.cmd('botright split')
+        local win = vim.api.nvim_get_current_win()
+
+        -- Set the buffer in the new window
+        vim.api.nvim_win_set_buf(win, buf)
+
+        -- Resize the window
+        vim.api.nvim_win_set_height(win, height)
+
+        -- If not already a terminal, create one
+        if vim.bo[buf].buftype ~= "terminal" then
+            vim.fn.termopen(vim.o.shell, {
+                on_exit = function()
+                    vim.schedule(function()
+                        if vim.api.nvim_win_is_valid(win) then
+                            vim.api.nvim_win_close(win, true)
+                        end
+                        state.bottom.buf = -1
+                        state.bottom.win = -1
+                    end)
+                end
+            })
+        end
+
+        -- Store the window
+        state.bottom.win = win
+
+        -- Enter insert mode
+        vim.cmd.startinsert()
+    end
 end
 
 -- And the final keybinds
 
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
 vim.api.nvim_create_user_command("Terminal", create_buffer_terminal, {})
+vim.api.nvim_create_user_command("BottomTerminal", toggle_bottom_terminal, {})
+
+-- Terminal keymaps
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
-vim.keymap.set("n", "<C-M-t>", toggle_terminal)
+vim.keymap.set("n", "<C-M-t>", toggle_terminal, { desc = "Toggle floating terminal" })
 vim.keymap.set("n", "<leader>tt", create_buffer_terminal, { desc = "Open terminal in buffer" })
+
+-- VSCode-like bottom terminal toggle (Ctrl+` or Ctrl+\)
+vim.keymap.set("n", "<C-`>", toggle_bottom_terminal, { desc = "Toggle bottom terminal" })
+vim.keymap.set("n", "<C-\\>", toggle_bottom_terminal, { desc = "Toggle bottom terminal" })
+vim.keymap.set("t", "<C-`>", toggle_bottom_terminal, { desc = "Toggle bottom terminal" })
+vim.keymap.set("t", "<C-\\>", toggle_bottom_terminal, { desc = "Toggle bottom terminal" })
+vim.keymap.set("n", "<leader>tb", toggle_bottom_terminal, { desc = "Toggle bottom terminal" })

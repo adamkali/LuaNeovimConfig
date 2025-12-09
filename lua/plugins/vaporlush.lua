@@ -58,13 +58,13 @@ return {
         },
     },
     {
-        dir = "~/git/vaporlush",
+        --dir = "~/git/vaporlush",
         "adamkali/vaporlush",
         branch = "v2",
         lazy = false,
         priority = 1000,
         opts = {
-			transparent = true,
+			transparent = false,
             cache = true,
         }
     },
@@ -89,7 +89,7 @@ return {
             local config = {
                 options = {
                     icons_enabled = true,
-                    theme = 'axolotl',
+                    theme = 'vaporlush',
                     component_separators = '',
                     disabled_filetypes = {
                         statusline = {},

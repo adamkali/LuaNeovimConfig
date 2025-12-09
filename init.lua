@@ -1,19 +1,19 @@
--- Map the Leader    
+-- Map the Leader   
 
 vim.g.mapleader = "-"
 
--- Install Lazy 
+-- Install Lazy
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -25,7 +25,7 @@ vim.opt.conceallevel = 2
 
 vim.opt.nu = true
 
--- Relative Numbers help to move with 
+-- Relative Numbers help to move with
 
 vim.opt.relativenumber = true
 
@@ -65,10 +65,10 @@ vim.opt.wrap = true
 
 -- Use this as the general python interpreter
 
-vim.g.python3_host_prog="/usr/bin/python3.12"
-vim.cmd[[set guifont=Maple\ Mono\ NF:h20]]
+vim.g.python3_host_prog = "/usr/bin/python3.12"
+vim.cmd [[set guifont=Maple\ Mono\ NF:h20]]
 
--- Create Keybindngs For me that I like 
+-- Create Keybindngs For me that I like
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
@@ -115,41 +115,59 @@ map("n", "<C-t>", ":wincmd j <CR>", opts)
 map("n", "<C-n>", ":wincmd k <CR>", opts)
 map("n", "<C-s>", ":wincmd l <CR>", opts)
 
--- Adda some page movements 
+-- Adda some page movements
 
-vim.keymap.set('n', '<C-f>', '<C-f>zz<CR>', {noremap = true, silent = true})
-vim.keymap.set('n', '<C-b>', '<C-b>zz<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', '<C-f>', '<C-f>zz<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-b>', '<C-b>zz<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_user_command('ReloadConfig', function()
+	-- Clear all loaded lua modules under 'plugins' namespace
+	for name, _ in pairs(package.loaded) do
+		if name:match('^plugins') then
+			package.loaded[name] = nil
+		end
+	end
+
+	-- Reload init.lua
+	dofile(vim.env.MYVIMRC)
+
+	-- Notify
+	vim.notify("Config reloaded!", vim.log.levels.INFO)
+end, {})
+
+vim.keymap.set('n', '<leader>r', ':ReloadConfig<CR>', { noremap = true, silent = true })
+
 
 -- Add in some Diagnostics
 
 local sign = function(opts)
-    vim.fn.sign_define(opts.name, { text = opts.text, texthl = opts.color, linehl = '', numhl = '' })
+	vim.fn.sign_define(opts.name, { text = opts.text, texthl = opts.color, linehl = '', numhl = '' })
 end
 local M = {}
 
 function M.blend(foreground, alpha, background)
-    alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
-    local bg = rgb(background)
-    local fg = rgb(foreground)
+	alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
+	local bg = rgb(background)
+	local fg = rgb(foreground)
 
-    local blendChannel = function(i)
-        local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
-        return math.floor(math.min(math.max(0, ret), 255) + 0.5)
-    end
+	local blendChannel = function(i)
+		local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
+		return math.floor(math.min(math.max(0, ret), 255) + 0.5)
+	end
 
-    return string.format("#%02x%02x%02x", blendChannel(1), blendChannel(2), blendChannel(3))
+	return string.format("#%02x%02x%02x", blendChannel(1), blendChannel(2), blendChannel(3))
 end
 
 function M.blend_bg(hex, amount, bg)
-    return M.blend(hex, amount, bg or M.bg)
+	return M.blend(hex, amount, bg or M.bg)
 end
 
-vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#ea286a'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignWarn',  { fg = '#FFAB22'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignInfo',  { fg = '#2282E6'})
-vim.api.nvim_set_hl(0, 'DiagnosticSignHint',  { fg = '#22f2f2'})
+vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#ea286a' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { fg = '#FFAB22' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { fg = '#2282E6' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { fg = '#22f2f2' })
 
 sign({ name = 'DiagnosticSignError', text = '', color = 'LspDiagnosticsError' })
-sign({ name = 'DiagnosticSignWarn',  text = '', color = 'LspDiagnosticsWarn' })
-sign({ name = 'DiagnosticSignInfo',  text = '', color = 'LspDiagnosticsInfo' })
-sign({ name = 'DiagnosticSignHint',  text = '', color = 'LspDiagnosticsHint' })
+sign({ name = 'DiagnosticSignWarn', text = '', color = 'LspDiagnosticsWarn' })
+sign({ name = 'DiagnosticSignInfo', text = '', color = 'LspDiagnosticsInfo' })
+sign({ name = 'DiagnosticSignHint', text = '', color = 'LspDiagnosticsHint' })

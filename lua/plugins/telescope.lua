@@ -26,12 +26,7 @@ return {
 				border = true,
 				winblend = 10,
 				width = 0.8,
-				previewer = false,
-				borderchars = {
-					prompt = { '▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' },
-					results = { ' ', '▐', '▄', '▌', '▌', '▐', '▟', '▙' },
-					preview = { '▀', '▐', '▄', '▌', '▛', '▜', '▟', '▙' },
-				},
+				previewer = true,
 				prompt_title = true,
 				prompt_prefix = "🤔 ",
 				selection_caret = " ",
@@ -51,7 +46,7 @@ return {
 					results_title = "Files",
 				},
 				live_grep = {
-					previewer = false,
+					previewer = true,
 					prompt_title = "󰊄 Live Grep",
 					results_title = "Results",
 				},
@@ -66,7 +61,7 @@ return {
 					results_title = "Open Buffers",
 				},
 				help_tags = {
-					previewer = false,
+					previewer = true,
 					prompt_title = "󰘥 Help Tags",
 					results_title = "Help",
 				},
@@ -104,6 +99,11 @@ return {
 					previewer = false,
 					prompt_title = "󰌹 LSP Type Definitions",
 					results_title = "Type Definitions",
+				},
+				marks = {
+					previewer = true,
+					prompt_title = "󰌹 Marks",
+					results_title = "Marks",
 				},
 			},
 		},

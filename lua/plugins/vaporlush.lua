@@ -1,14 +1,19 @@
 vim.opt.termguicolors = true
 return {
 	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {
-			style = "night",
-			transparent = true,
-			lualine_bold = true,
-		},
+		"adamkali/axolotl.nvim",
+		-- dir = "~/projects/axolotl.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            style = "night",
+            transparent = true,
+            styles = {
+                comments = { italic = true },
+                keywords = { italic = true },
+            },
+            lualine_bold = true,
+        },
 	},
 	{
 		"eldritch-theme/eldritch.nvim",

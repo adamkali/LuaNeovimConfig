@@ -5,9 +5,6 @@ local quickfix_leader = "<space>c"
 local debug_leader = "<space>d"
 local telescope_leader = "<space>f"
 local dotnet_leader = "<space>dn"
-local neorg_leader_todo = "<space>nt"
-local neorg_leader = "<space>n"
-local cogitare_leader = "<space>nr"
 
 -- Add some Quickfix Functionality
 local quickfix_enhanced = require('quickfix_enhanced')
@@ -65,45 +62,6 @@ wk {
 	{ dotnet_leader .. 't', '<cmd>DotnvimTaskRun<cr>', desc = '[t]ask [r]un' },
 }
 
--- Neorg Keybindings
-
-local function add_to_posts()
-    local post_location = "/home/adamkali/git/blog.kalilarosa.xyz/content/posts/"
-    local post_name = vim.fn.expand("%:r")
-    return post_location .. post_name .. ".md"
-end
-
-wk {
-    { neorg_leader, expr = false, group = "[N]eorg", nowait = false, remap = false, icon = { icon = "", "@constructor.tsx" } },
-    { neorg_leader .. 'c', '<cmd>:Neorg toc right<cr>', desc = '[n]eorg table of [c]ontents' },
-    { neorg_leader .. 'm', '<Plug>(neorg.looking-glass.magnify-code-block)', desc = '[n]eorg code [m]agnify' },
-    { neorg_leader .. '.', '<cmd>:Neorg tangle current-file<cr>', desc = '[n]eorg tangle [.]' },
-    { neorg_leader .. 'i', '<cmd>:Neorg inject-metadata<cr>', desc = '[n]eorg [i]nject metadata' },
-    { neorg_leader .. 'p', '<cmd>:Neorg export to-file ' .. add_to_posts() .. ' markdown<cr>', desc = '[n]eorg [p]ost to blog' },
-    { neorg_leader .. 'e', require('norbsidian').get_selections, desc = "neorg configured export" },
-    { neorg_leader .. 's', '<cmd>:Neorg dew_catngo full<cr>', desc = '[n]eorg [s]earch categories' },
-}
-
-wk {
-    { neorg_leader_todo, expr = false, group = "[n]eorg [t]odo", nowait = false, remap = false, icon = { icon = "", "@constructor.tsx" } },
-    { neorg_leader_todo .. 'a', '<Plug>(neorg.qol.todo-items.todo.task-ambiguous)', desc = '[n]eorg [t]odo ambiguous' },
-    { neorg_leader_todo .. 'c', '<Plug>(neorg.qol.todo-items.todo.task-cancelled)', desc = '[n]eorg [t]odo cancelled' },
-    { neorg_leader_todo .. 'd', '<Plug>(neorg.qol.todo-items.todo.task-done)', desc = '[n]eorg [t]odo done' },
-    { neorg_leader_todo .. 'h', '<Plug>(neorg.qol.todo-items.todo.task-on-hold)', desc = '[n]eorg [t]odo on-hold' },
-    { neorg_leader_todo .. 'i', '<Plug>(neorg.qol.todo-items.todo.task-important)', desc = '[n]eorg [t]odo important' },
-    { neorg_leader_todo .. 'p', '<Plug>(neorg.qol.todo-items.todo.task-pending)', desc = '[n]eorg [t]odo pending' },
-    { neorg_leader_todo .. 'r', '<Plug>(neorg.qol.todo-items.todo.task-recurring)', desc = '[n]eorg [t]odo recurring' },
-    { neorg_leader_todo .. 'u', '<Plug>(neorg.qol.todo-items.todo.task-undone)', desc = '[n]eorg [t]odo undone' },
-}
-
--- Gonlang Plugins
-
--- Cogitare Keybindings
-wk {
-	{ cogitare_leader, expr = false, group = "[n]eorg [c]ogitare Group", nowait = false, remap = false, icon = { icon = "󰧑", "@constructor.tsx" } },
-	{ cogitare_leader .. 't', require('cogitare').template, desc = '[c]ogitare [t]emplate' },
-	{ cogitare_leader .. 'm', require('cogitare').move_filename, desc = '[c]ogitare [m]ove to file' },
-}
 
 -- From TJ's Wonderful 25 Days Of Neovim series
 

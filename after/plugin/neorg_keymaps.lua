@@ -131,20 +131,11 @@ wk {
 	{ neorg_roam_capture_leader .. 'm', '<cmd>:Neorg roam capture movie-review<cr>', desc = '[n]eorg [r]oam [c]apture [m]ovie' },
 	{ neorg_roam_capture_leader .. 's', '<cmd>:Neorg roam capture show-review<cr>', desc = '[n]eorg [r]oam [c]apture [s]how' },
 	{ neorg_roam_capture_leader .. 'm', '<cmd>:Neorg roam capture resturant-review<cr>', desc = '[n]eorg [r]oam [c]apture [r]esturant' },
-
 	{ neorg_roam_capture_leader .. 's', '<cmd>:Neorg roam capture selection<cr>', desc = '[n]eorg [r]oam [c]apture [s]election', mode = 'v' },
+	{ neorg_roam_capture_leader .. 'c', '<cmd>:Neorg roam capture<cr>', desc = '[n]eorg [r]oam [c]apture [c]' },
 }
 wk {
 	{ neorg_agenda_leader, expr = false, group = "[n]eorg [a]genda", nowait = false, remap = false, icon = { icon = "󰕪", "@lsp.type.enum" } },
-	{
-		neorg_agenda_leader .. 'a',
-		'<cmd>Neorg agenda page ambiguous<cr>',
-		desc = '[n]eorg [a]genda [a]mbiguous',
-		icon = {
-			icon = todos.ambiguous,
-			hl = "@neorg.todo_items.uncertain"
-		}
-	},
 	{
 		neorg_agenda_leader .. 'c',
 		'<cmd>Neorg agenda page cancelled<cr>',
@@ -209,13 +200,217 @@ wk {
 		}
 	},
 	{
-		neorg_agenda_leader .. 'D',
+		neorg_agenda_leader .. 'a',
 		'<cmd>Neorg agenda day<cr>',
-		desc = '[n]eorg [a]genda [D]ay',
+		desc = '[n]eorg [a]genda d[a]y',
 	},
 	{
 		neorg_agenda_leader .. 'U',
 		'<cmd>Neorg update_property_metadata<cr>',
 		desc = '[n]eorg [a]genda [U]pdate Property Metadata',
 	}
+}
+
+-- ============================================================================
+-- Custom Neorg Heading Navigation Functions
+-- ============================================================================
+
+--- Helper function to get the heading level from a node type
+--- @param node_type string The TreeSitter node type (e.g., "heading1", "heading2")
+--- @return number|nil The heading level (1-6) or nil if not a heading
+local function get_heading_level(node_type)
+	local level = node_type:match("^heading(%d)$")
+	return level and tonumber(level) or nil
+end
+
+--- Helper function to get the current heading node under cursor
+--- @return TSNode|nil, number|nil The heading node and its level
+local function get_current_heading()
+	local ts_utils = require('neorg').modules.get_module('core.integrations.treesitter')
+	if not ts_utils then
+		vim.notify("Neorg treesitter module not loaded", vim.log.levels.ERROR)
+		return nil, nil
+	end
+
+	local node = vim.treesitter.get_node()
+	if not node then
+		return nil, nil
+	end
+
+	-- Traverse up to find a heading node
+	local current = node
+	while current do
+		local node_type = current:type()
+		local level = get_heading_level(node_type)
+		if level then
+			return current, level
+		end
+		current = current:parent()
+	end
+
+	return nil, nil
+end
+
+--- Helper function to jump to a TreeSitter node
+--- @param node TSNode The node to jump to
+local function goto_node(node)
+	if not node then
+		return
+	end
+	-- Set jump point for jumping back with Ctrl-O
+	vim.cmd("normal! m'")
+
+	local row, col = node:range()
+	vim.api.nvim_win_set_cursor(0, { row + 1, col })
+end
+
+--- Jump to next heading at the same level (peer)
+function AKNeorgHeadingPeerJumpForward()
+	local current_heading, current_level = get_current_heading()
+	if not current_heading or not current_level then
+		vim.notify("Not inside a heading", vim.log.levels.WARN)
+		return
+	end
+
+	-- Find next sibling heading at the same level
+	local next_node = current_heading:next_named_sibling()
+	while next_node do
+		local node_type = next_node:type()
+		local level = get_heading_level(node_type)
+
+		if level then
+			if level < current_level then
+				-- Reached a higher-level heading (parent peer), stop searching
+				vim.notify("No more peer headings forward", vim.log.levels.INFO)
+				return
+			elseif level == current_level then
+				-- Found a peer heading at same level
+				goto_node(next_node)
+				return
+			end
+			-- level > current_level means it's a child, keep searching
+		end
+
+		next_node = next_node:next_named_sibling()
+	end
+
+	vim.notify("No more peer headings forward", vim.log.levels.INFO)
+end
+
+--- Jump to previous heading at the same level (peer)
+function AKNeorgHeadingPeerJumpBackward()
+	local current_heading, current_level = get_current_heading()
+	if not current_heading or not current_level then
+		vim.notify("Not inside a heading", vim.log.levels.WARN)
+		return
+	end
+
+	-- Find previous sibling heading at the same level
+	local prev_node = current_heading:prev_named_sibling()
+	while prev_node do
+		local node_type = prev_node:type()
+		local level = get_heading_level(node_type)
+
+		if level then
+			if level < current_level then
+				-- Reached a higher-level heading (parent peer), stop searching
+				vim.notify("No more peer headings backward", vim.log.levels.INFO)
+				return
+			elseif level == current_level then
+				-- Found a peer heading at same level
+				goto_node(prev_node)
+				return
+			end
+			-- level > current_level shouldn't happen when going backward, but skip it
+		end
+
+		prev_node = prev_node:prev_named_sibling()
+	end
+
+	vim.notify("No more peer headings backward", vim.log.levels.INFO)
+end
+
+--- Get all heading nodes in the document
+--- @return TSNode[] List of heading nodes in document order
+local function get_all_headings()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local parser = vim.treesitter.get_parser(bufnr, 'norg')
+	local tree = parser:parse()[1]
+	local root = tree:root()
+
+	local headings = {}
+
+	-- Query for all headings
+	local query = vim.treesitter.query.parse('norg', [[
+		[
+			(heading1) @heading
+			(heading2) @heading
+			(heading3) @heading
+			(heading4) @heading
+			(heading5) @heading
+			(heading6) @heading
+		]
+	]])
+
+	for _, node in query:iter_captures(root, bufnr, 0, -1) do
+		table.insert(headings, node)
+	end
+
+	return headings
+end
+
+--- Jump to next heading (any level)
+function AKNeorgHeadingJumpForward()
+	local current_heading, current_level = get_current_heading()
+	if not current_heading or not current_level then
+		vim.notify("Not inside a heading", vim.log.levels.WARN)
+		return
+	end
+
+	local current_row = current_heading:range()
+	local headings = get_all_headings()
+
+	-- Find next heading after current position
+	for _, heading in ipairs(headings) do
+		local row = heading:range()
+		if row > current_row then
+			goto_node(heading)
+			return
+		end
+	end
+
+	vim.notify("No more headings forward", vim.log.levels.INFO)
+end
+
+--- Jump to previous heading (any level)
+function AKNeorgHeadingJumpBackward()
+	local current_heading, current_level = get_current_heading()
+	if not current_heading or not current_level then
+		vim.notify("Not inside a heading", vim.log.levels.WARN)
+		return
+	end
+
+	local current_row = current_heading:range()
+	local headings = get_all_headings()
+
+	-- Find previous heading before current position (iterate in reverse)
+	for i = #headings, 1, -1 do
+		local heading = headings[i]
+		local row = heading:range()
+		if row < current_row then
+			goto_node(heading)
+			return
+		end
+	end
+
+	vim.notify("No more headings backward", vim.log.levels.INFO)
+end
+
+wk {
+	-- Jump to next/previous heading at SAME level (peer)
+	{ ']]' , AKNeorgHeadingPeerJumpForward, desc = 'Next peer heading (same level)' },
+	{ '[[' , AKNeorgHeadingPeerJumpBackward, desc = 'Previous peer heading (same level)' },
+	-- Jump to next/previous heading at ANY level
+	{ '}',  AKNeorgHeadingJumpForward, desc = 'Next heading (any level)' },
+	{ '{',  AKNeorgHeadingJumpBackward, desc = 'Previous heading (any level)' },
 }

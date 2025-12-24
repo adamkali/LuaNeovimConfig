@@ -164,7 +164,7 @@ local call_ollama_server = function()
 		vim.json.encode(struct(model, Topics.get_random_topic()))
 	}
 	vim.system(call, {}, function(result)
-		vim.notify("\n" .. result.stdout, vim.log.levels.INFO, { title = "Inspi 🥰", timeout = 5000 })
+		--vim.notify("\n" .. result.stdout, vim.log.levels.INFO, { title = "Inspi 🥰", timeout = 5000 })
 		if result.code == 0 and result.stdout then
 			local json = vim.json.decode(result.stdout)
 			local message = json.choices[1].message.content
@@ -183,7 +183,7 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
 		vim.defer_fn(function()
-			-- call_ollama_server()
+			call_ollama_server()
 		end, 2000) -- 1 second
 	end
 })

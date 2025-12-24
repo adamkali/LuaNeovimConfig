@@ -56,45 +56,45 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
-		adapters = {
-			zelda = function()
-				return require("codecompanion.adapters").extend("ollama", {
-					name = "zelda", -- Give this adapter a different name to differentiate it from the default ollama adapter
-					schema = {
-						env = {
-							url = "https://zelda:11434/api/generate",
-						},
-						headers = {
-							["Content-Type"] = "application/json",
-						},
-						model = {
-							default = "gpt-oss:latest",
-						},
-						parameters = {
-							sync = true,
-							max_tokens = 20000
-						}
-					},
-
-				})
-			end
-		},
 		opts = {
+			adapters = {
+				zelda = function()
+					return require("codecompanion.adapters").extend("ollama", {
+						name = "zelda", -- Give this adapter a different name to differentiate it from the default ollama adapter
+						schema = {
+							env = {
+								url = "http://zelda:11434/api/generate",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+							},
+							model = {
+								default = "gpt-oss:latest",
+							},
+							parameters = {
+								sync = true,
+								max_tokens = 20000
+							}
+						},
+
+					})
+				end
+			},
 			strategies = {
 				chat = { adapter = "zelda" },
 				inline = { adapter = "zelda" },
 				cmd = { adapter = "zelda" },
 			},
+			display = {
+				window = {
+					position = "right",
+					border = "single",
+					width = 0.33
+				}
+			},
 			system_prompt = function()
 				return SYSTEM_PROMPT
 			end
 		},
-		display = {
-			window = {
-				position = "right",
-				border = "single",
-				width = 0.33
-			}
-		}
 	},
 }

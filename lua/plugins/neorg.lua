@@ -5,9 +5,6 @@ return {
 		"nvim-neorg/neorg",
 		lazy = false,
 		version = "*",
-		dependencies = {
-			"juniorsundar/neorg-extras",
-		},
 		config = function()
 			require("neorg").setup {
 				load = {
@@ -15,6 +12,7 @@ return {
 					["core.autocommands"] = {},
 					["core.esupports.metagen"] = {
 					},
+					["core.ui"] = {},
 					["core.concealer"] = {
 						config = {
 							icons = {
@@ -110,6 +108,9 @@ return {
 							node_no_name = false, -- no suffix name in node filename
 							node_name_randomiser = false, -- Tokenise node name suffix for more randomisation
 							node_name_snake_case = false, -- snake_case the names if node_name_randomiser = false
+							capture_targets = {
+								todo = "roam/todo.norg",
+							},
 						}
 					},
 					["external.interim-ls"] = {
@@ -147,4 +148,8 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	{
+		dir = "~/git/neorg-extras/"
+		-- 	"juniorsundar/neorg-extras",
+	}
 }

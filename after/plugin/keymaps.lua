@@ -143,10 +143,23 @@ local open_buffer_terminal = function()
 	state.floating = create_floating_window { buf = buf }
 end
 
+
+
+-- Terminal counter for unique names
+local terminal_counter = 0
+
 -- Create a terminal in a regular buffer (like any other buffer)
 local create_buffer_terminal = function()
+    -- Increment counter for unique terminal names
+    terminal_counter = terminal_counter + 1
+
     -- Create a new buffer (listed, not scratch)
     local buf = vim.api.nvim_create_buf(true, false)
+
+    -- Set a unique name for the terminal buffer
+    -- This makes it searchable through Telescope
+    local term_name = string.format("term://terminal-%d", terminal_counter)
+    vim.api.nvim_buf_set_name(buf, term_name)
 
     -- Switch to the new buffer in the current window
     vim.api.nvim_set_current_buf(buf)
@@ -227,7 +240,6 @@ local toggle_bottom_terminal = function()
 end
 
 -- And the final keybinds
-
 vim.api.nvim_create_user_command("Floaterminal", toggle_terminal, {})
 vim.api.nvim_create_user_command("Terminal", create_buffer_terminal, {})
 vim.api.nvim_create_user_command("BottomTerminal", toggle_bottom_terminal, {})

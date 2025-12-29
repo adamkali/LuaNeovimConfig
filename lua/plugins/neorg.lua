@@ -134,6 +134,14 @@ return {
 							}
 						}
 					},
+					["external.refile"] = {
+						config = {
+							fuzzy_finder = "Telescope", -- OR "Fzf" OR "Snacks". Defaults to "Telescope"
+							destinations = {
+								["todo"] = "roam/todo.norg",
+							},
+						}
+					}
 				}
 			}
 			vim.wo.foldlevel = 99
@@ -148,8 +156,6 @@ return {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
-	{
-		dir = "~/git/neorg-extras/"
-		-- 	"juniorsundar/neorg-extras",
-	}
+	{ "juniorsundar/neorg-extras" },
+	{ "adamkali/neorg-refile" }
 }

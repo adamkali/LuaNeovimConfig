@@ -139,6 +139,8 @@ return {
 							fuzzy_finder = "Telescope", -- OR "Fzf" OR "Snacks". Defaults to "Telescope"
 							destinations = {
 								["todo"] = "roam/todo.norg",
+								["done"] = "roam/done.norg",
+								["progress"] = "roam/progress.norg",
 							},
 						}
 					}

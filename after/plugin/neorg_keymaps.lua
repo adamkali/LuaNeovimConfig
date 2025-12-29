@@ -1,9 +1,10 @@
 local wk = require('which-key').add
 
 -- leaders
-local neorg_roam_leader = "<space>nr"
-local neorg_roam_capture_leader = neorg_roam_leader .. "c"
 local neorg_leader = "<space>n"
+local neorg_roam_leader = neorg_leader .. "r"
+local neorg_refile_leader = neorg_leader .. "f"
+local neorg_roam_capture_leader = neorg_roam_leader .. "c"
 local neorg_leader_todo = neorg_leader .. "t"
 local neorg_journal_leader = neorg_leader .. "l"
 local neorg_agenda_leader = neorg_leader .. "a"
@@ -25,7 +26,7 @@ local todos = {
 }
 
 wk {
-	{ neorg_leader, expr = false, group = "[n]eorg", nowait = false, remap = false, icon = { icon = "", "@constructor.tsx" } },
+	{ neorg_leader, expr = false, group = "[n]eorg", nowait = false, remap = false, icon = { icon = "", "@comment.hint" } },
 	{ neorg_leader .. 'c', '<cmd>:Neorg toc right<cr>', desc = '[n]eorg table of [c]ontents' },
 	{ neorg_leader .. 'm', '<Plug>(neorg.looking-glass.magnify-code-block)', desc = '[n]eorg code [m]agnify' },
 	{ neorg_leader .. '.', '<cmd>:Neorg tangle current-file<cr>', desc = '[n]eorg tangle [.]' },
@@ -33,82 +34,29 @@ wk {
 	{ neorg_leader .. 'p', '<cmd>:Neorg export to-file ' .. add_to_posts() .. ' markdown<cr>', desc = '[n]eorg [p]ost to blog' },
 	{ neorg_leader .. 'e', require('norbsidian').get_selections, desc = "[N]eorg [e]xport selection" },
 	{ neorg_leader .. 's', '<cmd>:Neorg dew_catngo full<cr>', desc = '[n]eorg [s]earch categories' },
+
+	{ neorg_leader .. 'nt', '<cmd>:e ~/org/roam/todo.norg<cr>', desc = '[n]eorg ~[n]~ [t]odo' },
+	{ neorg_leader .. 'nd', '<cmd>:e ~/org/roam/diary.done<cr>', desc = '[n]eorg ~[n]~ [d]one' },
 }
 
 wk {
-	{ neorg_leader_todo, expr = false, group = "[n]eorg [t]odo", nowait = false, remap = false, icon = { icon = "", "@constructor.tsx" } },
-	{
-		neorg_leader_todo .. 'a',
-		'<Plug>(neorg.qol.todo-items.todo.task-ambiguous)',
-		desc = '[n]eorg [t]odo [a]mbiguous',
-		icon = {
-			icon = todos.ambiguous,
-			hl = "@neorg.todo_items.uncertain"
-		}
-	},
-	{
-		neorg_leader_todo .. 'c',
-		'<Plug>(neorg.qol.todo-items.todo.task-cancelled)',
-		desc = '[n]eorg [t]odo [c]ancelled',
-		icon = {
-			icon = todos.cancelled,
-			hl = "@neorg.todo_items.cancelled"
-		}
-	},
-	{
-		neorg_leader_todo .. 'd',
-		'<Plug>(neorg.qol.todo-items.todo.task-done)',
-		desc = '[n]eorg [t]odo [d]one',
-		icon = {
-			icon = todos.done,
-			hl = "@neorg.todo_items.done"
-		}
-	},
-	{
-		neorg_leader_todo .. 'h',
-		'<Plug>(neorg.qol.todo-items.todo.task-on-hold)',
-		desc = '[n]eorg [t]odo [o]n-hold',
-		icon = {
-			icon = todos.on_hold,
-			hl = "@neorg.todo_items.on_hold"
-		}
-	},
-	{
-		neorg_leader_todo .. 'i',
-		'<Plug>(neorg.qol.todo-items.todo.task-important)',
-		desc = '[n]eorg [t]odo [i]mportant',
-		icon = {
-			icon = todos.urgent,
-			hl = "@neorg.todo_items.urgent"
-		}
-	},
-	{
-		neorg_leader_todo .. 'p',
-		'<Plug>(neorg.qol.todo-items.todo.task-pending)',
-		desc = '[n]eorg [t]odo [p]ending',
-		icon = {
-			icon = todos.pending,
-			hl = "@neorg.todo_items.pending"
-		}
-	},
-	{
-		neorg_leader_todo .. 'r',
-		'<Plug>(neorg.qol.todo-items.todo.task-recurring)',
-		desc = '[n]eorg [t]odo [r]ecurring',
-		icon = {
-			icon = todos.recurring,
-			hl = "@neorg.todo_items.recurring"
-		}
-	},
-	{
-		neorg_leader_todo .. 'u',
-		'<Plug>(neorg.qol.todo-items.todo.task-undone)',
-		desc = '[n]eorg [t]odo [u]ndone',
-		icon = {
-			icon = todos.undone,
-			hl = "@neorg.todo_items.undone"
-		}
-	},
+	{ neorg_leader_todo, expr = false, group = "[n]eorg [t]odo", nowait = false, remap = false, icon = { icon = "", "@comment.hint" } },
+	{ neorg_leader_todo .. 'a', '<Plug>(neorg.qol.todo-items.todo.task-ambiguous)', desc = '[n]eorg [t]odo [a]mbiguous', icon = { icon = todos.ambiguous, hl = "@neorg.todo_items.uncertain" } },
+	{ neorg_leader_todo .. 'c', '<Plug>(neorg.qol.todo-items.todo.task-cancelled)', desc = '[n]eorg [t]odo [c]ancelled', icon = { icon = todos.cancelled, hl = "@neorg.todo_items.cancelled" } },
+	{ neorg_leader_todo .. 'd', '<Plug>(neorg.qol.todo-items.todo.task-done)', desc = '[n]eorg [t]odo [d]one', icon = { icon = todos.done, hl = "@neorg.todo_items.done" } },
+	{ neorg_leader_todo .. 'h', '<Plug>(neorg.qol.todo-items.todo.task-on-hold)', desc = '[n]eorg [t]odo [o]n-hold', icon = { icon = todos.on_hold, hl = "@neorg.todo_items.on_hold" } },
+	{ neorg_leader_todo .. 'i', '<Plug>(neorg.qol.todo-items.todo.task-important)', desc = '[n]eorg [t]odo [i]mportant', icon = { icon = todos.urgent, hl = "@neorg.todo_items.urgent" } },
+	{ neorg_leader_todo .. 'p', '<Plug>(neorg.qol.todo-items.todo.task-pending)', desc = '[n]eorg [t]odo [p]ending', icon = { icon = todos.pending, hl = "@neorg.todo_items.pending" } },
+	{ neorg_leader_todo .. 'r', '<Plug>(neorg.qol.todo-items.todo.task-recurring)', desc = '[n]eorg [t]odo [r]ecurring', icon = { icon = todos.recurring, hl = "@neorg.todo_items.recurring" } },
+	{ neorg_leader_todo .. 'u', '<Plug>(neorg.qol.todo-items.todo.task-undone)', desc = '[n]eorg [t]odo [u]ndone', icon = { icon = todos.undone, hl = "@neorg.todo_items.undone" } },
+}
+
+wk {
+	{ neorg_refile_leader, expr = false, group = "[n]eorg re[f]ile", nowait = false, remap = false, icon = { icon = "󰧻", "@comment.todo" } },
+	{ neorg_refile_leader .. 'dt', '<cmd>:Neorg refile defined todo<cr>', desc = '[n]eorg re[f]ile [d]efined [t]odo' },
+	{ neorg_refile_leader .. 'dp', '<cmd>:Neorg refile defined progress<cr>', desc = '[n]eorg re[f]ile [d]efined [p]rogress' },
+	{ neorg_refile_leader .. 'dd', '<cmd>:Neorg refile defined done<cr>', desc = '[n]eorg re[f]ile [d]efined [d]one' },
+	{ neorg_refile_leader .. 't', '<cmd>:Neorg refile to<cr>', desc = '[n]eorg re[f]ile [t]o' },
 }
 
 wk {
@@ -125,7 +73,7 @@ wk {
 	{ neorg_journal_leader .. 't', '<cmd>:Neorg journal tomorrow<cr>', desc = '[n]eorg journa[l] [t]omorrow' },
 }
 wk {
-	{ neorg_roam_capture_leader, expr = false, group = "[n]eorg [r]oam [c]apture", nowait = false, remap = false, icon = { icon = "", "@lsp.type.enum" } },
+	{ neorg_roam_capture_leader, expr = false, group = "[n]eorg [r]oam [c]apture", nowait = false, remap = false, icon = { icon = "", "@comment.todo" } },
 	{ neorg_roam_capture_leader .. 't', '<cmd>:Neorg roam capture todo<cr>', desc = '[n]eorg [r]oam [c]apture [t]odo' },
 	{ neorg_roam_capture_leader .. 'n', '<cmd>:Neorg roam capture note<cr>', desc = '[n]eorg [r]oam [c]apture [n]otes' },
 	{ neorg_roam_capture_leader .. 'm', '<cmd>:Neorg roam capture movie-review<cr>', desc = '[n]eorg [r]oam [c]apture [m]ovie' },
@@ -410,6 +358,7 @@ wk {
 	-- Jump to next/previous heading at SAME level (peer)
 	{ ']]' , AKNeorgHeadingPeerJumpForward, desc = 'Next peer heading (same level)' },
 	{ '[[' , AKNeorgHeadingPeerJumpBackward, desc = 'Previous peer heading (same level)' },
+
 	-- Jump to next/previous heading at ANY level
 	{ '}',  AKNeorgHeadingJumpForward, desc = 'Next heading (any level)' },
 	{ '{',  AKNeorgHeadingJumpBackward, desc = 'Previous heading (any level)' },

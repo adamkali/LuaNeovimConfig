@@ -12,26 +12,26 @@ end
 
 -- Map task state icons to match neorg config
 local state_icon_map = {
-    ["×"] = "󱥸",      -- undone
-    ["󰥔"] = "󰐌",      -- pending
-    [""] = "󰙦",      -- on_hold
-    ["⚠"] = "󱠇",      -- urgent/important
-    ["↺"] = "󱍸",      -- recurring
-    [""] = "",      -- uncertain/ambiguous
-    ["󰄬"] = "󰓏",      -- done
-    [""] = "󱃓",      -- cancelled
+    [" "] = "󱥸",      -- undone
+    ["-"] = "󰐌",      -- pending
+    ["="] = "󰙦",      -- on_hold
+    ["!"] = "󱠇",      -- urgent/important
+    ["+"] = "󱍸",      -- recurring
+    ["?"] = "󰋗",      -- uncertain/ambiguous
+    ["x"] = "󰓏",      -- done
+    ["_"] = "󱃓",      -- cancelled
 }
 
 -- Map state icons to highlight groups
 local state_hl_map = {
-    ["×"] = "@neorg.todo_items.undone",
-    ["󰥔"] = "@neorg.todo_items.pending",
-    [""] = "@neorg.todo_items.on_hold",
-    ["⚠"] = "@neorg.todo_items.urgent",
-    ["↺"] = "@neorg.todo_items.recurring",
-    [""] = "@neorg.todo_items.uncertain",
-    ["󰄬"] = "@neorg.todo_items.done",
-    [""] = "@neorg.todo_items.cancelled",
+    [" "] = "@neorg.todo_items.undone",
+    ["-"] = "@neorg.todo_items.pending",
+    ["="] = "@neorg.todo_items.on_hold",
+    ["!"] = "@neorg.todo_items.urgent",
+    ["+"] = "@neorg.todo_items.recurring",
+    ["?"] = "@neorg.todo_items.uncertain",
+    ["x"] = "@neorg.todo_items.done",
+    ["_"] = "@neorg.todo_items.cancelled",
 }
 
 -- Custom function to get Neorg tasks due in the next week
@@ -52,7 +52,6 @@ local get_neorg_tasks = function()
         return many_mans["task-man"].filter_tasks({
             "undone",
             "pending",
-            "hold",
             "important",
         })
     end)

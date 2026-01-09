@@ -33,7 +33,8 @@ local my_kind_icons = {
 }
 return {
     'saghen/blink.cmp',
-    version = '1.*',
+    build = "cargo build --release",
+    version = "*",
 
     -- dependencies needed for this setup
 
@@ -57,8 +58,6 @@ return {
             nerd_font_variant = 'propo',
         },
         completion = {
-            -- By default, you may press `<c-space>` to show the documentation.
-            -- Optionally, set `auto_show = true` to show the documentation after a delay.
             documentation = { auto_show = true, auto_show_delay_ms = 500 },
             menu = {
                 border = 'rounded',

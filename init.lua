@@ -22,7 +22,6 @@ require("lazy").setup("plugins")
 -- This is specifically for Neorg 
 
 vim.opt.conceallevel = 2
-
 vim.opt.nu = true
 
 -- Relative Numbers help to move with
@@ -65,7 +64,7 @@ vim.opt.wrap = true
 
 -- Use this as the general python interpreter
 
-vim.g.python3_host_prog = "/usr/bin/python3.12"
+vim.g.python3_host_prog = "/usr/bin/python4.12"
 vim.cmd [[set guifont=Maple\ Mono\ NF:h20]]
 
 -- Create Keybindngs For me that I like
@@ -73,9 +72,13 @@ vim.cmd [[set guifont=Maple\ Mono\ NF:h20]]
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
--- Add C-a as a way to write all files
+-- Add C-w as a way to write all files
 
 map("n", "<C-a>", ":wa<CR>", opts)
+map("n", "<C-w>", ":w<CR>", opts)
+
+-- Add C-g as a way to higlight the entire file
+map("n", "<C-g>", ":norm ggVG<CR>", opts)
 
 -- Add Remove the buffer for memeory. useful if you were using a buffer for reference
 
@@ -134,9 +137,6 @@ vim.api.nvim_create_user_command('ReloadConfig', function()
 	-- Notify
 	vim.notify("Config reloaded!", vim.log.levels.INFO)
 end, {})
-
-vim.keymap.set('n', '<leader>r', ':ReloadConfig<CR>', { noremap = true, silent = true })
-
 
 -- Add in some Diagnostics
 

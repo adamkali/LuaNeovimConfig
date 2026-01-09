@@ -80,12 +80,14 @@ return {
 			end, {})
 
 
+
 			-- All servers to configure
 			local servers = {
 				"lua_ls", "gopls", "csharp_ls", "docker_compose_language_service",
 				"dockerls", "clangd", "html", "svelte", "marksman", "tailwindcss",
 				"sqlls", "elixirls", "templ", "pyright", "somesass_ls", "hls",
 				"cssls", "texlab", "rust_analyzer", "fish_lsp", "jsonls", "yamlls",
+				"kulala_ls",
 			}
 
 			-- Base server configurations (cmd + filetypes)

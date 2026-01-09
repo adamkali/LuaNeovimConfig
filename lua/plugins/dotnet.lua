@@ -105,16 +105,7 @@ return {
 			-- Keybinding settings
 			keybindings = {
 				sharpie_local_leader = '-s',
-				disable_default_keybindings = false,
-				overrides = {
-					show_preview = "<localleader>s",
-					hide_preview = "<localleader>h",
-					step_to_next_symbol = "<localleader>f",
-					toggle_namespace_mode = "<localleader>t",
-					step_to_prev_symbol = "<localleader>b",
-					search_symbols = "<localleader>xs",
-					toggle_highlight = "<localleader>H",
-				},
+				disable_default_keybindings = true,
 				preview = {
 					jump_to_symbol = "<CR>", -- Jump to symbol under cursor
 					next_symbol = "<C-n>", -- Navigate to next symbol

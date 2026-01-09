@@ -41,14 +41,6 @@ When given a task:
 local function zelda_adapter()
 end
 
-
-
--- Configuring OpenAI API Key
---  and rreturn
-
-
--- The plugin configuration
-
 return {
 	{
 		"olimorris/codecompanion.nvim",
@@ -58,32 +50,47 @@ return {
 		},
 		opts = {
 			adapters = {
-				zelda = function()
-					return require("codecompanion.adapters").extend("ollama", {
-						name = "zelda", -- Give this adapter a different name to differentiate it from the default ollama adapter
-						schema = {
+				http = {
+					ollama = function()
+						return require("codecompanion.adapters").extend("ollama", {
 							env = {
-								url = "http://zelda:11434/api/generate",
+								url = "http://100.90.2.117:11434",
 							},
 							headers = {
 								["Content-Type"] = "application/json",
 							},
-							model = {
-								default = "gpt-oss:latest",
-							},
 							parameters = {
 								sync = true,
-								max_tokens = 20000
-							}
-						},
-
-					})
-				end
+							},
+						})
+					end
+				}
 			},
-			strategies = {
-				chat = { adapter = "zelda" },
-				inline = { adapter = "zelda" },
-				cmd = { adapter = "zelda" },
+			interactions = {
+				chat = {
+					adapter = {
+						name = "ollama",
+						model = "gpt-oss:latest"
+					}
+				},
+				inline = {
+					adapter = {
+						name = "ollama",
+						model = "gpt-oss:latest"
+					}
+				},
+				cmd = {
+					adapter = {
+						name = "ollama",
+						model = "gpt-oss:latest"
+					}
+				},
+				background = {
+					adapter = {
+						name = "ollama",
+						model = "gpt-oss:latest"
+					}
+				}
 			},
 			display = {
 				window = {

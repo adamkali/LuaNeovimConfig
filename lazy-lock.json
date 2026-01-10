@@ -1,5 +1,4 @@
 {
-  "FixCursorHold.nvim": { "branch": "master", "commit": "1900f89dc17c603eec29960f57c00bd9ae696495" },
   "LuaSnip": { "branch": "master", "commit": "3732756842a2f7e0e76a7b0487e9692072857277" },
   "axolotl.nvim": { "branch": "main", "commit": "492cf8337c0522b37598590c804055e28988d0a4" },
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
@@ -23,8 +22,6 @@
   "neorg-interim-ls": { "branch": "main", "commit": "e2f86982ba5857ed5581ff5814edd57b5c2c67e0" },
   "neorg-query": { "branch": "main", "commit": "e32b2dec08ec5a3ac3c7b0b4a500343886816e85" },
   "neorg-refile": { "branch": "main", "commit": "3702f46f9536c61a54be30b08e6757696a54a9e0" },
-  "neotest": { "branch": "master", "commit": "deadfb1af5ce458742671ad3a013acb9a6b41178" },
-  "neotest-dotnet": { "branch": "main", "commit": "e27c67a856ce67cc968b773d01a35ec07459bb8b" },
   "nerdy.nvim": { "branch": "main", "commit": "14bdcd13265dfc80e6ca6cee0598c5880729e24f" },
   "none-ls-extras.nvim": { "branch": "main", "commit": "03955d165621300965a6d685c8f399ec7efd5785" },
   "none-ls-luacheck.nvim": { "branch": "main", "commit": "a1dfea0d4c40c4023829c8b9a7ab0a26135985ca" },
@@ -49,9 +46,7 @@
   "telescope.nvim": { "branch": "master", "commit": "3333a52ff548ba0a68af6d8da1e54f9cd96e9179" },
   "tokyonight.nvim": { "branch": "main", "commit": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd" },
   "typescript-tools.nvim": { "branch": "master", "commit": "c2f5910074103705661e9651aa841e0d7eea9932" },
-  "typr": { "branch": "main", "commit": "584e4ef34dea25a4035627794322f315b22d1253" },
   "vaporlush": { "branch": "v2", "commit": "adcba7dd6907914277a5a0484597b11ffeec1beb" },
-  "volt": { "branch": "main", "commit": "620de1321f275ec9d80028c68d1b88b409c0c8b1" },
   "vs-solution-treesitter": { "branch": "master", "commit": "b08b465befe6bf6184ffd52e25e888004218ddbc" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "windsurf.vim": { "branch": "main", "commit": "a8d47ec54fe82df920b2545559f767003e8a7f8d" }

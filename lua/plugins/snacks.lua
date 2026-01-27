@@ -56,7 +56,7 @@ local get_neorg_tasks = function()
 			"important",
 		})
 	end)
-	vim.notify(vim.inspect(task_list))
+	-- vim.notify(vim.inspect(task_list))
 
 	if not ok or not task_list then
 		return {}
@@ -144,7 +144,7 @@ local get_neorg_tasks = function()
 			HL = hl,
 			State = task.state
 		}
-		vim.notify(vim.inspect(debug_table))
+		-- vim.notify(vim.inspect(debug_table))
 
 		table.insert(formatted_tasks, {
 			file = task.filename,

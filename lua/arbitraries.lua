@@ -1,5 +1,42 @@
 local M = {}
 
+M.AK_NEW_BUFFER = function()
+	local unicorn = [[
+        \.
+         \\      .
+          \\ _,.+;)_
+          .\\;~%:88%%.
+         (( a   `)9,8;%.
+         /`   _) ' `9%%%?
+        (' .-' j    '8%%'
+         `"+   |    .88%)+._____..,,_   ,+%$%.
+               :.   d%9`             `-%*'"'~%$.
+            ___(   (%C                 `.   68%%9
+          ."        \7                  ;  C8%%)`
+          : ."-.__,'.____________..,`   L.  \86' ,
+          : L    : :            `  .'\.   '.  %$9%)
+          ;  -.  : |             \  \  "-._ `. `~"
+           `. !  : |              )  >     ". ?
+             `'  : |            .' .'       : |
+                 ; !          .' .'         : |
+                ,' ;         ' .'           ; (
+               .  (         j  (            `  \
+               """'          ""'             `""
+███▄▄▄▄      ▄████████  ▄██████▄   ▄█    █▄   ▄█    ▄▄▄▄███▄▄▄▄
+███▀▀▀██▄   ███    ███ ███    ███ ███    ███ ███  ▄██▀▀▀███▀▀▀██▄
+███   ███   ███    █▀  ███    ███ ███    ███ ███▌ ███   ███   ███
+███   ███  ▄███▄▄▄     ███    ███ ███    ███ ███▌ ███   ███   ███
+███   ███ ▀▀███▀▀▀     ███    ███ ███    ███ ███▌ ███   ███   ███
+███   ███   ███    █▄  ███    ███ ███    ███ ███  ███   ███   ███
+███   ███   ███    ███ ███    ███ ███    ███ ███  ███   ███   ███
+ ▀█   █▀    ██████████  ▀██████▀   ▀██████▀  █▀    ▀█   ███   █▀
+
+	   ]]
+	vim.api.nvim_put(vim.split(unicorn, "\n"), "c", false, true)
+end
+
+
+
 M.ak_bar_datetime_end_of_day = function(days_offset)
 	days_offset = days_offset or 0
 
@@ -46,6 +83,34 @@ M.ak_yank_fqn_filename = function()
 	local v = vim.fn.expand("%")
 	-- put into first register for easy pasting
 	vim.fn.setreg('"', v)
+end
+
+M.ak_copy_filname = function()
+	local v = vim.fn.expand("%:t")
+	-- put into first register for easy pasting
+	vim.fn.setreg('"+', v)
+end
+
+M.ak_copy_fqn_filename = function()
+	local v = vim.fn.expand("%")
+	-- put into first register for easy pasting
+	vim.fn.setreg('"+', v)
+end
+
+M.ak_split_buffer_with_scratch = function()
+	-- split current buffer
+	vim.cmd("split")
+	-- open new scratch buffer
+	vim.cmd("enew")
+	M.AK_NEW_BUFFER()
+end
+
+M.ak_split_buffer_with_scratch_vertical = function()
+	-- split current buffer
+	vim.cmd("vsplit")
+	-- open new scratch buffer
+	vim.cmd("enew")
+	M.AK_NEW_BUFFER()
 end
 
 return M

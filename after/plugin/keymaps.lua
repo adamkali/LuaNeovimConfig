@@ -31,7 +31,7 @@ wk {
     { debug_leader .."o", function() require('dap').step_over() end, desc = 'Step Over' },
     { debug_leader .."i", function() require('dap').step_into() end, desc = 'Step Into' },
     { debug_leader .."O", function() require('dap').step_out() end, desc = 'Step Out' },
-    { "<F5>", function() require('dap').continue() end, desc = 'Continue' },
+    { "<leader>d", function() require('dap').continue() end, desc = 'Continue' },
 }
 
 -- Dotnet Plugin

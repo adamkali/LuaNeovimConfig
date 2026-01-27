@@ -41,6 +41,16 @@ When given a task:
 local function zelda_adapter()
 end
 
+local local_model = {
+	name = "localhost",
+	model = "qwen3:latest"
+}
+
+local ollama_adapter = {
+	name = "ollama",
+	model = "gpt-oss:latest"
+}
+
 return {
 	{
 		"olimorris/codecompanion.nvim",
@@ -63,33 +73,34 @@ return {
 								sync = true,
 							},
 						})
+					end,
+					localhost = function()
+						return require("codecompanion.adapters").extend("ollama", {
+							env = {
+								url = "http://localhost:11111",
+							},
+							headers = {
+								["Content-Type"] = "application/json",
+							},
+							parameters = {
+								sync = true,
+							},
+						})
 					end
 				}
 			},
 			interactions = {
 				chat = {
-					adapter = {
-						name = "ollama",
-						model = "gpt-oss:latest"
-					}
+					adapter = local_model
 				},
 				inline = {
-					adapter = {
-						name = "ollama",
-						model = "gpt-oss:latest"
-					}
+					adapter = local_model
 				},
 				cmd = {
-					adapter = {
-						name = "ollama",
-						model = "gpt-oss:latest"
-					}
+					adapter = local_model
 				},
 				background = {
-					adapter = {
-						name = "ollama",
-						model = "gpt-oss:latest"
-					}
+					adapter = local_model
 				}
 			},
 			display = {

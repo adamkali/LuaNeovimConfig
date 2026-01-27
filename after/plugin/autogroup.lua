@@ -183,7 +183,7 @@ vim.api.nvim_create_autocmd("User", {
 	pattern = "VeryLazy",
 	callback = function()
 		vim.defer_fn(function()
-			call_ollama_server()
+			-- call_ollama_server()
 		end, 2000) -- 1 second
 	end
 })

@@ -23,12 +23,13 @@ return {
 		},
 	},
 	{
-		--dir = "~/git/vaporlush",
+		-- dir = "~/git/vaporlush",
 		"adamkali/vaporlush",
 		branch = "v2",
 		lazy = false,
 		priority = 1000,
 		opts = {
+			background = "dark",
 			transparent = false,
 			cache = true,
 		}

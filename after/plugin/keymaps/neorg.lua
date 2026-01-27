@@ -16,6 +16,7 @@ local neorg_leader_todo = neorg_leader .. "t"
 local neorg_journal_leader = neorg_leader .. "l"
 local neorg_agenda_leader = neorg_leader .. "a"
 local neorg_goto_leader = neorg_leader .. "g"
+local neorg_telescope_leader = neorg_leader .. "F"
 --
 
 local function add_to_posts()
@@ -34,6 +35,23 @@ local todos = {
 	urgent = "󱠇"
 }
 
+local function vim_repeat(func)
+	local count = vim.v.count > 0 and vim.v.count or 0
+	for i = 1, count do
+		func()
+	end
+end
+
+local function AK_NeorgRefileDown()
+	cmd = "<cmd>:Neorg move down<cr>"
+	vim_repeat(vim.cmd(cmd))
+end
+
+local function AK_NeorgRefileUp()
+	cmd = "<cmd>:Neorg move up<cr>"
+	vim_repeat(vim.cmd(cmd))
+end
+
 local todo_uncertain_gui = { icon = todos.ambiguous, hl = "@neorg.todo_items.uncertain" }
 local todo_cancelled_gui = { icon = todos.cancelled, hl = "@neorg.todo_items.cancelled" }
 local todo_done_gui = { icon = todos.done, hl = "@neorg.todo_items.done" }
@@ -45,6 +63,7 @@ local todo_undone_gui = { icon = todos.undone, hl = "@neorg.todo_items.undone" }
 
 wk {
 	{ neorg_leader, expr = false, group = "[n]eorg", nowait = false, remap = false, icon = { icon = "", "@comment.hint" } },
+	{ neorg_telescope_leader, expr = false, group = "[F]inder", nowait = false, remap = false, icon = { icon = " ", "@comment.hint" } },
 	{ neorg_leader_todo, expr = false, group = "[t]odo", nowait = false, remap = false, icon = { icon = "", "@comment.hint" } },
 	{ neorg_refile_leader, expr = false, group = "re[f]ile", nowait = false, remap = false, icon = { icon = "󰧻", "@comment.todo" } },
 	{ neorg_roam_leader, expr = false, group = "[r]oam", nowait = false, remap = false, icon = { icon = "", "@lsp.type.enum" } },
@@ -62,11 +81,11 @@ wk {
 	{ neorg_leader .. 'p',              '<cmd>:Neorg export to-file ' .. add_to_posts() .. ' markdown<cr>', desc = 'Post Neorg to blog' },
 	{ neorg_leader .. 'e',              require('norbsidian').get_selections,                               desc = "Export to Obsidian" },
 	{ neorg_leader .. 's',              '<cmd>:Neorg dew_catngo full<cr>',                                  desc = 'Search Categories Avaliable' },
+	{ neorg_leader .. '<C-f>',          AK_NeorgRefileDown,                                                 desc = 'Move Node Up' },
+	{ neorg_leader .. '<C-b>',          AK_NeorgRefileUp,                                           desc = 'Move Node Up' },
 	{ neorg_goto_leader .. 't',         '<cmd>:e ~/org/roam/todo.norg<cr>',                                 desc = 'Go to $/roam/todo.norg' },
 	{ neorg_goto_leader .. 'd',         '<cmd>:e ~/org/roam/done.norg<cr>',                                 desc = 'Go to $/roam/done.norg' },
 	{ neorg_goto_leader .. 'p',         '<cmd>:e ~/org/roam/progress.norg<cr>',                             desc = 'Go to $/roam/progress.norg' },
-	{ neorg_refile_leader .. 'f',       '<cmd>Neorg move down<cr>',                                         desc = 'Move Node Down' },
-	{ neorg_refile_leader .. 'b',       '<cmd>Neorg move up<cr>',                                           desc = 'Move Node Up' },
 	{ neorg_refile_leader .. 'dt',      '<cmd>Neorg refile defined todo<cr>',                               desc = 'Refile to Progress File' },
 	{ neorg_refile_leader .. 'dp',      '<cmd>Neorg refile defined progress<cr>',                           desc = 'Refile to Progress File' },
 	{ neorg_refile_leader .. 'dd',      '<cmd>Neorg refile defined done<cr>',                               desc = 'Refile to Done File' },
@@ -81,6 +100,12 @@ wk {
 	{ neorg_roam_capture_leader .. 'n', '<cmd>Neorg roam capture note<cr>',                                 desc = 'Create new Note' },
 	{ neorg_roam_capture_leader .. 'p', '<cmd>Neorg roam capture progress<cr>',                             desc = 'Create new Progress' },
 	{ neorg_roam_capture_leader .. 's', '<cmd>Neorg roam capture selection<cr>',                            desc = 'Create new Selection',               mode = 'v' },
+	{ neorg_telescope_leader .. 'b',    '<Plug>(neorg.telescope.backlinks.file_backlinks)',                 desc = 'Search File Backlinks' },
+	{ neorg_telescope_leader .. 'B',    '<Plug>(neorg.telescope.backlinks.heading_backlinks)',              desc = 'Search Heading Backlinks' },
+	{ neorg_telescope_leader .. 'f',    '<Plug>(neorg.telescope.find_linkable)',                            desc = 'Search Linkable' },
+	{ neorg_telescope_leader .. 'l',    '<Plug>(neorg.telescope.insert_file_link)',                         desc = 'Insert File Link' },
+	{ neorg_telescope_leader .. 'n',    '<Plug>(neorg.telescope.insert_link)',                              desc = 'Insert Link' },
+	{ neorg_telescope_leader .. 'h',    '<Plug>(neorg.telescope.search_headings)',                          desc = 'Search Headings' },
 	{ neorg_roam_capture_leader .. 'c', '<cmd>:Neorg roam capture<cr>',                                     desc = 'Create new Capture' },
 	{ neorg_leader_todo .. 'a',         '<Plug>(neorg.qol.todo-items.todo.task-ambiguous)',                 desc = 'Make Ambiguous',                     icon = todo_uncertain_gui },
 	{ neorg_leader_todo .. 'c',         '<Plug>(neorg.qol.todo-items.todo.task-cancelled)',                 desc = 'Make Cancelled',                     icon = todo_cancelled_gui },
@@ -232,15 +257,15 @@ local function get_all_headings()
 
 	-- Query for all headings
 	local query = vim.treesitter.query.parse('norg', [[
-    [
-    (heading1) @heading
-    (heading2) @heading
-    (heading3) @heading
-    (heading4) @heading
-    (heading5) @heading
-    (heading6) @heading
-    ]
-    ]])
+	[
+	(heading1) @heading
+	(heading2) @heading
+	(heading3) @heading
+	(heading4) @heading
+	(heading5) @heading
+	(heading6) @heading
+	]
+	]])
 
 	for _, node in query:iter_captures(root, bufnr, 0, -1) do
 		table.insert(headings, node)

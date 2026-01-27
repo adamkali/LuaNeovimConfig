@@ -132,7 +132,14 @@ return {
 								["progress"] = "roam/progress.norg",
 							},
 						}
-					}
+					},
+					["core.integrations.telescope"] = {
+						config = {
+							insert_file_link = {
+								show_title_preview = true,
+							},
+						}
+					},
 				}
 			}
 			vim.wo.foldlevel = 99
@@ -148,5 +155,6 @@ return {
 		},
 	},
 	{ "juniorsundar/neorg-extras" },
+	{ "nvim-neorg/neorg-telescope" },
 	{ "adamkali/neorg-refile" }
 }

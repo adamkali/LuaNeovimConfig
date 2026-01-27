@@ -1,5 +1,5 @@
 -- As always, We start with opening with a table
-
+--
 return {
 
 	-- [dressing]{https://github.com/stevearc/dressing.nvim?tab=readme-ov-file#installation}
@@ -14,14 +14,13 @@ return {
 		opts = {
 			defaults = {
 				file_ignore_patterns = { "node_modules", "obj", "bin", "htmx.min.js" },
-				layout_strategy = "center",
 				border = true,
 				winblend = 10,
 				width = 0.8,
 				previewer = true,
 				prompt_title = true,
-				prompt_prefix = "🤔 ",
-				selection_caret = " ",
+				prompt_prefix = " ",
+				selection_caret = " ",
 				initial_mode = "insert",
 				selection_strategy = "reset",
 				sorting_strategy = "ascending",

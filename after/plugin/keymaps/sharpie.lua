@@ -14,7 +14,7 @@ wk { { sharpie_leader, expr = false, group = "Sharpie", nowait = false, remap = 
 
 
 wk {
-	{ sharpie_leader .. "s",     sharpie.show_preview,          desc = 'Show Preview' },
+	{ sharpie_leader .. "s",     '<cmd>SharpieShow<cr>',        desc = 'Show Preview' },
 	{ sharpie_leader .. "<c-s>", sharpie.hide_preview,          desc = 'Hide Preview' },
 	{ sharpie_leader .. "f",     sharpie.step_to_next_symbol,   desc = 'Step to Next Symbol' },
 	{ sharpie_leader .. "b",     sharpie.step_to_prev_symbol,   desc = 'Step to Prev Symbol' },

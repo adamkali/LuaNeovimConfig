@@ -1,6 +1,7 @@
 return {
 	{
-		dir = '/home/adamkali/git/dotnvim',
+		-- dir = '/home/adamkali/git/dotnvim',
+		"adamkali/dotnvim",
 		ft = { 'cs', 'vb', 'csproj', 'sln', 'slnx', 'props', 'csx', 'targets' },
 		opts = {
 			debug = {
@@ -52,8 +53,8 @@ return {
 		end,
 	},
 	{
-		dir = '/home/adamkali/projects/sharpier.nvim',
-		-- 'adamkali/sharpie.nvim',
+		-- dir = '/home/adamkali/projects/sharpier.nvim',
+		'adamkali/sharpie.nvim',
 		name = 'sharpie.nvim',   -- IMPORTANT: Explicitly set name since dir is sharpier.nvim but module is sharpie
 		ft = { 'cs', 'csharp', 'go' }, -- Lazy load on C# files
 		dependencies = { 'nvim-telescope/telescope.nvim' },

@@ -82,7 +82,7 @@ norbsidian.Norbs = {
  },
  {
   name = "Mindspace Docs",
-  dir = "/home/adamkali/git/mindspace/docs/"
+  dir = "~/git/mindspace/docs/"
  },
  {
   name = "Mindspace Obsidian",
@@ -90,7 +90,7 @@ norbsidian.Norbs = {
  },
  {
   name = "Egg Cli Docs",
-  dir = "/home/adamkali/projects/egg_cli/docs/"
+  dir = "~/projects/egg_cli/docs/"
  },
  {
   name = "Egg Cli Obsidian",

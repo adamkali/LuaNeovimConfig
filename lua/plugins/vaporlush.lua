@@ -35,7 +35,7 @@ return {
 		priority = 1000,
 		opts = {
 			background = "dark",
-			transparent = false,
+			transparent = true,
 			cache = true,
 		}
 	},
